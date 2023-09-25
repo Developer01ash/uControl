@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="P07-co-xu1">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Heebo-Regular.ttf">
+            <string>Heebo-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Wzd-h5-Rjr">
+            <objects>
+                <viewController storyboardIdentifier="LaunchScreen" id="P07-co-xu1" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yBg-7B-RWy"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fd9-2b-pA1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DOM-Hq-dsV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-4b-SeE">
+                                <rect key="frame" x="0.0" y="56.999999999999993" width="414" height="97.333333333333314"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="HDA_logo" translatesAutoresizingMaskIntoConstraints="NO" id="D5L-ne-nDo">
+                                        <rect key="frame" x="28" y="0.0" width="358" height="79.666666666666671"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="450" id="k4e-1H-yfv"/>
+                                            <constraint firstAttribute="width" secondItem="D5L-ne-nDo" secondAttribute="height" multiplier="45:10" id="qLK-UH-0NM"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Seamless Entertainment Discreet Technology" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z54-rE-6O0">
+                                        <rect key="frame" x="0.0" y="79.666666666666657" width="414" height="17.666666666666671"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Z54-rE-6O0" firstAttribute="leading" secondItem="HGT-4b-SeE" secondAttribute="leading" id="9Uc-EC-c8b"/>
+                                    <constraint firstItem="Z54-rE-6O0" firstAttribute="height" secondItem="D5L-ne-nDo" secondAttribute="height" id="AXS-ul-vqS"/>
+                                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="D5L-ne-nDo" secondAttribute="trailing" constant="20" id="BHr-nu-eKT"/>
+                                    <constraint firstAttribute="trailing" secondItem="Z54-rE-6O0" secondAttribute="trailing" id="Bfe-CI-jm9"/>
+                                    <constraint firstItem="D5L-ne-nDo" firstAttribute="top" secondItem="HGT-4b-SeE" secondAttribute="top" id="E9L-Hu-I7I"/>
+                                    <constraint firstItem="D5L-ne-nDo" firstAttribute="centerX" secondItem="HGT-4b-SeE" secondAttribute="centerX" id="Sod-wM-4dU"/>
+                                    <constraint firstAttribute="bottom" secondItem="Z54-rE-6O0" secondAttribute="bottom" id="WYq-F8-qic"/>
+                                    <constraint firstItem="D5L-ne-nDo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HGT-4b-SeE" secondAttribute="leadingMargin" constant="20" id="boo-fU-R29"/>
+                                    <constraint firstItem="Z54-rE-6O0" firstAttribute="top" secondItem="D5L-ne-nDo" secondAttribute="bottom" constant="15" id="qQU-df-fLA">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="AXS-ul-vqS"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hda_logo_all_large" translatesAutoresizingMaskIntoConstraints="NO" id="7pr-Qd-9lF">
+                                <rect key="frame" x="62" y="251.66666666666669" width="290" height="232.66666666666669"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <variation key="heightClass=regular-widthClass=compact" image="hda_logo_all"/>
+                            </imageView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="L2n-lJ-dJS">
+                                <rect key="frame" x="0.0" y="690" width="414" height="46"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="iHc-Le-Pc9"/>
+                                </constraints>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7pr-Qd-9lF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DOM-Hq-dsV" secondAttribute="leading" id="1y9-9F-5FZ"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7pr-Qd-9lF" secondAttribute="trailing" id="Ld2-Zv-F2K"/>
+                            <constraint firstAttribute="trailing" secondItem="HGT-4b-SeE" secondAttribute="trailing" id="Nc5-TT-I4s"/>
+                            <constraint firstItem="Fd9-2b-pA1" firstAttribute="top" secondItem="L2n-lJ-dJS" secondAttribute="bottom" id="Ndp-xC-rd5"/>
+                            <constraint firstItem="HGT-4b-SeE" firstAttribute="trailing" secondItem="7pr-Qd-9lF" secondAttribute="trailing" id="bvr-QQ-RuL"/>
+                            <constraint firstItem="HGT-4b-SeE" firstAttribute="leading" secondItem="DOM-Hq-dsV" secondAttribute="leading" id="f9U-zg-JFp"/>
+                            <constraint firstItem="7pr-Qd-9lF" firstAttribute="centerX" secondItem="DOM-Hq-dsV" secondAttribute="centerX" id="fgf-Bd-QpT"/>
+                            <constraint firstAttribute="trailing" secondItem="L2n-lJ-dJS" secondAttribute="trailing" id="g7b-2P-CGG"/>
+                            <constraint firstItem="L2n-lJ-dJS" firstAttribute="leading" secondItem="DOM-Hq-dsV" secondAttribute="leading" id="iyb-G5-eoR"/>
+                            <constraint firstItem="L2n-lJ-dJS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7pr-Qd-9lF" secondAttribute="bottom" id="n0Z-BW-dLx"/>
+                            <constraint firstItem="7pr-Qd-9lF" firstAttribute="centerY" secondItem="DOM-Hq-dsV" secondAttribute="centerY" id="n90-ZT-lIJ"/>
+                            <constraint firstItem="HGT-4b-SeE" firstAttribute="top" secondItem="DOM-Hq-dsV" secondAttribute="top" constant="57" id="rlK-6C-tnE"/>
+                            <constraint firstItem="HGT-4b-SeE" firstAttribute="leading" secondItem="7pr-Qd-9lF" secondAttribute="leading" id="ujq-D6-emy"/>
+                            <constraint firstItem="7pr-Qd-9lF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="HGT-4b-SeE" secondAttribute="bottom" id="vdR-Uw-qKI"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="bvr-QQ-RuL"/>
+                                <exclude reference="ujq-D6-emy"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gHW-3a-KyV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="409" y="345"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="HDA_logo" width="1920" height="422"/>
+        <image name="hda_logo_all" width="290" height="232.66667175292969"/>
+        <image name="hda_logo_all_large" width="580" height="465.33334350585938"/>
+    </resources>
+</document>

@@ -1,0 +1,182 @@
+//
+//  MDNSManager.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 27/10/17.
+//  Copyright © 2017 Rave Infosys. All rights reserved.
+//
+
+#import "MDNSManager.h"
+
+@implementation MDNSManager
+
++ (instancetype)sharedInstance {
+    static MDNSManager *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[MDNSManager alloc] init];
+    });
+    return sharedInstance;
+}
+
+#pragma mark NetServiceBrowser Delegates
+- (void)startBrowsingMDNS {
+    // Initialize Service Browser
+    self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
+    // Configure Service Browser
+    [self.serviceBrowser setDelegate:self];
+    [self.serviceBrowser searchForServicesOfType:@"_http._tcp" inDomain:@"local."];
+}
+- (void)startBrowsingMDNS2 {
+    // Initialize Service Browser
+    self.serviceBrowser2 = [[NSNetServiceBrowser alloc] init];
+    // Configure Service Browser
+    [self.serviceBrowser2 setDelegate:self];
+    [self.serviceBrowser2 searchForServicesOfType:@"_hda._tcp" inDomain:@"local."];
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)serviceBrowser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
+    // Update Services
+    @try {
+        //Old Code for service name to Find Mhub devices.
+        //for(NSString * toContain in [NSArray arrayWithObjects:@"mhub", @"hda", @"hdanywhere", @"hd", nil]){
+        
+        //New Code for service name to Find Mhub devices with specific model name.
+        NSArray *devicesArr = [[NSArray alloc]initWithObjects:@"MHUB4K88PRO", @"MHUB4K44PRO" , @"MHUB4K431",@"MHUB4K862", @"MHUB431U" ,@"MHUB862U",@"MHUBPRO4440",@"MHUBPRO8840", @"MHUBMAX44",@"MHUBMAX88",@"MHUBAUDIO64",@"MHUBPRO24440",@"MHUBPRO288100", nil];
+             for(NSString * toContain in devicesArr){
+            //NSLog(@"service.name %@ %@",service.name,service.addresses);
+            if ([service.name  containsString:toContain]) {
+                Hub *objHub = [Hub getObjectFromMDNSObject:service];
+                //NSLog(@"mHubAudio objHub 00 %@",objHub.Address);
+                if (self.delegate) {
+                    [self.delegate mdnsManager:self didFindMHUB:objHub];
+                }
+                //Start: Changes for pro2
+//                // Resolve Service
+//                if (!self.services) {
+//                    self.services = [[NSMutableArray alloc] init];
+//                }
+//                [self.services addObject:service];
+//                [service scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:@"PrivateMyMacServiceMode"];
+                //End: Changes for pro2
+                [service setDelegate:self];
+                [service resolveWithTimeout:3.0];
+            }
+        }
+        if(!moreComing) {
+            // Update Table View
+            if (self.delegate) {
+                [self.delegate mdnsManager_ReloadData:self];
+            }
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)serviceBrowser didRemoveService:(NSNetService *)service moreComing:(BOOL)moreComing {
+    // Update Services
+    Hub *objHub = [Hub getObjectFromMDNSObject:service];
+    if (self.delegate) {
+        [self.delegate mdnsManager:self didRemoveMHUB:objHub];
+    }
+    if(!moreComing) {
+        // Update Table View
+        if (self.delegate) {
+            [self.delegate mdnsManager_ReloadData:self];
+        }
+    }
+}
+
+
+
+- (void)netServiceBrowserDidStopSearch:(NSNetServiceBrowser *)serviceBrowser {
+    [self stopBrowsing];
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aBrowser didNotSearch:(NSDictionary *)userInfo {
+    [self stopBrowsing];
+}
+
+- (void)stopBrowsing {
+    if (self.serviceBrowser) {
+        [self.serviceBrowser stop];
+        [self.serviceBrowser setDelegate:nil];
+        [self setServiceBrowser:nil];
+        for (NSNetService* service in self.services) {
+            [service stop];
+        }
+        [self.services removeAllObjects];
+    }
+}
+
+#pragma mark - NetService Delegate
+
+- (void)netService:(NSNetService *)service didNotResolve:(NSDictionary *)errorDict {
+    [service setDelegate:nil];
+}
+
+
+- (void)netServiceDidResolveAddress:(NSNetService *)service {
+    @try {
+        // Connect With Service
+        if ([self connectWithService:service]) {
+            DDLogDebug(@"Did Connect with Service: domain=(%@) type=(%@) name=(%@) port=(%i) hostName=(%@) addresses=(%@)", [service domain], [service type], [service name], (int)[service port], [service hostName],service.addresses);
+            
+            NSData *address = [service.addresses firstObject];
+            if ([address isNotEmpty]) {
+                struct sockaddr_in *socketAddress = (struct sockaddr_in *) [address bytes];
+                //DDLogDebug(@"Service name: %@ , ip: %s , port %li", [service name], inet_ntoa(socketAddress->sin_addr), (long)[service port]);
+                if (socketAddress) {
+                    NSString *strAddress = [NSString stringWithFormat:@"%s", inet_ntoa(socketAddress->sin_addr)];
+                     //NSLog(@"mHubAudio objHub 33 %@",strAddress);
+                    if (self.delegate && [strAddress isNotEmpty]) {
+                        [self.delegate mdnsManager:self Service:service didFindAddress:strAddress];
+                    }
+                }
+            }
+        } else {
+            DDLogError(@"Unable to Connect with Service: domain=(%@) type=(%@) name=(%@) port=(%i) hostName=(%@)", [service domain], [service type], [service name], (int)[service port], [service hostName]);
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (BOOL)connectWithService:(NSNetService *)service {
+    BOOL _isConnected = NO;
+    // Copy Service Addresses
+    NSArray *addresses = [[service addresses] copy];
+    NSLog(@"connectWithService addresses objHub  %@",addresses);
+    if (!self.socket || ![self.socket isConnected]) {
+        // Initialize Socket
+        self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+        // Connect
+        while (!_isConnected && [addresses count]) {
+            NSData *address = [addresses objectAtIndex:0];
+            NSError *error = nil;
+            if ([self.socket connectToAddress:address error:&error]) {
+                _isConnected = YES;
+            } else if (error) {
+                DDLogError(@"Unable to connect to address. Error %@ with user info %@.", error, [error userInfo]);
+            }
+        }
+    } else {
+        _isConnected = [self.socket isConnected];
+    }
+    return _isConnected;
+}
+
+- (void)socket:(GCDAsyncSocket *)socket didConnectToHost:(NSString *)host port:(UInt16)port {
+    DDLogInfo(@"Socket Did Connect to Host: %@ Port: %hu", host, port);
+    // Start Reading
+    [socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
+}
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
+    DDLogError(@"Socket Did Disconnect with Error %@ with User Info %@.", error, [error userInfo]);
+    [socket setDelegate:nil];
+    [self setSocket:nil];
+}
+
+@end

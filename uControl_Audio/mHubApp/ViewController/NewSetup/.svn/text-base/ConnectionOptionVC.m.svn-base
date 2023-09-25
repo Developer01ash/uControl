@@ -1,0 +1,275 @@
+//
+//  ConnectionOptionVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 09/03/18.
+//  Copyright © 2018 Rave Infosys. All rights reserved.
+//
+
+#import "ConnectionOptionVC.h"
+#import "SelectDeviceVC.h"
+#import "ManuallySelectModelVC.h"
+#import "ManuallyEnterIPAddressVC.h"
+
+@interface ConnectionOptionVC ()
+@property (nonatomic, retain) NSMutableArray *arrConnectionData;
+
+@end
+
+@implementation ConnectionOptionVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.navigationItem.backBarButtonItem = customBackBarButton;
+    self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_CONNECTION_OPTIONS_HEADER];
+    ThemeColor *themeColor = [AppDelegate appDelegate].themeColoursSetup;
+    self.view.backgroundColor = themeColor.colorBackground;
+    [self.lblHeaderMessage setTextColor:themeColor.colorNormalText];
+    [self.btnConnectionType setBackgroundColor:[AppDelegate appDelegate].themeColoursSetup.colorNavigationBar];
+    switch (self.setupType) {
+        case HDA_SetupVideo: {
+            [self.lblHeaderMessage setText:HUB_CONNECTION_OPTIONS_VIDEO_MESSAGE];
+            switch (themeColor.themeType) {
+                case Dark: {
+                    if (IS_IPAD) {
+                        [self.btnConnectionType setImage:kImageIconSetupVideoLargeCarbonite forState:UIControlStateNormal];
+                    } else {
+                        [self.btnConnectionType setImage:kImageIconSetupVideoCarbonite forState:UIControlStateNormal];
+                    }
+                    break;
+                }
+                case Light: {
+                    if (IS_IPAD) {
+                        [self.btnConnectionType setImage:kImageIconSetupVideoLargeSnow forState:UIControlStateNormal];
+                    } else {
+                        [self.btnConnectionType setImage:kImageIconSetupVideoSnow forState:UIControlStateNormal];
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+            self.arrConnectionData = [[NSMutableArray alloc] initWithObjects:@"CONNECT TO MHUB STANDALONE", nil];
+            break;
+        }
+
+        case HDA_SetupAudio: {
+            [self.lblHeaderMessage setText:HUB_CONNECTION_OPTIONS_AUDIO_MESSAGE];
+            switch (themeColor.themeType) {
+                case Dark: {
+                    if (IS_IPAD) {
+                        [self.btnConnectionType setImage:kImageIconSetupAudioLargeCarbonite forState:UIControlStateNormal];
+                    } else {
+                        [self.btnConnectionType setImage:kImageIconSetupAudioCarbonite forState:UIControlStateNormal];
+                    }
+                    break;
+                }
+                case Light: {
+                    if (IS_IPAD) {
+                        [self.btnConnectionType setImage:kImageIconSetupAudioLargeSnow forState:UIControlStateNormal];
+                    } else {
+                        [self.btnConnectionType setImage:kImageIconSetupAudioSnow forState:UIControlStateNormal];
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+            self.arrConnectionData = [[NSMutableArray alloc] initWithObjects:@"CONNECT TO MHUB STANDALONE", nil];
+            SearchData *objSearch = [self.arrSearchData firstObject];
+            if ([objSearch.arrItems count] > 1 || [AppDelegate appDelegate].systemType == HDA_ConnectManually) {
+                [self.arrConnectionData addObject:@"CREATE STACKED MHUB SYSTEM"];
+            }
+            break;
+        }
+
+        case HDA_SetupVideoAudio: {
+            [self.lblHeaderMessage setText:HUB_CONNECTION_OPTIONS_VIDEOAUDIO_MESSAGE];
+            switch (themeColor.themeType) {
+                case Dark: {
+                    if (IS_IPAD) {
+                        [self.btnConnectionType setImage:kImageIconSetupVideoAudioLargeCarbonite forState:UIControlStateNormal];
+                    } else {
+                        [self.btnConnectionType setImage:kImageIconSetupVideoAudioCarbonite forState:UIControlStateNormal];
+                    }
+                    break;
+                }
+                case Light: {
+                    if (IS_IPAD) {
+                        [self.btnConnectionType setImage:kImageIconSetupVideoAudioLargeSnow forState:UIControlStateNormal];
+                    } else {
+                        [self.btnConnectionType setImage:kImageIconSetupVideoAudioSnow forState:UIControlStateNormal];
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+            self.arrConnectionData = [[NSMutableArray alloc] initWithObjects:@"CREATE STACKED MHUB SYSTEM", nil];
+            break;
+        }
+
+        default:
+            break;
+    }
+
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    @try {
+        [super viewWillAppear:animated];
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            [self.lblHeaderMessage setFont:textFontBold12];
+        } else {
+            [self.lblHeaderMessage setFont:textFontBold18];
+        }
+        [[AppDelegate appDelegate] setShouldRotate:NO];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void)viewWillLayoutSubviews {
+    @try {
+        [super viewWillLayoutSubviews];
+        [self.btnConnectionType addRoundedCorner_CornerRadius:self.btnConnectionType.frame.size.height/2];
+        //[self.view layoutIfNeeded];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void)viewDidLayoutSubviews {
+    @try {
+        [super viewDidLayoutSubviews];
+        CGFloat height = MIN(self.tblConnectionOption.bounds.size.height, self.tblConnectionOption.contentSize.height);
+        self.heightTblConnectionOption.constant = height;
+        [self.view layoutIfNeeded];
+
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            [self.lblHeaderMessage setFont:textFontRegular12];
+        } else {
+            [self.lblHeaderMessage setFont:textFontRegular18];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [AppDelegate appDelegate].isSearchNetworkPopVC = true;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (IBAction)btnConnectionType_Clicked:(CustomButton *)sender {
+
+}
+
+- (IBAction)pageControl_ValueChanged:(CustomPageControl *)sender {
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.arrConnectionData.count;
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            return heightTableViewRowWithPadding_SmallMobile;
+        } else {
+            return heightTableViewRowWithPadding;
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        static NSString *CellIdentifier = @"CellSetup";
+        CellSetup *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        }
+        cell.lblCell.text = [[self.arrConnectionData objectAtIndex:indexPath.row] uppercaseString];
+
+        return cell;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - UITableView Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        switch (indexPath.row) {
+            case 0: {
+                if ([AppDelegate appDelegate].systemType == HDA_ConnectManually) {
+                    if (self.setupType == HDA_SetupAudio) {
+                        ManuallyEnterIPAddressVC *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"ManuallyEnterIPAddressVC"];
+                        objVC.hubModel = mHubAudio;
+                        objVC.setupType = self.setupType;
+                        objVC.setupLevel = HDA_SetupLevelPrimary;
+                        [self.navigationController pushViewController:objVC animated:YES];
+                    } else {
+                        ManuallySelectModelVC *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"ManuallySelectModelVC"];
+                        objVC.setupType = self.setupType;
+                        objVC.setupLevel = HDA_SetupLevelPrimary;
+                        [self.navigationController pushViewController:objVC animated:YES];
+                    }
+                } else {
+                    SelectDeviceVC *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"SelectDeviceVC"];
+                    objVC.setupType = self.setupType;
+                    objVC.setupLevel = HDA_SetupLevelPrimary;
+                    objVC.arrSearchData = self.arrSearchData;
+                    [self.navigationController pushViewController:objVC animated:YES];
+                }
+                break;
+            }
+            case 1: {
+                if ([AppDelegate appDelegate].systemType == HDA_ConnectManually) {
+                    ManuallySelectModelVC *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"ManuallySelectModelVC"];
+                    objVC.setupType = HDA_SetupPairedAudio;
+                    objVC.setupLevel = HDA_SetupLevelPrimary;
+                    [self.navigationController pushViewController:objVC animated:YES];
+                } else {
+                    SelectDeviceVC *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"SelectDeviceVC"];
+                    objVC.setupType = HDA_SetupPairedAudio;
+                    objVC.setupLevel = HDA_SetupLevelPrimary;
+                    objVC.arrSearchData = self.arrSearchData;
+                    [self.navigationController pushViewController:objVC animated:YES];
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+@end

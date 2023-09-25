@@ -1,0 +1,181 @@
+//
+//  SearchData.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 07/12/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+/*
+ SearchData Object is used to filter device details of particular MODEL TYPE.
+
+ SearchDataManager is another class available in this file which consist of all SearchData List which is being used to display the data on the search sections.
+ */
+
+#import <Foundation/Foundation.h>
+@class SearchDataManager;
+
+// MODEL TYPE OR PRODUCT CODE OF THE HDANYWHERE DEVICES
+#define kDEVICEMODEL_MHUB4K44PRO    @"MHUB4K44PRO"
+#define kDEVICEMODEL_MHUB4K88PRO    @"MHUB4K88PRO"
+#define kDEVICEMODEL_MHUB4K431      @"MHUB4K431"
+#define kDEVICEMODEL_MHUB4K862      @"MHUB4K862"
+
+#define kDEVICEMODEL_MHUB431U       @"MHUB431U"
+#define kDEVICEMODEL_MHUB862U       @"MHUB862U"
+#define kDEVICEMODEL_MHUBPRO4440    @"MHUBPRO4440"
+#define kDEVICEMODEL_MHUBPRO8840    @"MHUBPRO8840"
+#define kDEVICEMODEL_MHUBMAX44      @"MHUBMAX44"
+#define kDEVICEMODEL_MHUBAUDIO64    @"MHUBAUDIO64"
+#define kDEVICEMODEL_MHUBPRO24440    @"MHUBPRO24440"
+#define kDEVICEMODEL_MHUBPRO288100    @"MHUBPRO288100"
+
+
+
+// LINE IMAGE OF MODELTYPE OR PRODUCT CODE OF THE HDANYWHERE DEVICES
+#define kDEVICEMODEL_IMAGE_MHUB4K44PRO  [UIImage imageNamed:@"hda_logo_mhub4k44pro"]
+#define kDEVICEMODEL_IMAGE_MHUB4K88PRO  [UIImage imageNamed:@"hda_logo_mhub4k88pro"]
+#define kDEVICEMODEL_IMAGE_MHUB4K431    [UIImage imageNamed:@"hda_logo_mhub4k431"]
+#define kDEVICEMODEL_IMAGE_MHUB4K862    [UIImage imageNamed:@"hda_logo_mhub4k862"]
+
+#define kDEVICEMODEL_IMAGE_MHUB4K44PRO_CARBONITE    [UIImage imageNamed:@"hda_logo_mhub4k44pro_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUB4K44PRO_CARBONITE_LARGE    [UIImage imageNamed:@"MHUBPRO4440-CARBONITE_LARGE"]
+#define kDEVICEMODEL_IMAGE_MHUB4K88PRO_CARBONITE    [UIImage imageNamed:@"hda_logo_mhub4k88pro_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUB4K431_CARBONITE      [UIImage imageNamed:@"hda_logo_mhub4k431_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUB4K862_CARBONITE      [UIImage imageNamed:@"hda_logo_mhub4k862_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUB431U_CARBONITE       [UIImage imageNamed:@"hda_logo_mhub431u_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUB862U_CARBONITE       [UIImage imageNamed:@"hda_logo_mhub862u_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUBAUDIO64_CARBONITE    [UIImage imageNamed:@"hda_logo_mhubaudio64_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUBAUDIO64_CARBONITE_LARGE    [UIImage imageNamed:@"hda_logo_mhubaudio64_carbonite_large"]
+#define kDEVICEMODEL_IMAGE_MHUBMAX44_CARBONITE      [UIImage imageNamed:@"hda_logo_mhubmax44_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUBPRO4440_CARBONITE    [UIImage imageNamed:@"hda_logo_mhubpro4440_carbonite"]
+#define kDEVICEMODEL_IMAGE_MHUBPRO8840_CARBONITE    [UIImage imageNamed:@"hda_logo_mhubpro8840_carbonite"]
+
+#define kDEVICEMODEL_IMAGE_MHUB4K44PRO_SNOW     [UIImage imageNamed:@"hda_logo_mhub4k44pro_snow"]
+#define kDEVICEMODEL_IMAGE_MHUB4K88PRO_SNOW     [UIImage imageNamed:@"hda_logo_mhub4k88pro_snow"]
+#define kDEVICEMODEL_IMAGE_MHUB4K431_SNOW       [UIImage imageNamed:@"hda_logo_mhub4k431_snow"]
+#define kDEVICEMODEL_IMAGE_MHUB4K862_SNOW       [UIImage imageNamed:@"hda_logo_mhub4k862_snow"]
+#define kDEVICEMODEL_IMAGE_MHUB431U_SNOW        [UIImage imageNamed:@"hda_logo_mhub431u_snow"]
+#define kDEVICEMODEL_IMAGE_MHUB862U_SNOW        [UIImage imageNamed:@"hda_logo_mhub862u_snow"]
+#define kDEVICEMODEL_IMAGE_MHUBAUDIO64_SNOW     [UIImage imageNamed:@"hda_logo_mhubaudio64_snow"]
+#define kDEVICEMODEL_IMAGE_MHUBMAX44_SNOW       [UIImage imageNamed:@"hda_logo_mhubmax44_snow"]
+#define kDEVICEMODEL_IMAGE_MHUBPRO4440_SNOW     [UIImage imageNamed:@"hda_logo_mhubpro4440_snow"]
+#define kDEVICEMODEL_IMAGE_MHUBPRO8840_SNOW     [UIImage imageNamed:@"hda_logo_mhubpro8840_snow"]
+
+#define kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K44PRO       SCREEN_HEIGHT*0.07
+#define kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K44PRO_IPAD  SCREEN_HEIGHT*0.08
+#define kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K88PRO       SCREEN_HEIGHT*0.115
+#define kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K88PRO_IPAD  SCREEN_HEIGHT*0.14
+#define kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K431         SCREEN_HEIGHT*0.056
+#define kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K431_IPAD    SCREEN_HEIGHT*0.059
+#define kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K862         SCREEN_HEIGHT*0.07
+#define kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K862_IPAD    SCREEN_HEIGHT*0.08
+#define kDEVICEMODEL_IMAGE_HEIGHT_NEW               SCREEN_HEIGHT*0.18
+#define kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD          SCREEN_HEIGHT*0.22
+
+#define kSearchTitle       @"strTitle"
+#define kSearchItems       @"arrItems"
+#define kSearchImage       @"imgSection"
+#define kSearchModelType   @"modelType"
+#define kSearchHeight      @"sectionHeight"
+
+// UnitId
+#define kUNITID_VIDEO   @"V1"
+#define kUNITID_AUDIO   @"A1"
+#define kUNITID_MASTER  @"M1"
+#define kUNITID_SLAVE   @"S%d"
+#define kUNITID_SLAVE1  @"S1"
+#define kUNITID_SLAVE2  @"S2"
+#define kUNITID_SLAVE3  @"S2"
+#define kUNITID_HYBRID   @"H1"
+
+typedef NS_OPTIONS(NSInteger, HDAModelType) {
+    HDA_MHUB4K44Pro = 1,
+    HDA_MHUB4K88Pro ,
+    HDA_MHUB4K431   ,
+    HDA_MHUB4K862   ,
+    HDA_MHUB431U    ,
+    HDA_MHUB862U    ,
+    HDA_MHUBPRO4440 ,
+    HDA_MHUBPRO8840 ,
+    HDA_MHUBAUDIO64 ,
+    HDA_MHUBMAX44   ,
+    HDA_MHUBPRO24440,
+    HDA_MHUBPRO288100,
+};
+
+typedef NS_OPTIONS(NSInteger, HDAMHUBSystemType) {
+    HDA_SetupANewMHUBSystem = 1,
+    HDA_ConnectToAnExistingMHUBSystem = 2,
+    HDA_ConnectManually = 3
+};
+
+typedef NS_OPTIONS(NSInteger, HDAMHUBFlow) {
+    HDA_SetupFlow = 1,
+    HDA_UControlFlow = 2,
+};
+
+typedef NS_OPTIONS(NSInteger, HDASetupType) {
+    HDA_SetupVideo = 1,
+    HDA_SetupAudio ,
+    HDA_SetupVideoAudio ,
+    HDA_SetupPairedAudio
+};
+
+typedef NS_OPTIONS(NSInteger, HDAPairSetupLevel) {
+    HDA_SetupLevelPrimary = 1,
+    HDA_SetupLevelSecondary = 2
+};
+
+typedef NS_OPTIONS(NSInteger, HDASetupStatus) {
+    HDA_AccessUControl = 1,
+    HDA_ContinueOnMHUBOS = 2
+};
+
+typedef NS_OPTIONS(NSInteger, HDAWarningType) {
+    HDA_MasterExist = 1,
+    HDA_SlaveExist  = 2,
+    HDA_ManuallyConnect = 3
+};
+
+@interface SearchData : NSObject
+@property(nonatomic, retain) NSString *strTitle;
+@property(nonatomic, assign) HDAModelType modelType;
+@property(nonatomic, assign) CGFloat sectionHeight;
+@property(nonatomic, retain) UIImage *imgSection;
+@property(nonatomic, retain) NSMutableArray *arrItems;
+
++(SearchData*) initWithSectionType:(HDAModelType)secType RowArray:(NSMutableArray*)arrRows;
+-(NSDictionary*) dictionaryRepresentation;
+@end
+
+@protocol SearchDataManagerDelegate <NSObject>
+- (void) searchData:(SearchDataManager*)searchData didFindDataArray:(NSMutableArray*)arrSearchedData;
+@end
+
+@interface SearchDataManager : NSObject <MDNSManagerDelegate, SSDPManagerDelegate> {
+    SearchData *objMhub44Pro;
+    SearchData *objMhub88Pro;
+    SearchData *objMhub431;
+    SearchData *objMhub862;
+    
+    SearchData *objMhub431U;
+    SearchData *objMhub862U;
+    SearchData *objMhubPro4440;
+    SearchData *objMhubPro8840;
+    SearchData *objMhubAudio64;
+    SearchData *objMhubMAX44;
+    SearchData *objMhubPro24440;
+    SearchData *objMhubPro288100;
+
+    NSMutableArray *arrSearchData;
+    id <SearchDataManagerDelegate> _delegate;
+}
+
+@property (nonatomic,strong) id delegate;
+
++ (instancetype)sharedInstance;
+-(void) startSearchNetwork;
+- (void)resetSharedInstance;
+
+@end

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/Mobile/!svn/ver/2578/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/Library/SSDPConnection
+END
+SSDPManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/Library/SSDPConnection/SSDPManager.m
+END
+NetworkController.h
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/Library/SSDPConnection/NetworkController.h
+END
+SSDPResponse.m
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/Library/SSDPConnection/SSDPResponse.m
+END
+NetworkController.m
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/Library/SSDPConnection/NetworkController.m
+END
+SSDPManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/Library/SSDPConnection/SSDPManager.h
+END
+SSDPResponse.h
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/Library/SSDPConnection/SSDPResponse.h
+END

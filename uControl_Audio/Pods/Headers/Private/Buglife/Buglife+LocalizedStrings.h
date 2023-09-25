@@ -1,0 +1,1 @@
+../../../Buglife/Source/Buglife+LocalizedStrings.h

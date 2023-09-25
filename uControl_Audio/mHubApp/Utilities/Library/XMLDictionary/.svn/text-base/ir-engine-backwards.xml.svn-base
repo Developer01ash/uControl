@@ -1,0 +1,2547 @@
+<xml>
+    <controlPack>
+        <meta>
+            <deviceID>1</deviceID>
+            <manufacturer>Sky HD</manufacturer>
+            <name>SKY HD</name>
+            <version>1.0</version>
+        </meta>
+        <downloadTest>
+            <test>
+                <id>22</id>
+                <label>DOWN ARROW</label>
+                <description>We're going to test to see if your Sky device responds to a DOWN ARROW command. Please ensure that mHub's IR Transmitter (TX) is placed over the IR capture window of your Sky device before proceeding. Ensure that you have the Sky Guide up and that you are at the top of the list. You should notice that the cursor moves down.</description>
+            </test>
+            <test>
+                <id>29</id>
+                <label>GUIDE</label>
+                <description>We're going to test to see if your Sky device responds to a GUIDE command. Please ensure that mHub's IR Transmitter (TX) is placed over the IR capture window of your Sky device before proceeding. Now using your Sky remote control navigate to any channel and dismiss any messages. After clicking the button below you will notice that the Sky guide is displayed on your screen.</description>
+            </test>
+        </downloadTest>
+        <continuity>
+            <continuityS>0,1,2,3,4,5</continuityS>
+            <continuityM>0,1,2,3,4,5,6,7</continuityM>
+            <continuityL>0,1,2,3,4,5,6,7,8,9</continuityL>
+        </continuity>
+        <ir>
+            <command>
+                <id>0</id>
+                <label>NUMBER 0</label>
+                <code>00,00,00,72,00,00,00,18,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,11,97,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>1</id>
+                <label>NUMBER 1</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,11,a7,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>2</id>
+                <label>NUMBER 2</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,1f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,1f,00,22,00,0f,11,98,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>3</id>
+                <label>NUMBER 3</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,11,00,10,00,11,00,10,00,22,00,0f,00,21,00,1f,00,13,00,0f,00,11,00,10,00,11,00,0f,00,11,00,10,00,11,00,20,00,21,00,1f,00,12,00,10,00,11,00,0f,00,23,00,0f,00,12,00,0f,00,11,00,10,00,11,00,10,00,12,00,0f,00,12,00,0f,00,11,00,0f,00,12,00,20,00,11,00,0f,11,a8,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>4</id>
+                <label>NUMBER 4</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,0f,00,12,00,0f,11,97,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>5</id>
+                <label>NUMBER 5</label>
+                <code>00,00,00,72,00,00,00,16,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,11,a7,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>6</id>
+                <label>NUMBER 6</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,11,00,0f,00,22,00,0f,11,97,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>7</id>
+                <label>NUMBER 7</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,12,00,0f,00,12,00,0f,11,a8,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>8</id>
+                <label>NUMBER 8</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,1f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,0f,00,12,00,0f,00,12,00,0f,11,97,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>9</id>
+                <label>NUMBER 9</label>
+                <code>00,00,00,72,00,00,00,16,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,0f,00,12,00,1f,11,a8,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>10</id>
+                <label>CHANNEL_UP</label>
+                <code repeat="true">00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,11,98,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>11</id>
+                <label>CHANNEL DOWN</label>
+                <code repeat="true">00,00,00,72,00,00,00,16,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,11,a7,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>12</id>
+                <label>PLAY</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,21,00,10,00,10,00,10,00,10,00,10,00,20,00,10,00,20,00,20,00,10,00,10,00,10,00,10,00,10,00,10,00,10,00,10,00,10,00,20,00,20,00,20,00,10,00,10,00,10,00,10,00,20,00,10,00,10,00,10,00,10,00,10,00,10,00,20,00,10,00,10,00,10,00,10,00,10,00,10,00,10,00,10,00,20,00,10,11,63,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>13</id>
+                <label>PAUSE</label>
+                <code>00,00,00,72,00,00,00,16,00,62,00,21,00,10,00,10,00,10,00,10,00,10,00,20,00,10,00,20,00,20,00,10,00,10,00,10,00,10,00,10,00,10,00,10,00,10,00,10,00,20,00,20,00,20,00,10,00,10,00,10,00,10,00,20,00,10,00,10,00,10,00,10,00,10,00,10,00,20,00,20,00,10,00,10,00,20,00,20,00,10,00,10,00,10,11,63,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>15</id>
+                <label>STOP</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,1f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,11,a8,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>16</id>
+                <label>FWD</label>
+                <code repeat="true">00,00,00,72,00,00,00,17,00,61,00,21,00,0f,00,12,00,0e,00,12,00,0f,00,22,00,0e,00,23,00,1e,00,13,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,1f,00,11,00,0f,00,22,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,1e,00,23,00,1e,00,23,00,0e,00,12,00,0e,00,12,00,0f,10,7d,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>18</id>
+                <label>RWD</label>
+                <code repeat="true">00,00,00,72,00,00,00,17,00,61,00,21,00,0e,00,13,00,0e,00,12,00,0e,00,23,00,0e,00,23,00,1e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,13,00,1e,00,12,00,0f,00,22,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,1f,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,23,00,1e,10,8e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>20</id>
+                <label>RECORD</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,20,00,21,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,11,97,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>21</id>
+                <label>UP</label>
+                <code repeat="true">00,00,00,72,00,00,00,16,00,61,00,23,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,1f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0e,00,13,00,0f,00,12,00,1f,00,22,00,1f,00,12,00,0e,00,23,00,0e,00,13,00,0f,00,12,00,0f,11,98,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>22</id>
+                <label>DOWN</label>
+                <code repeat="true">00,00,00,72,00,00,00,15,00,61,00,23,00,0f,00,12,00,0e,00,13,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0e,00,13,00,0e,00,13,00,0f,00,12,00,0f,00,12,00,1f,00,22,00,1f,00,12,00,0f,00,12,00,0e,00,23,00,0f,00,12,00,0e,00,13,00,1f,00,22,00,1f,00,12,00,0e,00,23,00,0f,00,12,00,1f,11,a8,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>23</id>
+                <label>LEFT</label>
+                <code repeat="true">00,00,00,72,00,00,00,15,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,22,00,20,00,21,00,0f,11,98,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>24</id>
+                <label>RIGHT</label>
+                <code repeat="true">00,00,00,72,00,00,00,15,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,22,00,1f,00,12,00,0f,11,a8,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>25</id>
+                <label>ENTER</label>
+                <code>00,00,00,72,00,00,00,16,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,1f,00,22,00,20,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,20,00,21,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,11,97,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>26</id>
+                <label>BACK</label>
+                <code>00,00,00,72,00,00,00,17,00,61,00,22,00,0e,00,12,00,0e,00,13,00,0e,00,22,00,0f,00,22,00,1f,00,12,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,1f,00,12,00,0e,00,22,00,0f,00,12,00,1e,00,23,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,1e,00,12,00,0f,10,8e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>26</id>
+                <label>CANCEL</label>
+                <code>00,00,00,72,00,00,00,17,00,61,00,22,00,0e,00,12,00,0e,00,13,00,0e,00,22,00,0f,00,22,00,1f,00,12,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,1f,00,12,00,0e,00,22,00,0f,00,12,00,1e,00,23,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,1e,00,12,00,0f,10,8e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>27</id>
+                <label>MENU</label>
+                <code>00,00,00,72,00,00,00,18,00,61,00,21,00,0e,00,13,00,0e,00,12,00,0e,00,23,00,0e,00,23,00,1e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,13,00,1e,00,12,00,0e,00,23,00,0e,00,12,00,0f,00,12,00,1e,00,13,00,0e,00,12,00,0e,00,23,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0e,10,7e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>29</id>
+                <label>GUIDE</label>
+                <code>00,00,00,72,00,00,00,16,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,20,00,11,00,0f,00,22,00,0f,00,12,00,20,00,11,00,0f,00,22,00,0f,00,12,00,0f,11,92,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>30</id>
+                <label>RED</label>
+                <code>00,00,00,72,00,00,00,16,00,61,00,22,00,0e,00,12,00,0f,00,12,00,0e,00,22,00,0f,00,22,00,1f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,1f,00,12,00,0e,00,23,00,0e,00,12,00,0e,00,12,00,1f,00,12,00,0e,00,23,00,1f,00,11,00,0f,00,22,00,1f,10,8e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>31</id>
+                <label>GREEN</label>
+                <code>00,00,00,72,00,00,00,17,00,60,00,22,00,0e,00,12,00,0f,00,12,00,0e,00,23,00,0e,00,22,00,1f,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,1f,00,12,00,0e,00,23,00,0e,00,12,00,0f,00,12,00,1e,00,12,00,0f,00,22,00,1f,00,12,00,0e,00,12,00,0f,00,22,00,0e,10,7e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>32</id>
+                <label>YELLOW</label>
+                <code>00,00,00,72,00,00,00,17,00,61,00,21,00,0f,00,12,00,0e,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,11,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,1f,00,11,00,0f,00,22,00,0f,00,12,00,0e,00,12,00,20,00,11,00,0e,00,23,00,1f,00,11,00,0e,00,13,00,0e,00,12,00,0e,10,8e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>33</id>
+                <label>BLUE</label>
+                <code>00,00,00,72,00,00,00,18,00,61,00,21,00,0e,00,13,00,0e,00,12,00,0e,00,23,00,0e,00,23,00,1e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,13,00,1e,00,12,00,0e,00,23,00,0e,00,12,00,0f,00,12,00,1e,00,13,00,0e,00,12,00,0e,00,23,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0e,10,7e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>37</id>
+                <label>INFO</label>
+                <code>00,00,00,72,00,00,00,15,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,20,00,11,00,0f,00,22,00,0f,00,12,00,20,00,21,00,20,00,11,00,0f,11,a8,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>38</id>
+                <label>Power toggle</label>
+                <code>00,00,00,72,00,00,00,17,00,62,00,21,00,10,00,11,00,10,00,11,00,10,00,20,00,10,00,20,00,20,00,10,00,10,00,11,00,10,00,11,00,10,00,11,00,10,00,11,00,20,00,20,00,20,00,10,00,10,00,11,00,10,00,20,00,10,00,11,00,10,00,11,00,10,00,11,00,10,00,11,00,10,00,11,00,20,00,10,00,10,00,20,00,10,00,11,00,10,11,63,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>39</id>
+                <label>Power Off</label>
+                <code>00,00,00,72,00,00,00,18,00,61,00,21,00,0f,00,11,00,0f,00,11,00,0f,00,22,00,0f,00,21,00,1f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,12,00,0f,00,11,00,0f,00,11,00,1f,00,11,00,0f,00,21,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,12,00,1e,00,12,00,0f,00,21,00,0f,00,11,00,0f,11,61,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>47</id>
+                <label>FAST_FWD</label>
+                <code>00,00,00,72,00,00,00,16,00,62,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,22,00,20,00,11,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,1f,00,12,00,0f,00,12,00,0f,00,22,00,0f,00,12,00,0f,00,12,00,0f,00,12,00,20,00,21,00,20,00,21,00,0f,00,12,00,0f,00,12,00,0f,11,98,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>48</id>
+                <label>HELP</label>
+                <code>00,00,00,6c,00,22,00,02,01,57,00,ab,00,15,00,15,00,15,00,15,00,15,00,41,00,15,00,15,00,15,00,15,00,15,00,15,00,15,00,15,00,15,00,41,00,15,00,15,00,15,00,15,00,15,00,41,00,15,00,41,00,15,00,41,00,15,00,41,00,15,00,15,00,15,00,15,00,15,00,15,00,15,00,15,00,15,00,41,00,15,00,41,00,15,00,15,00,15,00,41,00,15,00,15,00,15,00,15,00,15,00,41,00,15,00,41,00,15,00,15,00,15,00,15,00,15,00,41,00,15,00,15,00,15,00,41,00,15,00,41,00,15,06,5d,01,57,00,57,00,15,0e,65,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>49</id>
+                <label>Power On</label>
+                <code>00,00,00,72,00,00,00,18,00,61,00,21,00,0f,00,11,00,0f,00,12,00,0f,00,21,00,0f,00,21,00,1f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,12,00,0f,00,11,00,0f,00,11,00,1f,00,11,00,0f,00,21,00,0f,00,11,00,1f,00,21,00,0f,00,12,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,00,11,00,0f,11,5b,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>50</id>
+                <label>PAGE UP</label>
+                <code>00,00,00,72,00,00,00,16,00,61,00,22,00,0e,00,12,00,0f,00,12,00,0e,00,22,00,0f,00,22,00,1f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,1f,00,12,00,0e,00,23,00,0e,00,12,00,0e,00,12,00,1f,00,12,00,0e,00,23,00,1f,00,11,00,0f,00,22,00,1f,10,8e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>51</id>
+                <label>PAGE DOWN</label>
+                <code>00,00,00,72,00,00,00,17,00,60,00,22,00,0e,00,12,00,0f,00,12,00,0e,00,23,00,0e,00,22,00,1f,00,12,00,0e,00,13,00,0e,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,1f,00,12,00,0e,00,23,00,0e,00,12,00,0f,00,12,00,1e,00,12,00,0f,00,22,00,1f,00,12,00,0e,00,12,00,0f,00,22,00,0e,10,7e,45,4E,44,21</code>
+            </command>
+            <command>
+                <id>52</id>
+                <label>PIP</label>
+                <code>00,00,00,72,00,00,00,17,00,61,00,21,00,0f,00,12,00,0e,00,12,00,0f,00,22,00,0f,00,22,00,1f,00,11,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,0e,00,12,00,0f,00,12,00,1f,00,11,00,0f,00,22,00,0f,00,12,00,0e,00,12,00,20,00,11,00,0e,00,23,00,1f,00,11,00,0e,00,13,00,0e,00,12,00,0e,10,8e,45,4E,44,21</code>
+            </command>
+        </ir>
+        <appUI>
+            <controlGroup>
+                <type>gesture</type>
+                <mobileSmall>off</mobileSmall>
+                <mobileLarge>on</mobileLarge>
+                <tabletSmall>on</tabletSmall>
+                <tabletLarge>on</tabletLarge>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>0</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>9,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>9</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>8,7</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>8</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>8,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>7</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>8,5</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>6</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>7,7</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>5</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>7,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>4</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>7,5</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>3</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>6,7</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>2</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>6,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>1</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>6,5</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>22</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>5,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>24</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>4,7</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>25</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>4,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>23</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>4,5</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>21</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>3,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>15</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>2,7</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>13</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>2,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>20</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>2,5</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>16</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1,7</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>12</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1,6</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>18</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1,5</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>40</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>9,3</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>37</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>9,2</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>48</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>9,1</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>33</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>7,4</mobileLarge>
+                        <tabletSmall>7,4</tabletSmall>
+                        <tabletLarge>8,4</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>32</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>7,3</mobileLarge>
+                        <tabletSmall>7,3</tabletSmall>
+                        <tabletLarge>8,3</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>11</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>7,2</mobileLarge>
+                        <tabletSmall>7,2</tabletSmall>
+                        <tabletLarge>5,7</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>30</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>6,3</mobileLarge>
+                        <tabletSmall>6,3</tabletSmall>
+                        <tabletLarge>8,1</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>31</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>6,4</mobileLarge>
+                        <tabletSmall>6,4</tabletSmall>
+                        <tabletLarge>8,2</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>26</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>7,1</mobileLarge>
+                        <tabletSmall>7,1</tabletSmall>
+                        <tabletLarge>5,5</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>10</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>6,2</mobileLarge>
+                        <tabletSmall>6,2</tabletSmall>
+                        <tabletLarge>3,7</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>29</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>6,1</mobileLarge>
+                        <tabletSmall>6,1</tabletSmall>
+                        <tabletLarge>3,5</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge>1</tabletLarge>
+                    </height>
+                </ui>
+                <ui>
+                    <type>gesture</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>on</tabletLarge>
+                    <id>100</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>1,1</mobileLarge>
+                        <tabletSmall>1,1</tabletSmall>
+                        <tabletLarge>1,1,1,1</tabletLarge>
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>4</mobileLarge>
+                        <tabletSmall>4</tabletSmall>
+                        <tabletLarge>4</tabletLarge>
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>5</mobileLarge>
+                        <tabletSmall>5</tabletSmall>
+                        <tabletLarge>7</tabletLarge>
+                    </height>
+                </ui>
+            </controlGroup>
+            <controlGroup>
+                <type>navigation</type>
+                <mobileSmall>on</mobileSmall>
+                <mobileLarge>off</mobileLarge>
+                <tabletSmall>off</tabletSmall>
+                <tabletLarge>off</tabletLarge>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>23</id>
+                    <location>
+                        <mobileSmall>4,1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>25</id>
+                    <location>
+                        <mobileSmall>4,2</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>24</id>
+                    <location>
+                        <mobileSmall>4,3</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>26</id>
+                    <location>
+                        <mobileSmall>5,1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>22</id>
+                    <location>
+                        <mobileSmall>5,2</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>11</id>
+                    <location>
+                        <mobileSmall>5,3</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>30</id>
+                    <location>
+                        <mobileSmall>1,2</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>37</id>
+                    <location>
+                        <mobileSmall>1,1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>33</id>
+                    <location>
+                        <mobileSmall>2,3</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>29</id>
+                    <location>
+                        <mobileSmall>3,1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>21</id>
+                    <location>
+                        <mobileSmall>3,2</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>10</id>
+                    <location>
+                        <mobileSmall>3,3</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>32</id>
+                    <location>
+                        <mobileSmall>2,2</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>off</mobileLarge>
+                    <tabletSmall>off</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>31</id>
+                    <location>
+                        <mobileSmall>1,3</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge />
+                        <tabletSmall />
+                        <tabletLarge />
+                    </height>
+                </ui>
+            </controlGroup>
+            <controlGroup>
+                <type>playhead</type>
+                <mobileSmall>on</mobileSmall>
+                <mobileLarge>on</mobileLarge>
+                <tabletSmall>on</tabletSmall>
+                <tabletLarge>off</tabletLarge>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>15</id>
+                    <location>
+                        <mobileSmall>2,3</mobileSmall>
+                        <mobileLarge>5,3</mobileLarge>
+                        <tabletSmall>5,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>13</id>
+                    <location>
+                        <mobileSmall>2,2</mobileSmall>
+                        <mobileLarge>5,2</mobileLarge>
+                        <tabletSmall>5,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>20</id>
+                    <location>
+                        <mobileSmall>2,1</mobileSmall>
+                        <mobileLarge>5,1</mobileLarge>
+                        <tabletSmall>5,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>33</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>4,4</mobileLarge>
+                        <tabletSmall>4,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>16</id>
+                    <location>
+                        <mobileSmall>1,3</mobileSmall>
+                        <mobileLarge>4,3</mobileLarge>
+                        <tabletSmall>4,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>12</id>
+                    <location>
+                        <mobileSmall>1,2</mobileSmall>
+                        <mobileLarge>4,2</mobileLarge>
+                        <tabletSmall>4,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>18</id>
+                    <location>
+                        <mobileSmall>1,1</mobileSmall>
+                        <mobileLarge>4,1</mobileLarge>
+                        <tabletSmall>4,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>32</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>3,4</mobileLarge>
+                        <tabletSmall>3,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>11</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>3,3</mobileLarge>
+                        <tabletSmall>3,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>22</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>3,2</mobileLarge>
+                        <tabletSmall>3,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>26</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>3,1</mobileLarge>
+                        <tabletSmall>3,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>31</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>2,4</mobileLarge>
+                        <tabletSmall>2,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>24</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>2,3</mobileLarge>
+                        <tabletSmall>2,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>25</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>2,2</mobileLarge>
+                        <tabletSmall>2,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>23</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>2,1</mobileLarge>
+                        <tabletSmall>2,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>29</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>1,1</mobileLarge>
+                        <tabletSmall>1,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>21</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>1,2</mobileLarge>
+                        <tabletSmall>1,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>10</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>1,3</mobileLarge>
+                        <tabletSmall>1,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>30</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>1,4</mobileLarge>
+                        <tabletSmall>1,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall />
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>40</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>6,4</mobileLarge>
+                        <tabletSmall>6,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>48</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>6,1</mobileLarge>
+                        <tabletSmall>6,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>37</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>5,4</mobileLarge>
+                        <tabletSmall>5,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+            </controlGroup>
+            <controlGroup>
+                <type>numerical</type>
+                <mobileSmall>on</mobileSmall>
+                <mobileLarge>on</mobileLarge>
+                <tabletSmall>on</tabletSmall>
+                <tabletLarge>off</tabletLarge>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>9</id>
+                    <location>
+                        <mobileSmall>3,3</mobileSmall>
+                        <mobileLarge>3,3</mobileLarge>
+                        <tabletSmall>3,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>8</id>
+                    <location>
+                        <mobileSmall>3,2</mobileSmall>
+                        <mobileLarge>3,2</mobileLarge>
+                        <tabletSmall>3,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>7</id>
+                    <location>
+                        <mobileSmall>3,1</mobileSmall>
+                        <mobileLarge>3,1</mobileLarge>
+                        <tabletSmall>3,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>6</id>
+                    <location>
+                        <mobileSmall>2,3</mobileSmall>
+                        <mobileLarge>2,3</mobileLarge>
+                        <tabletSmall>2,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>5</id>
+                    <location>
+                        <mobileSmall>2,2</mobileSmall>
+                        <mobileLarge>2,2</mobileLarge>
+                        <tabletSmall>2,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>4</id>
+                    <location>
+                        <mobileSmall>2,1</mobileSmall>
+                        <mobileLarge>2,1</mobileLarge>
+                        <tabletSmall>2,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>3</id>
+                    <location>
+                        <mobileSmall>1,3</mobileSmall>
+                        <mobileLarge>1,3</mobileLarge>
+                        <tabletSmall>1,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>2</id>
+                    <location>
+                        <mobileSmall>1,2</mobileSmall>
+                        <mobileLarge>1,2</mobileLarge>
+                        <tabletSmall>1,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>1</id>
+                    <location>
+                        <mobileSmall>1,1</mobileSmall>
+                        <mobileLarge>1,1</mobileLarge>
+                        <tabletSmall>1,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>33</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>4,4</mobileLarge>
+                        <tabletSmall>4,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>32</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>3,4</mobileLarge>
+                        <tabletSmall>3,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>31</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>2,4</mobileLarge>
+                        <tabletSmall>2,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>off</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>30</id>
+                    <location>
+                        <mobileSmall />
+                        <mobileLarge>1,4</mobileLarge>
+                        <tabletSmall>1,4</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>11</id>
+                    <location>
+                        <mobileSmall>5,3</mobileSmall>
+                        <mobileLarge>5,3</mobileLarge>
+                        <tabletSmall>5,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>25</id>
+                    <location>
+                        <mobileSmall>5,2</mobileSmall>
+                        <mobileLarge>5,2</mobileLarge>
+                        <tabletSmall>5,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>26</id>
+                    <location>
+                        <mobileSmall>5,1</mobileSmall>
+                        <mobileLarge>5,1</mobileLarge>
+                        <tabletSmall>5,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>10</id>
+                    <location>
+                        <mobileSmall>4,3</mobileSmall>
+                        <mobileLarge>4,3</mobileLarge>
+                        <tabletSmall>4,3</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>0</id>
+                    <location>
+                        <mobileSmall>4,2</mobileSmall>
+                        <mobileLarge>4,2</mobileLarge>
+                        <tabletSmall>4,2</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+                <ui>
+                    <type>button</type>
+                    <mobileSmall>on</mobileSmall>
+                    <mobileLarge>on</mobileLarge>
+                    <tabletSmall>on</tabletSmall>
+                    <tabletLarge>off</tabletLarge>
+                    <id>29</id>
+                    <location>
+                        <mobileSmall>4,1</mobileSmall>
+                        <mobileLarge>4,1</mobileLarge>
+                        <tabletSmall>4,1</tabletSmall>
+                        <tabletLarge />
+                    </location>
+                    <width>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </width>
+                    <height>
+                        <mobileSmall>1</mobileSmall>
+                        <mobileLarge>1</mobileLarge>
+                        <tabletSmall>1</tabletSmall>
+                        <tabletLarge />
+                    </height>
+                </ui>
+            </controlGroup>
+        </appUI>
+    </controlPack>
+</xml>

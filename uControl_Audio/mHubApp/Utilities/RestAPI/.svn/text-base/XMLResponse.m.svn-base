@@ -1,0 +1,50 @@
+//
+//  XMLResponse.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 22/10/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import "XMLResponse.h"
+
+@implementation XMLResponse
++(XMLResponse*) getObjectFromDictionary:(NSDictionary*)dictResp CDeviceType:(ControlDeviceType)type {
+    XMLResponse *objReturn=[[XMLResponse alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            switch (type) {
+                case InputSource: {
+                    objReturn.controlPack = [ControlPack getObjectFromXMLDictionary:[Utility checkNullForKey:kControlPack Dictionary:dictResp]];
+                    break;
+                }
+
+                case OutputScreen: {
+                    objReturn.controlPack = [ControlPack getObjectFromXMLDictionary:[Utility checkNullForKey:kControlPack Dictionary:dictResp]];
+                    NSDictionary *dictIR = [Utility checkNullForKey:kCPIR Dictionary:[Utility checkNullForKey:kControlPack Dictionary:dictResp]];
+                    if ([dictIR isNotEmpty] && [dictIR isKindOfClass:[NSDictionary class]]) {
+                        objReturn.IRCommandPacket = [[NSArray alloc] initWithArray:[Command getXMLObjectArray:[Utility checkNullForKey:kIRCommand Dictionary:dictIR]]];
+                    }
+                    break;
+                }
+
+                case AVRSource: {
+                    objReturn.controlPack = [ControlPack getObjectFromXMLDictionary:[Utility checkNullForKey:kControlPack Dictionary:dictResp]];
+                    NSDictionary *dictIR = [Utility checkNullForKey:kCPIR Dictionary:[Utility checkNullForKey:kControlPack Dictionary:dictResp]];
+                    if ([dictIR isNotEmpty] && [dictIR isKindOfClass:[NSDictionary class]]) {
+                        objReturn.IRCommandPacket = [[NSArray alloc] initWithArray:[Command getXMLObjectArray:[Utility checkNullForKey:kIRCommand Dictionary:dictIR]]];
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+@end

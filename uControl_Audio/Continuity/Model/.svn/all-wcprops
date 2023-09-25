@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Mobile/!svn/ver/2575/HDConnectivity/HDAControlApp-iOS/uControl_Audio/Continuity/Model
+END
+ContinuityHub.m
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/Continuity/Model/ContinuityHub.m
+END
+ContinuityDevice.m
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/Continuity/Model/ContinuityDevice.m
+END
+WidgetCommand.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/Mobile/!svn/ver/2830/HDConnectivity/HDAControlApp-iOS/uControl_Audio/Continuity/Model/WidgetCommand.h
+END
+ContinuityHub.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/Continuity/Model/ContinuityHub.h
+END
+ContinuityDevice.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/Continuity/Model/ContinuityDevice.h
+END
+WidgetCommand.m
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/Continuity/Model/WidgetCommand.m
+END

@@ -1,0 +1,1 @@
+../../../Buglife/Source/Controllers/Alert View/LIFEAlertView.h

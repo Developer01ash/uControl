@@ -1,0 +1,16 @@
+//
+//  CellHeaderImage.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 07/12/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface CellHeaderImage : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *imgCell;
+@property (weak, nonatomic) IBOutlet UILabel *lblTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lblSubHeader;
+
+@end

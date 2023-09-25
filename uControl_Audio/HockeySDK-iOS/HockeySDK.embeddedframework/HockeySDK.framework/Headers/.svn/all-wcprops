@@ -1,0 +1,131 @@
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers
+END
+BITStoreUpdateManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITStoreUpdateManager.h
+END
+BITCrashManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITCrashManager.h
+END
+BITHockeyAttachment.h
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITHockeyAttachment.h
+END
+HockeySDKEnums.h
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/HockeySDKEnums.h
+END
+HockeySDKNullability.h
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/HockeySDKNullability.h
+END
+BITCrashMetaData.h
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITCrashMetaData.h
+END
+BITMetricsManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITMetricsManager.h
+END
+BITCrashDetails.h
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITCrashDetails.h
+END
+BITHockeyBaseManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITHockeyBaseManager.h
+END
+BITHockeyManagerDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITHockeyManagerDelegate.h
+END
+BITUpdateManagerDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITUpdateManagerDelegate.h
+END
+BITCrashAttachment.h
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITCrashAttachment.h
+END
+BITAuthenticator.h
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITAuthenticator.h
+END
+BITHockeyBaseViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITHockeyBaseViewController.h
+END
+BITHockeyManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITHockeyManager.h
+END
+BITUpdateManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITUpdateManager.h
+END
+BITUpdateViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITUpdateViewController.h
+END
+BITStoreUpdateManagerDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITStoreUpdateManagerDelegate.h
+END
+HockeySDK.h
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/HockeySDK.h
+END
+BITCrashManagerDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/BITCrashManagerDelegate.h
+END
+HockeySDKFeatureConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework/Headers/HockeySDKFeatureConfig.h
+END

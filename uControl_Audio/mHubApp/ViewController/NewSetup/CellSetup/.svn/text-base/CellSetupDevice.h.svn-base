@@ -1,0 +1,17 @@
+//
+//  CellSetupDevice.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 24/11/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface CellSetupDevice : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *imgCellBackground;
+@property (weak, nonatomic) IBOutlet UIImageView *imgCell;
+@property (weak, nonatomic) IBOutlet UILabel *lblCell;
+@property (weak, nonatomic) IBOutlet UILabel *lblClickingNo;
+@property (weak, nonatomic) IBOutlet UIButton *btn_identity;
+@end

@@ -1,0 +1,1 @@
+../../../Buglife/Source/Models/LIFEImageFormat.h

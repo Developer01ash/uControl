@@ -1,0 +1,98 @@
+<xml> 
+	<mHub> 
+		<officialName>mHub 4K (4x4) Pro</officialName> 
+		<productCode>MHUB4K44PRO</productCode> 
+		<lcdDefaultMessage>HDANYWHERE MHUB PRO</lcdDefaultMessage> 
+		<generationFlag>1</generationFlag> 
+		<deviceType>MATRIX</deviceType> 
+		<deviceTechnology>HDMI over HDBaseT</deviceTechnology> 
+		<io> 
+			<inputVideo ports="8"> 
+				<hdmi isPrimary="1" version="1.4" hdcp="2.2">0-8</hdmi> 
+				<hdbaset type="Pro" version="VS100">0-8</hdbaset> 
+			</inputVideo> 
+			<outputVideo ports="8"> 
+				<hdmi version="1.4" hdcp="2.2">0-8</hdmi> 
+				<hdmiMirror version="1.4" hdcp="2.2">0-8</hdmiMirror> 
+				<hdbaset isPrimary="1" type="Pro" version="VS100">0-8</hdbaset> 
+				<hdbasetMirror type="Pro" version="VS100">0-8</hdbasetMirror> 
+			</outputVideo> 
+			<inputAudio ports="0" enabled="true"> 
+				<digital type="Coaxial">0-8</digital> 
+				<analog type="Stereo">0-8</analog> 
+			</inputAudio> 
+			<outputAudio ports="4"> 
+				<digital type="Coaxial">0-8</digital> 
+				<analog type="Stereo">0-8</analog> 
+			</outputAudio> 
+			<ir> 
+				<backwards ports="4" startID="1" /> 
+				<forwards ports="4" startID="5" /> 
+				<global ports="1" /> 
+				<hub ports="1" /> 
+				<irEngine enabled="true" backwards="true" forwards="true" global="false" /> 
+			</ir> 
+			<labels> 
+				<i1>Input 1</i1> 
+				<i2>Input 2</i2> 
+				<i3>Input 3</i3> 
+				<i4>Input 4</i4> 
+				<i5>Input 5</i5> 
+				<i6>Input 6</i6> 
+				<i7>Input 7</i7> 
+				<i8>Input 8</i8> 
+				<o1>Output A</o1> 
+				<o2>Output B</o2> 
+				<o3>Output C</o3> 
+				<o4>Output D</o4> 
+				<o5>Output E</o5> 
+				<o6>Output F</o6> 
+				<o7>Output G</o7> 
+				<o8>Output H</o8> 
+			</labels> 
+			<arc enabled="true"> 
+				<receiver>0</receiver> 
+				<hub>0</hub> 
+			</arc> 
+		</io> 
+	</mHub> 
+	<software> 
+		<dash>7.02</dash> 
+		<betadash>7.02</betadash> 
+		<superserial>1.52</superserial> 
+		<openWRT>1.21</openWRT> 
+		<team2>1.0</team2> 
+		<api>1.0</api> 
+		<hdbasetRx>VS100RX_13092</hdbasetRx> 
+		<hdbasetTx>VS100TX_13092</hdbasetTx> 
+	</software> 
+	<hdaCloudURL>http://cloud.hdanywhere.com/</hdaCloudURL> 
+	<dashUI> 
+		<arcHub>1</arcHub> 
+		<arcReceiver>1</arcReceiver> 
+		<edid>1</edid> 
+		<irengineSource>1</irengineSource> 
+		<irengineDisplay>1</irengineDisplay> 
+		<touchpanel>1</touchpanel> 
+		<lcd>1</lcd> 
+		<cloud>1</cloud> 
+		<pro>1</pro> 
+		<voice>1</voice> 
+		<audio>0</audio> 
+		<switchingConsole>1</switchingConsole> 
+		<yourMhub>1</yourMhub> 
+		<sourceLabel>1</sourceLabel> 
+		<displayLabel>1</displayLabel> 
+		<dashboard>1</dashboard> 
+		<accountManagement>1</accountManagement> 
+		<register>1</register> 
+		<setup>1</setup> 
+		<network>1</network> 
+		<control>1</control> 
+		<macro>1</macro> 
+		<hda080954wr14pfc>1</hda080954wr14pfc> 
+		<av>1</av> 
+		<drivers>1</drivers> 
+		<diagnostics>1</diagnostics> 
+	</dashUI> 
+</xml>

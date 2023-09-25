@@ -1,0 +1,60 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '12.0'
+
+def mHubAppPods
+    # Pods for mHubApp
+    pod 'CocoaLumberjack'
+    pod 'AFNetworking', '~> 4.0'
+    pod 'CocoaAsyncSocket'
+    pod 'CocoaSSDP'
+    pod 'DGActivityIndicatorView'
+    pod 'Toast', '~> 3.1.0'
+    # pod 'LBBlurredImage'
+    pod 'Buglife'
+    pod 'KTCenterFlowLayout'
+    pod 'FFGlobalAlertController'
+    pod 'SSTTapSlider', '~> 0.1'
+    pod "FGRoute"
+    pod "SocketRocket"
+    pod 'IQKeyboardManager'
+end
+
+def mHubAppWidgetPods
+    # Pods for mHubApp
+    pod 'CocoaLumberjack'
+    pod 'AFNetworking', '~> 4.0'
+    pod 'KTCenterFlowLayout'
+end
+
+target 'mHubApp' do
+  # Uncomment this line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+  mHubAppPods
+ end
+
+target 'mHubAppDev' do
+    mHubAppPods
+end
+
+target 'mHubAppISE' do
+    mHubAppPods
+end
+
+target 'Continuity' do
+    mHubAppWidgetPods
+end
+
+target 'ContinuityDev' do
+    mHubAppWidgetPods
+end
+
+target 'ContinuityISE' do
+    mHubAppWidgetPods
+end
+
+#target 'WatchHD' do
+#    mHubAppPods
+#end
+#target 'WatchHD Extension' do
+#  mHubAppPods
+#end

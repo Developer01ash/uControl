@@ -1,0 +1,2 @@
+﻿{"header":{"version":"2.1"},"data":{"unit_id":"M1","input":[{"id":1,"irpack":false},{"id":2,"irpack":false},{"id":3,"irpack":false},{"id":4,"irpack":false},{"id":5,"irpack":false},{"id":6,"irpack":false},{"id":7,"irpack":false},{"id":8,"irpack":false}],"output":[{"id":"a","irpack":false},{"id":"b","irpack":false},{"id":"c","irpack":false},{"id":"d","irpack":false},{"id":"e","irpack":false},{"id":"f","irpack":false},{"id":"g","irpack":false},{"id":"h","irpack":false}],"avr":false}}
+

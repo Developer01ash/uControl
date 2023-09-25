@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting
+END
+CellCloudDevice.m
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting/CellCloudDevice.m
+END
+CellAddLabel.m
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting/CellAddLabel.m
+END
+CellSetting.h
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting/CellSetting.h
+END
+CellGroupAudio.h
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting/CellGroupAudio.h
+END
+CellSetting.m
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting/CellSetting.m
+END
+CellGroupAudio.m
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting/CellGroupAudio.m
+END
+CellCloudDevice.h
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting/CellCloudDevice.h
+END
+CellAddLabel.h
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Settings/CellSetting/CellAddLabel.h
+END

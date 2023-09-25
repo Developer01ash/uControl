@@ -1,0 +1,161 @@
+//
+//  ManuallyIPAddressContainerVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 19/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import "ManuallyIPAddressContainerVC.h"
+
+@interface ManuallyIPAddressContainerVC ()
+
+@end
+
+@implementation ManuallyIPAddressContainerVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+   // self.navigationItem.backBarButtonItem = customBackBarButton;
+    self.navigationItem.hidesBackButton = true;
+    ThemeColor *objTheme = [[ThemeColor alloc] initWithThemeColor:[AppDelegate appDelegate].themeColoursSetup];
+//    self.view.backgroundColor = objTheme.colorBackground;
+
+    [self.txtIPPart1 setBackgroundColor:colorClear];
+    [self.txtIPPart1 setTextColor:colorWhite];
+    [self.txtIPPart1 addBorder_Color:objTheme.colorHeaderText BorderWidth:1.0];
+    self.txtIPPart1.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"192" attributes:@{NSForegroundColorAttributeName: colorGray_646464}];
+
+    [self.txtIPPart2 setBackgroundColor:colorClear];
+    [self.txtIPPart2 setTextColor:colorWhite];
+    [self.txtIPPart2 addBorder_Color:objTheme.colorHeaderText BorderWidth:1.0];
+    self.txtIPPart2.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"168" attributes:@{NSForegroundColorAttributeName: colorGray_646464}];
+
+    [self.txtIPPart3 setBackgroundColor:colorClear];
+    [self.txtIPPart3 setTextColor:colorWhite];
+    [self.txtIPPart3 addBorder_Color:objTheme.colorHeaderText BorderWidth:1.0];
+    self.txtIPPart3.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"1" attributes:@{NSForegroundColorAttributeName: colorGray_646464}];
+
+    [self.txtIPPart4 setBackgroundColor:colorClear];
+    [self.txtIPPart4 setTextColor:colorWhite];
+    [self.txtIPPart4 addBorder_Color:objTheme.colorHeaderText BorderWidth:1.0];
+    self.txtIPPart4.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"1" attributes:@{NSForegroundColorAttributeName: colorGray_646464}];
+
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        [self.txtIPPart1 setFont:textFontRegular12];
+        [self.txtIPPart2 setFont:textFontRegular12];
+        [self.txtIPPart3 setFont:textFontRegular12];
+        [self.txtIPPart4 setFont:textFontRegular12];
+    } else {
+        [self.txtIPPart1 setFont:textFontRegular16];
+        [self.txtIPPart2 setFont:textFontRegular16];
+        [self.txtIPPart3 setFont:textFontRegular16];
+        [self.txtIPPart4 setFont:textFontRegular16];
+    }
+
+    
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.tintColor = colorWhite;
+    numberToolbar.items = @[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                            [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)]];
+    [numberToolbar sizeToFit];
+    self.txtIPPart4.inputAccessoryView = numberToolbar;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+        // Dispose of any resources that can be recreated.
+}
+
+
+-(void)doneWithNumberPad{
+    [[self view] endEditing:YES];
+}
+
+#pragma mark - UITextField Delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return true;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return true;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (IS_IPHONE_4_OR_5_WIDTH) {
+        if(self.delegate)
+            [self.delegate animateView:YES];
+    }
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    if (textField == _txtIPPart4) {
+        NSString *strIPAddress = [self getIPAddress];
+        BOOL isValid = [strIPAddress isValidIPAddress];
+        if (isValid) {
+            [self.delegate setIPAddress:strIPAddress];
+        }
+        return true;
+    }
+    return true;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    if (IS_IPHONE_4_OR_5_WIDTH) {
+        if(self.delegate)
+            [self.delegate animateView:NO];
+    }
+    if (textField == _txtIPPart4) {
+        NSString *strIPAddress = [self getIPAddress];
+        if ([strIPAddress isValidIPAddress]) {
+            [self.delegate setIPAddress:strIPAddress];
+        }
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.length + range.location > textField.text.length)
+        return false;
+    NSInteger newLength = textField.text.length + string.length - range.length;
+    NSString * strNew = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    strNew = [strNew stringByReplacingOccurrencesOfString:@"." withString:@""];
+    
+    if ([string isEqualToString:@"."]) {
+        if (newLength != 1)
+            [self MoveTextField:textField];
+        return false;
+        }
+    
+//    if (![strNew isValidNumeric])
+//        return false;
+    
+    if (newLength > 3 && [strNew isValidNumeric]) {
+        [self MoveTextField:textField];
+        if (textField == self.txtIPPart4)
+            return false;
+        else
+            return true;
+        }
+    return newLength <= 3;
+}
+
+-(void)MoveTextField:(UITextField *)textField {
+    if (textField == _txtIPPart1)
+        [_txtIPPart2 becomeFirstResponder];
+    else if (textField == _txtIPPart2)
+        [_txtIPPart3 becomeFirstResponder];
+    else if (textField == _txtIPPart3)
+        [_txtIPPart4 becomeFirstResponder];
+    else {
+        [textField resignFirstResponder];
+    }
+}
+
+-(NSString*) getIPAddress
+{
+    return [NSString stringWithFormat:@"%@.%@.%@.%@", _txtIPPart1.text, _txtIPPart2.text, _txtIPPart3.text, _txtIPPart4.text];
+}
+
+@end

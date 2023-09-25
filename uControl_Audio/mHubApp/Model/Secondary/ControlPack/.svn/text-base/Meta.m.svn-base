@@ -1,0 +1,60 @@
+//
+//  Meta.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 24/10/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import "Meta.h"
+
+@implementation Meta
++(Meta*) getObjectFromDictionary:(NSDictionary*)dictResp {
+    Meta *objReturn=[[Meta alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.deviceID = [Utility checkNullForKey:kCPMetaDeviceID Dictionary:dictResp];
+            objReturn.version = [Utility checkNullForKey:kCPMetaVersion Dictionary:dictResp];
+            objReturn.manufacturer = [Utility checkNullForKey:kCPMetaManufacturer Dictionary:dictResp];
+            objReturn.name = [Utility checkNullForKey:kCPMetaName Dictionary:dictResp];
+
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
+#pragma mark - ENCODER DECODER METHODS
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    @try {
+            //Encode properties, other class variables, etc
+        [encoder encodeObject:self.deviceID forKey:kCPMetaDeviceID];
+        [encoder encodeObject:self.version forKey:kCPMetaVersion];
+        [encoder encodeObject:self.manufacturer forKey:kCPMetaManufacturer];
+        [encoder encodeObject:self.name forKey:kCPMetaName];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    @try {
+        if(self = [super init]) {
+                //decode properties, other class vars
+            self.deviceID       = [decoder decodeObjectForKey:kCPMetaDeviceID];
+            self.version        = [decoder decodeObjectForKey:kCPMetaVersion];
+            self.manufacturer   = [decoder decodeObjectForKey:kCPMetaManufacturer];
+            self.name           = [decoder decodeObjectForKey:kCPMetaName];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+
+
+@end

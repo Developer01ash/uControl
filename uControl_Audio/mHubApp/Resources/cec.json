@@ -1,0 +1,177 @@
+{
+	"libcec": {
+			"version": 1,
+			"codes": [
+				{
+					"id": 0,
+					"label": "0",
+					"data": "E0 44 20"
+				},
+				{
+					"id": 1,
+					"label": "1",
+					"data": "E0 44 21"
+				},
+				{
+					"id": 2,
+					"label": "2",
+					"data": "E0 44 22"
+				},
+				{
+					"id": 3,
+					"label": "3",
+					"data": "E0 44 23"
+				},
+				{
+					"id": 4,
+					"label": "4",
+					"data": "E0 44 24"
+				},
+				{
+					"id": 5,
+					"label": "5",
+					"data": "E0 44 25"
+				},
+				{
+					"id": 6,
+					"label": "6",
+					"data": "E0 44 26"
+				},
+				{
+					"id": 7,
+					"label": "7",
+					"data": "E0 44 27"
+				},
+				{
+					"id": 8,
+					"label": "8",
+					"data": "E0 44 28"
+				},
+				{
+					"id": 9,
+					"label": "9",
+					"data": "E0 44 29"
+				},
+				{
+					"id": 12,
+					"label": "PLAY",
+					"data": "E0 44 44"
+				},
+				{
+					"id": 13,
+					"label": "PAUSE",
+					"data": "E0 44 46"
+				},
+				{
+					"id": 15,
+					"label": "STOP",
+					"data": "E0 44 45"
+				},
+				{
+					"id": 16,
+					"label": "FORWARD",
+					"data": "E0 44 20"
+				},
+				{
+					"id": 17,
+					"label": "SKIP  FORWARD",
+					"data": "E0 44 20"
+				},
+				{
+					"id": 18,
+					"label": "REWIND",
+					"data": "E0 44 20"
+				},
+				{
+					"id": 19,
+					"label": "SKIP BACKWARD",
+					"data": "E0 44 20"
+				},
+				{
+					"id": 21,
+					"label": "UP",
+					"data": "E0 44 01"
+				},
+				{
+					"id": 22,
+					"label": "DOWN",
+					"data": "E0 44 02"
+				},
+				{
+					"id": 23,
+					"label": "LEFT",
+					"data": "E0 44 03"
+				},
+				{
+					"id": 24,
+					"label": "RIGHT",
+					"data": "E0 44 04"
+				},
+				{
+					"id": 25,
+					"label": "ENTER",
+					"data": "E0 44 2B"
+				},
+				{
+					"id": 26,
+					"label": "BACK",
+					"data": "E0 44 0D"
+				},
+				{
+					"id": 29,
+					"label": "TV GUIDE",
+					"data": "E0 44 53"
+				},
+				{
+					"id": 34,
+					"label": "VOL UP",
+					"data": "E0 44 41"
+				},
+				{
+					"id": 35,
+					"label": "VOL DOWN",
+					"data": "E0 44 42"
+				},
+				{
+					"id": 36,
+					"label": "MUTE",
+					"data": "E0 44 43"
+				},
+				{
+					"id": 37,
+					"label": "INFO",
+					"data": "E0 44 35"
+				},
+				{
+					"id": 39,
+					"label": "POWER OFF",
+					"data": "E0 36"
+				},
+				{
+					"id": 49,
+					"label": "POWER ON",
+					"data": "E0 04"
+				},
+				{
+					"id": 55,
+					"label": "EXIT",
+					"data": "E0 44 20"
+				},
+				{
+					"id": 75,
+					"label": "HDMI 1",
+					"data": "EF 82 10 00"
+				},
+				{
+					"id": 76,
+					"label": "HDMI 2",
+					"data": "EF 82 20 00"
+				},
+				{
+					"id": 77,
+					"label": "HDMI 3",
+					"data": "EF 82 30 00"
+				}
+			]
+		}
+}

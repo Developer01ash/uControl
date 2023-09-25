@@ -1,0 +1,1413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Heebo-Bold.ttf">
+            <string>Heebo-Bold</string>
+        </array>
+        <array key="Heebo-Regular.ttf">
+            <string>Heebo-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Start Wifi Setup View Controller-->
+        <scene sceneID="m8l-YN-zNP">
+            <objects>
+                <viewController storyboardIdentifier="StartWifiSetupViewController" id="DEe-mP-hya" customClass="StartWifiSetupViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hx6-FR-GgR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCG-cb-Ayd">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <string key="text">Before starting WiFi setup:
+Ensure that your HDANYWHERE device is in Discovery Mode before proceeding. Please consult your user manual.</string>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ensure that your HDANYWHERE device is in Discovery Mode before proceeding. Please consult your user manual." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXu-Mq-ehc">
+                                <rect key="frame" x="20" y="83.666666666666657" width="374" height="70.666666666666657"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.33725490200000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rm9-41-lQj" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="SCD-iD-zgO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <state key="normal" title="START SETUP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnStartSetup_Clicked:" destination="DEe-mP-hya" eventType="touchUpInside" id="flv-qn-n7a"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8qN-r4-4h7"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="OCG-cb-Ayd" secondAttribute="trailing" constant="20" id="A0d-aO-Bsa"/>
+                            <constraint firstAttribute="trailing" secondItem="Rm9-41-lQj" secondAttribute="trailing" constant="20" id="C23-GW-uwe"/>
+                            <constraint firstItem="zXu-Mq-ehc" firstAttribute="trailing" secondItem="OCG-cb-Ayd" secondAttribute="trailing" id="HJ9-WP-DUX"/>
+                            <constraint firstItem="OCG-cb-Ayd" firstAttribute="leading" secondItem="hx6-FR-GgR" secondAttribute="leading" constant="20" id="JAH-AU-UpW"/>
+                            <constraint firstItem="8qN-r4-4h7" firstAttribute="bottom" secondItem="Rm9-41-lQj" secondAttribute="bottom" constant="30" id="l8g-cd-Aen"/>
+                            <constraint firstItem="zXu-Mq-ehc" firstAttribute="top" secondItem="OCG-cb-Ayd" secondAttribute="bottom" constant="30" id="mUI-ZE-4J8"/>
+                            <constraint firstItem="zXu-Mq-ehc" firstAttribute="leading" secondItem="OCG-cb-Ayd" secondAttribute="leading" id="pGb-nE-o6v"/>
+                            <constraint firstItem="OCG-cb-Ayd" firstAttribute="top" secondItem="8qN-r4-4h7" secondAttribute="top" constant="30" id="q0p-Sm-3jd"/>
+                            <constraint firstItem="Rm9-41-lQj" firstAttribute="leading" secondItem="hx6-FR-GgR" secondAttribute="leading" constant="20" id="tDx-Oo-i63"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_start" destination="Rm9-41-lQj" id="ffE-IX-iyJ"/>
+                        <outlet property="lbl_header" destination="OCG-cb-Ayd" id="uhy-Jr-oId"/>
+                        <outlet property="lbl_subHeader" destination="zXu-Mq-ehc" id="ugi-z9-WpD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ohv-qu-HNq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="24.776785714285712"/>
+        </scene>
+        <!--Wifi Setup Instruction View Controller-->
+        <scene sceneID="Ezc-PZ-zg2">
+            <objects>
+                <viewController storyboardIdentifier="WifiSetupInstructionViewController" id="Jfk-hN-Yal" customClass="WifiSetupInstructionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SAv-zA-lNB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzn-lq-SzH">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="754" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFG-DB-O28">
+                                        <rect key="frame" x="20" y="30" width="374" height="188"/>
+                                        <string key="text">Go to your WiFi settings on this [ios device] and select the HDANYWHERE device you wish to connect to. The name will follow the format HDA-[productcode]-XXXX. Please ensure that your HDANYHWERE device has been powered on for at least 120 seconds and is in Discovery MODE. After you have connected, return to
+uControl to test your connection.</string>
+                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                        <color key="textColor" red="0.33725490200000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="753" image="wifiDemo" translatesAutoresizingMaskIntoConstraints="NO" id="RxE-s6-fpL">
+                                        <rect key="frame" x="0.0" y="228" width="414" height="280"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uDD-78-GdU" customClass="CustomButton">
+                                        <rect key="frame" x="20" y="596" width="374" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="Z5F-nG-uLO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                        <state key="normal" title="GOTO SETTINGS">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnGOTOSettings:" destination="Jfk-hN-Yal" eventType="touchUpInside" id="wan-dH-9Oe"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sjd-VQ-aIY" customClass="CustomButton">
+                                        <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="Ctm-vX-tp0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                        <state key="normal" title="CONTINUE">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnContinue_Clicked:" destination="Jfk-hN-Yal" eventType="touchUpInside" id="5oG-Ok-y98"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Sjd-VQ-aIY" firstAttribute="top" secondItem="uDD-78-GdU" secondAttribute="bottom" constant="20" id="Fkd-tg-KUr"/>
+                                    <constraint firstAttribute="trailing" secondItem="uDD-78-GdU" secondAttribute="trailing" constant="20" id="GGl-fL-J7A"/>
+                                    <constraint firstItem="dFG-DB-O28" firstAttribute="top" secondItem="nzn-lq-SzH" secondAttribute="top" constant="30" id="R9d-UY-8lm"/>
+                                    <constraint firstItem="RxE-s6-fpL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dFG-DB-O28" secondAttribute="bottom" constant="10" id="gvG-ce-IEN"/>
+                                    <constraint firstItem="RxE-s6-fpL" firstAttribute="centerY" secondItem="nzn-lq-SzH" secondAttribute="centerY" id="lFm-Y4-uma"/>
+                                    <constraint firstItem="RxE-s6-fpL" firstAttribute="centerX" secondItem="nzn-lq-SzH" secondAttribute="centerX" id="vDC-eF-YiP"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ibU-fu-GGO"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nzn-lq-SzH" firstAttribute="top" secondItem="ibU-fu-GGO" secondAttribute="top" id="AGa-Zp-cB1"/>
+                            <constraint firstItem="ibU-fu-GGO" firstAttribute="bottom" secondItem="Sjd-VQ-aIY" secondAttribute="bottom" constant="30" id="CQk-fd-hKh"/>
+                            <constraint firstItem="ibU-fu-GGO" firstAttribute="trailing" secondItem="dFG-DB-O28" secondAttribute="trailing" constant="20" id="Fyt-2B-ywY"/>
+                            <constraint firstItem="ibU-fu-GGO" firstAttribute="trailing" secondItem="Sjd-VQ-aIY" secondAttribute="trailing" constant="20" id="N1Y-g0-5cr"/>
+                            <constraint firstItem="ibU-fu-GGO" firstAttribute="trailing" secondItem="RxE-s6-fpL" secondAttribute="trailing" id="Q11-Aq-qQm"/>
+                            <constraint firstItem="ibU-fu-GGO" firstAttribute="bottom" secondItem="nzn-lq-SzH" secondAttribute="bottom" id="SZA-u0-dwE"/>
+                            <constraint firstItem="ibU-fu-GGO" firstAttribute="leading" secondItem="RxE-s6-fpL" secondAttribute="leading" id="bB3-4Z-Wjf"/>
+                            <constraint firstItem="dFG-DB-O28" firstAttribute="leading" secondItem="ibU-fu-GGO" secondAttribute="leading" constant="20" id="dAI-fz-fnN"/>
+                            <constraint firstItem="uDD-78-GdU" firstAttribute="leading" secondItem="ibU-fu-GGO" secondAttribute="leading" constant="20" id="dF0-LT-5sb"/>
+                            <constraint firstItem="Sjd-VQ-aIY" firstAttribute="leading" secondItem="ibU-fu-GGO" secondAttribute="leading" constant="20" id="dfd-MX-0Co"/>
+                            <constraint firstItem="nzn-lq-SzH" firstAttribute="leading" secondItem="ibU-fu-GGO" secondAttribute="leading" id="edB-tJ-oEG"/>
+                            <constraint firstItem="ibU-fu-GGO" firstAttribute="trailing" secondItem="nzn-lq-SzH" secondAttribute="trailing" id="j3i-17-Etk"/>
+                            <constraint firstItem="nzn-lq-SzH" firstAttribute="width" secondItem="SAv-zA-lNB" secondAttribute="width" id="rV4-p2-bhf"/>
+                            <constraint firstItem="ibU-fu-GGO" firstAttribute="trailing" secondItem="uDD-78-GdU" secondAttribute="trailing" constant="20" id="vHX-Pc-TwG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_continue" destination="Sjd-VQ-aIY" id="Z0w-pc-pwE"/>
+                        <outlet property="btn_settings" destination="uDD-78-GdU" id="XOR-bU-iR5"/>
+                        <outlet property="lbl_title1" destination="dFG-DB-O28" id="GYr-eN-HP2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3NZ-YS-Yzq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="806" y="15"/>
+        </scene>
+        <!--Connected Wifi View Controller-->
+        <scene sceneID="l86-Eh-VAF">
+            <objects>
+                <viewController storyboardIdentifier="ConnectedWifiViewController" id="RFT-Kd-rwJ" customClass="ConnectedWifiViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="x3b-t0-OYv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please connect your mobile phone or tablet to the WiFi network below before proceeding." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2mr-cN-un9">
+                                <rect key="frame" x="20" y="30" width="374" height="47"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lm-U1-8dt">
+                                <rect key="frame" x="20" y="107" width="374" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="A0N-P3-HZs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <state key="normal" title="HDA-XXXXXXX-XXXX">
+                                    <color key="titleColor" red="0.33725490200000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0xi-CB-P6o" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="A2q-DX-mry"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <state key="normal" title="CONTINUE SETUP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnTestConnection_Clicked:" destination="RFT-Kd-rwJ" eventType="touchUpInside" id="mUU-Hi-WEk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Qiq-j6-Buq"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Qiq-j6-Buq" firstAttribute="trailing" secondItem="2mr-cN-un9" secondAttribute="trailing" constant="20" id="7wy-YN-tFq"/>
+                            <constraint firstItem="Qiq-j6-Buq" firstAttribute="bottom" secondItem="0xi-CB-P6o" secondAttribute="bottom" constant="30" id="FEw-27-Scr"/>
+                            <constraint firstItem="Qiq-j6-Buq" firstAttribute="trailing" secondItem="2Lm-U1-8dt" secondAttribute="trailing" constant="20" id="TWa-7V-exB"/>
+                            <constraint firstItem="Qiq-j6-Buq" firstAttribute="trailing" secondItem="0xi-CB-P6o" secondAttribute="trailing" constant="20" id="Tuw-C1-f6z"/>
+                            <constraint firstItem="2mr-cN-un9" firstAttribute="top" secondItem="Qiq-j6-Buq" secondAttribute="top" constant="30" id="gYA-Cc-IHu"/>
+                            <constraint firstItem="2Lm-U1-8dt" firstAttribute="top" secondItem="2mr-cN-un9" secondAttribute="bottom" constant="30" id="ge1-Nc-MQd"/>
+                            <constraint firstItem="2Lm-U1-8dt" firstAttribute="leading" secondItem="Qiq-j6-Buq" secondAttribute="leading" constant="20" id="mZB-Aw-DTB"/>
+                            <constraint firstItem="0xi-CB-P6o" firstAttribute="leading" secondItem="Qiq-j6-Buq" secondAttribute="leading" constant="20" id="mvY-Hb-iFC"/>
+                            <constraint firstItem="2mr-cN-un9" firstAttribute="leading" secondItem="Qiq-j6-Buq" secondAttribute="leading" constant="20" id="pbI-fb-kZj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_continue" destination="0xi-CB-P6o" id="9Uo-MK-Rl3"/>
+                        <outlet property="lbl_title" destination="2mr-cN-un9" id="m3b-7t-vdc"/>
+                        <outlet property="wifiNameBtn" destination="2Lm-U1-8dt" id="Tsa-K0-46S"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fBE-5M-crO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1539" y="25"/>
+        </scene>
+        <!--Join NetworkVC-->
+        <scene sceneID="phn-yG-q1K">
+            <objects>
+                <viewController storyboardIdentifier="JoinNetworkVC" id="KHn-Z4-LzB" customClass="JoinNetworkVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jig-49-qba">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OgP-wl-DQx">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your system is now connecting to the chosen network.\n\nPlease check the status LED." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOm-il-c3t">
+                                        <rect key="frame" x="20" y="30" width="374" height="47"/>
+                                        <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your system is now connecting to the chosen network.\n\nPlease check the status LED." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1j-CA-Kk9">
+                                        <rect key="frame" x="20" y="107" width="374" height="47"/>
+                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                        <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLEASE WAIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dL-C6-Ove">
+                                        <rect key="frame" x="20" y="184" width="374" height="17.666666666666657"/>
+                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="12"/>
+                                        <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60 seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zC-Si-x5u">
+                                        <rect key="frame" x="20" y="201.66666666666666" width="374" height="26.666666666666657"/>
+                                        <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hr-dv-fdd">
+                                        <rect key="frame" x="20" y="238.33333333333334" width="374" height="0.66666666666665719"/>
+                                        <color key="backgroundColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="SCc-E5-zmx"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODk-X1-SRc" customClass="CustomButton">
+                                        <rect key="frame" x="20" y="596" width="363" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="i7f-60-jJq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                        <state key="normal" title="THE LED IS SOLID">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnLightsSolid_Clicked:" destination="KHn-Z4-LzB" eventType="touchUpInside" id="rzQ-6Z-cgA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCY-4r-y4I" customClass="CustomButton_NoBorder">
+                                        <rect key="frame" x="20" y="661" width="363" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="yd7-4B-sZr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                        <state key="normal" title="THE LED IS FLASHING">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnLightsFlashing_Clicked:" destination="KHn-Z4-LzB" eventType="touchUpInside" id="0Vy-rS-wGl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="eCY-4r-y4I" firstAttribute="leading" secondItem="ODk-X1-SRc" secondAttribute="leading" id="1W7-Su-z6n"/>
+                                    <constraint firstItem="7dL-C6-Ove" firstAttribute="trailing" secondItem="F1j-CA-Kk9" secondAttribute="trailing" id="3Nu-Xn-jFX"/>
+                                    <constraint firstItem="F1j-CA-Kk9" firstAttribute="top" secondItem="zOm-il-c3t" secondAttribute="bottom" constant="30" id="3yW-6c-1OM"/>
+                                    <constraint firstItem="7dL-C6-Ove" firstAttribute="top" secondItem="F1j-CA-Kk9" secondAttribute="bottom" constant="30" id="7R6-3S-hfj"/>
+                                    <constraint firstItem="3hr-dv-fdd" firstAttribute="leading" secondItem="3zC-Si-x5u" secondAttribute="leading" id="KdM-AI-op5"/>
+                                    <constraint firstItem="7dL-C6-Ove" firstAttribute="leading" secondItem="F1j-CA-Kk9" secondAttribute="leading" id="MkF-2q-hCG"/>
+                                    <constraint firstItem="eCY-4r-y4I" firstAttribute="top" secondItem="ODk-X1-SRc" secondAttribute="bottom" constant="20" id="OJu-7l-cV1"/>
+                                    <constraint firstItem="zOm-il-c3t" firstAttribute="top" secondItem="OgP-wl-DQx" secondAttribute="top" constant="30" id="OkJ-ph-xHi"/>
+                                    <constraint firstItem="eCY-4r-y4I" firstAttribute="trailing" secondItem="ODk-X1-SRc" secondAttribute="trailing" id="SaM-2Z-2CH"/>
+                                    <constraint firstItem="F1j-CA-Kk9" firstAttribute="leading" secondItem="zOm-il-c3t" secondAttribute="leading" id="Sua-eO-AWr"/>
+                                    <constraint firstItem="3zC-Si-x5u" firstAttribute="leading" secondItem="7dL-C6-Ove" secondAttribute="leading" id="XVb-Ja-q2c"/>
+                                    <constraint firstItem="3zC-Si-x5u" firstAttribute="top" secondItem="7dL-C6-Ove" secondAttribute="bottom" id="Xmr-l9-aMf"/>
+                                    <constraint firstAttribute="bottom" secondItem="eCY-4r-y4I" secondAttribute="bottom" id="hC7-1d-01I"/>
+                                    <constraint firstItem="3zC-Si-x5u" firstAttribute="trailing" secondItem="7dL-C6-Ove" secondAttribute="trailing" id="jjm-Yh-suZ"/>
+                                    <constraint firstItem="3hr-dv-fdd" firstAttribute="trailing" secondItem="3zC-Si-x5u" secondAttribute="trailing" id="omJ-rP-LhE"/>
+                                    <constraint firstItem="F1j-CA-Kk9" firstAttribute="trailing" secondItem="zOm-il-c3t" secondAttribute="trailing" id="qQW-WZ-HTl"/>
+                                    <constraint firstItem="eCY-4r-y4I" firstAttribute="height" secondItem="ODk-X1-SRc" secondAttribute="height" id="uoY-dc-vvF"/>
+                                    <constraint firstItem="3hr-dv-fdd" firstAttribute="top" secondItem="3zC-Si-x5u" secondAttribute="bottom" constant="10" id="xfT-81-ZWN"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="9qf-So-9fJ"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zOm-il-c3t" firstAttribute="leading" secondItem="9qf-So-9fJ" secondAttribute="leading" constant="20" id="KYl-sn-tCF"/>
+                            <constraint firstItem="9qf-So-9fJ" firstAttribute="bottom" secondItem="OgP-wl-DQx" secondAttribute="bottom" id="Pqn-Tx-2Cg"/>
+                            <constraint firstItem="9qf-So-9fJ" firstAttribute="trailing" secondItem="OgP-wl-DQx" secondAttribute="trailing" id="VSz-TN-2UI"/>
+                            <constraint firstItem="9qf-So-9fJ" firstAttribute="bottom" secondItem="eCY-4r-y4I" secondAttribute="bottom" constant="30" id="WAb-RB-kRk"/>
+                            <constraint firstItem="OgP-wl-DQx" firstAttribute="leading" secondItem="9qf-So-9fJ" secondAttribute="leading" id="bU0-r9-53e"/>
+                            <constraint firstItem="OgP-wl-DQx" firstAttribute="top" secondItem="9qf-So-9fJ" secondAttribute="top" id="gTP-LS-XGN"/>
+                            <constraint firstItem="9qf-So-9fJ" firstAttribute="trailing" secondItem="ODk-X1-SRc" secondAttribute="trailing" constant="31" id="tt8-VN-H5E"/>
+                            <constraint firstItem="9qf-So-9fJ" firstAttribute="trailing" secondItem="zOm-il-c3t" secondAttribute="trailing" constant="20" id="uvm-ND-6DI"/>
+                            <constraint firstItem="ODk-X1-SRc" firstAttribute="leading" secondItem="9qf-So-9fJ" secondAttribute="leading" constant="20" id="zrk-N2-UiB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_flashing" destination="eCY-4r-y4I" id="MJx-DU-GaQ"/>
+                        <outlet property="btn_solid" destination="ODk-X1-SRc" id="DdP-5U-gz5"/>
+                        <outlet property="lbl_heading" destination="zOm-il-c3t" id="Pvm-Mi-Qej"/>
+                        <outlet property="lbl_pleaseWait" destination="7dL-C6-Ove" id="Hbf-l5-RdR"/>
+                        <outlet property="lbl_progress" destination="3zC-Si-x5u" id="E1M-xo-ctj"/>
+                        <outlet property="lbl_subHeading" destination="F1j-CA-Kk9" id="3EL-z5-4jO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aNn-gQ-eiV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3715.9420289855075" y="24.456521739130437"/>
+        </scene>
+        <!--Wifi ConnectedVC-->
+        <scene sceneID="X9Y-vd-zDi">
+            <objects>
+                <viewController storyboardIdentifier="WifiConnectedVC" id="e2L-DF-igk" customClass="WifiConnectedVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="S4f-Ob-r5I">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="uControl has added your MHUB U (4x1+1) 40 to your WiFi router. It is now possible to scan and connect to your system." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccQ-Ie-c7H">
+                                <rect key="frame" x="20" y="30.000000000000007" width="374" height="70.666666666666686"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4as-Pw-q8c" customClass="CustomButton">
+                                <rect key="frame" x="20" y="596" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="lfK-aW-pqA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <state key="normal" title="FIND DEVICE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnConnectToDevice_Clicked:" destination="e2L-DF-igk" eventType="touchUpInside" id="8xN-Ss-sN7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u17-xi-oGo" customClass="CustomButton_NoBorder">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Icf-6a-VON"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <state key="normal" title="HELP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnMAINMENU_Clicked:" destination="e2L-DF-igk" eventType="touchUpInside" id="cZb-Aj-dnc"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="uControl has added your MHUB U (4x1+1) 40 to your WiFi router. It is now possible to scan and connect to your system." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQj-XV-l4d">
+                                <rect key="frame" x="20" y="130.66666666666666" width="374" height="70.666666666666657"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="uControl has added your MHUB U (4x1+1) 40 to your WiFi router. It is now possible to scan and connect to your system." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aru-Y2-Ser">
+                                <rect key="frame" x="20" y="231.33333333333334" width="374" height="70.666666666666657"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="a53-M1-Fgj"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Aru-Y2-Ser" firstAttribute="leading" secondItem="lQj-XV-l4d" secondAttribute="leading" id="11o-bp-Ujd"/>
+                            <constraint firstItem="lQj-XV-l4d" firstAttribute="trailing" secondItem="ccQ-Ie-c7H" secondAttribute="trailing" id="6e3-f8-gV7"/>
+                            <constraint firstItem="a53-M1-Fgj" firstAttribute="bottom" secondItem="u17-xi-oGo" secondAttribute="bottom" constant="30" id="DEB-Nb-gYq"/>
+                            <constraint firstItem="Aru-Y2-Ser" firstAttribute="trailing" secondItem="lQj-XV-l4d" secondAttribute="trailing" id="DG2-PW-G8z"/>
+                            <constraint firstItem="lQj-XV-l4d" firstAttribute="top" secondItem="ccQ-Ie-c7H" secondAttribute="bottom" constant="30" id="Ojz-Pa-03d"/>
+                            <constraint firstItem="Aru-Y2-Ser" firstAttribute="top" secondItem="lQj-XV-l4d" secondAttribute="bottom" constant="30" id="PUb-6I-CFq"/>
+                            <constraint firstItem="u17-xi-oGo" firstAttribute="leading" secondItem="a53-M1-Fgj" secondAttribute="leading" constant="20" id="QIr-aQ-KNU"/>
+                            <constraint firstItem="u17-xi-oGo" firstAttribute="top" secondItem="4as-Pw-q8c" secondAttribute="bottom" constant="20" id="bhm-pW-3jW"/>
+                            <constraint firstItem="ccQ-Ie-c7H" firstAttribute="leading" secondItem="a53-M1-Fgj" secondAttribute="leading" constant="20" id="bki-Te-SvV"/>
+                            <constraint firstItem="a53-M1-Fgj" firstAttribute="trailing" secondItem="u17-xi-oGo" secondAttribute="trailing" constant="20" id="eR5-vo-omw"/>
+                            <constraint firstItem="a53-M1-Fgj" firstAttribute="trailing" secondItem="ccQ-Ie-c7H" secondAttribute="trailing" constant="20" id="fMX-wc-2ZR"/>
+                            <constraint firstItem="lQj-XV-l4d" firstAttribute="leading" secondItem="ccQ-Ie-c7H" secondAttribute="leading" id="jb5-qY-AFW"/>
+                            <constraint firstItem="ccQ-Ie-c7H" firstAttribute="top" secondItem="a53-M1-Fgj" secondAttribute="top" constant="30" id="uhl-9n-VFd"/>
+                            <constraint firstItem="4as-Pw-q8c" firstAttribute="leading" secondItem="u17-xi-oGo" secondAttribute="leading" id="y8l-39-xdD"/>
+                            <constraint firstItem="4as-Pw-q8c" firstAttribute="trailing" secondItem="u17-xi-oGo" secondAttribute="trailing" id="zDi-g2-voX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_MainMenu" destination="u17-xi-oGo" id="86K-ex-UIR"/>
+                        <outlet property="btn_connectToDevice" destination="4as-Pw-q8c" id="4WE-bp-g2Z"/>
+                        <outlet property="lbl_heading" destination="ccQ-Ie-c7H" id="78A-iq-LHM"/>
+                        <outlet property="lbl_subHeading" destination="lQj-XV-l4d" id="vZi-e2-L8E"/>
+                        <outlet property="lbl_subHeading2" destination="Aru-Y2-Ser" id="IPu-th-wDU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4gi-uM-DR2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4496" y="25"/>
+        </scene>
+        <!--Scan For RouterVC-->
+        <scene sceneID="4Nd-e5-4qB">
+            <objects>
+                <viewController storyboardIdentifier="ScanForRouterVC" id="hGb-ge-1Gy" customClass="ScanForRouterVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eEc-e5-SoP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect device to your WiFi network." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zW-I7-79s">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5C-jh-knb">
+                                <rect key="frame" x="20" y="83.666666666666686" width="374" height="94"/>
+                                <string key="text">uControl has detected the following WiFi devices which you can connect to. Please select the name of the router WiFi that you would like to
+join to your network.</string>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="90V-Nd-Rf2">
+                                <rect key="frame" x="0.0" y="207.66666666666669" width="414" height="528.33333333333326"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellSetup" id="mnw-Ch-ePk" customClass="CellSetup">
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mnw-Ch-ePk" id="ffz-g4-vqh">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vi1-nM-1Mv">
+                                                    <rect key="frame" x="20" y="21.333333333333329" width="29" height="17.666666666666671"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next-arrow-white" translatesAutoresizingMaskIntoConstraints="NO" id="jUk-1N-KFr">
+                                                    <rect key="frame" x="364" y="16.666666666666664" width="50" height="26.666666666666664"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="PrD-E5-ma5"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ofD-S6-S8w">
+                                                    <rect key="frame" x="20" y="59.666666666666664" width="374" height="0.3333333333333357"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.5" id="rAo-rZ-9MR"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="jUk-1N-KFr" secondAttribute="trailing" id="4Tp-C2-5q4"/>
+                                                <constraint firstItem="Vi1-nM-1Mv" firstAttribute="centerY" secondItem="ffz-g4-vqh" secondAttribute="centerY" id="Doc-by-ad5"/>
+                                                <constraint firstItem="jUk-1N-KFr" firstAttribute="centerY" secondItem="ffz-g4-vqh" secondAttribute="centerY" id="IP7-Sa-bbM"/>
+                                                <constraint firstItem="Vi1-nM-1Mv" firstAttribute="leading" secondItem="ffz-g4-vqh" secondAttribute="leading" constant="20" id="tac-xj-vXW"/>
+                                                <constraint firstItem="jUk-1N-KFr" firstAttribute="width" secondItem="jUk-1N-KFr" secondAttribute="height" multiplier="15:8" id="wtu-gR-v4X"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="ofD-S6-S8w" secondAttribute="bottom" id="0cV-fn-18u"/>
+                                            <constraint firstAttribute="trailing" secondItem="ofD-S6-S8w" secondAttribute="trailing" constant="20" id="6a2-li-Cik"/>
+                                            <constraint firstItem="ofD-S6-S8w" firstAttribute="leading" secondItem="mnw-Ch-ePk" secondAttribute="leading" constant="20" id="Djp-dg-D4q"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="lblCell" destination="Vi1-nM-1Mv" id="opA-uG-1EX"/>
+                                            <outlet property="viewBottomBorder" destination="ofD-S6-S8w" id="a5B-PF-qRt"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hGb-ge-1Gy" id="SGD-qi-FQA"/>
+                                    <outlet property="delegate" destination="hGb-ge-1Gy" id="b5v-kN-MVf"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="RIc-8g-43c"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="K5C-jh-knb" firstAttribute="trailing" secondItem="2zW-I7-79s" secondAttribute="trailing" id="25A-nU-Ep4"/>
+                            <constraint firstItem="RIc-8g-43c" firstAttribute="trailing" secondItem="90V-Nd-Rf2" secondAttribute="trailing" id="6TK-4S-JIi"/>
+                            <constraint firstItem="90V-Nd-Rf2" firstAttribute="top" secondItem="K5C-jh-knb" secondAttribute="bottom" constant="30" id="93L-ZE-ifW"/>
+                            <constraint firstItem="RIc-8g-43c" firstAttribute="bottom" secondItem="90V-Nd-Rf2" secondAttribute="bottom" id="ARS-md-fpb"/>
+                            <constraint firstItem="K5C-jh-knb" firstAttribute="leading" secondItem="2zW-I7-79s" secondAttribute="leading" id="O4J-05-TzE"/>
+                            <constraint firstItem="K5C-jh-knb" firstAttribute="top" secondItem="2zW-I7-79s" secondAttribute="bottom" constant="30" id="SL1-E8-mPk"/>
+                            <constraint firstItem="2zW-I7-79s" firstAttribute="leading" secondItem="RIc-8g-43c" secondAttribute="leading" constant="20" id="Yld-2n-jFs"/>
+                            <constraint firstItem="90V-Nd-Rf2" firstAttribute="leading" secondItem="RIc-8g-43c" secondAttribute="leading" id="e3z-hh-xkb"/>
+                            <constraint firstItem="2zW-I7-79s" firstAttribute="top" secondItem="RIc-8g-43c" secondAttribute="top" constant="30" id="lSB-VF-Q3E"/>
+                            <constraint firstItem="RIc-8g-43c" firstAttribute="trailing" secondItem="2zW-I7-79s" secondAttribute="trailing" constant="20" id="mHK-6i-F2e"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lbl_heading" destination="2zW-I7-79s" id="q4f-IQ-0Sb"/>
+                        <outlet property="lbl_subHeading" destination="K5C-jh-knb" id="QM7-Q9-ctW"/>
+                        <outlet property="tblRouterWifiList" destination="90V-Nd-Rf2" id="SD7-62-aaG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J9F-I7-jiB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2303" y="25"/>
+        </scene>
+        <!--Connect To RouterVC-->
+        <scene sceneID="hqE-ig-GlG">
+            <objects>
+                <viewController storyboardIdentifier="ConnectToRouterVC" id="zkA-lR-clu" customClass="ConnectToRouterVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Qb-m6-Tt3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1G-wx-d6j">
+                                <rect key="frame" x="20" y="30" width="374" height="94"/>
+                                <string key="text">uControl has detected the following WiFi devices which you can connect to. Please select the name of the router WiFi that you would like to join to your network.</string>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KaI-ae-ape">
+                                <rect key="frame" x="20" y="154" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Ggu-MH-elM"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="zkA-lR-clu" id="ajW-x3-fHJ"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDx-yP-5Rv" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="WXQ-bj-c28"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <state key="normal" title="CONNECT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnJoinNetwork_Clicked:" destination="zkA-lR-clu" eventType="touchUpInside" id="gh4-fu-0bv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gs4-HK-raX"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KaI-ae-ape" firstAttribute="leading" secondItem="K1G-wx-d6j" secondAttribute="leading" id="2vJ-7h-P5M"/>
+                            <constraint firstItem="gs4-HK-raX" firstAttribute="trailing" secondItem="K1G-wx-d6j" secondAttribute="trailing" constant="20" id="G6E-bG-PKn"/>
+                            <constraint firstItem="NDx-yP-5Rv" firstAttribute="leading" secondItem="gs4-HK-raX" secondAttribute="leading" constant="20" id="Mu0-9T-Skb"/>
+                            <constraint firstItem="gs4-HK-raX" firstAttribute="trailing" secondItem="NDx-yP-5Rv" secondAttribute="trailing" constant="20" id="RKT-yB-4Xj"/>
+                            <constraint firstItem="K1G-wx-d6j" firstAttribute="top" secondItem="gs4-HK-raX" secondAttribute="top" constant="30" id="aE3-WL-79q"/>
+                            <constraint firstItem="KaI-ae-ape" firstAttribute="trailing" secondItem="K1G-wx-d6j" secondAttribute="trailing" id="gq5-eI-qLZ"/>
+                            <constraint firstItem="K1G-wx-d6j" firstAttribute="leading" secondItem="gs4-HK-raX" secondAttribute="leading" constant="20" id="mfs-oh-h4v"/>
+                            <constraint firstItem="KaI-ae-ape" firstAttribute="top" secondItem="K1G-wx-d6j" secondAttribute="bottom" constant="30" id="pBj-gN-eiQ"/>
+                            <constraint firstItem="gs4-HK-raX" firstAttribute="bottom" secondItem="NDx-yP-5Rv" secondAttribute="bottom" constant="30" id="vAN-EG-Au3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_joinNetwork" destination="NDx-yP-5Rv" id="Ecm-Ll-Hbz"/>
+                        <outlet property="lbl_heading" destination="K1G-wx-d6j" id="PM1-kc-AJC"/>
+                        <outlet property="txtField_password" destination="KaI-ae-ape" id="MKC-9g-K5P"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vjT-k9-umB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2959" y="25"/>
+        </scene>
+        <!--Wifi Sub MenuVC-->
+        <scene sceneID="t4V-9E-Xaw">
+            <objects>
+                <viewController storyboardIdentifier="WifiSubMenuVC" id="3za-6s-WqU" customClass="WifiSubMenuVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DCs-WF-3nh"/>
+                        <viewControllerLayoutGuide type="bottom" id="oH6-Vg-K9t"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Cz-f3-too">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the device to join your network." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2O-84-bUY">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Khc-Kv-pHu">
+                                <rect key="frame" x="0.0" y="83.666666666666686" width="414" height="652.33333333333326"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellSetup" id="Sq0-rz-pIR" customClass="CellSetup">
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sq0-rz-pIR" id="6Kb-LC-WPf">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UuG-fc-70N">
+                                                    <rect key="frame" x="20" y="21.333333333333329" width="29" height="17.666666666666671"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next-arrow-white" translatesAutoresizingMaskIntoConstraints="NO" id="yiB-Fu-VMe">
+                                                    <rect key="frame" x="364" y="16.666666666666664" width="50" height="26.666666666666664"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="W1X-ap-VdW"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nh-3F-hmC">
+                                                    <rect key="frame" x="20" y="59.666666666666664" width="374" height="0.3333333333333357"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.5" id="kz7-uP-CFc"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="UuG-fc-70N" firstAttribute="centerY" secondItem="6Kb-LC-WPf" secondAttribute="centerY" id="6Y1-Gh-naq"/>
+                                                <constraint firstItem="yiB-Fu-VMe" firstAttribute="centerY" secondItem="6Kb-LC-WPf" secondAttribute="centerY" id="CDI-zf-enW"/>
+                                                <constraint firstItem="UuG-fc-70N" firstAttribute="leading" secondItem="6Kb-LC-WPf" secondAttribute="leading" constant="20" id="Ls1-iy-erb"/>
+                                                <constraint firstAttribute="trailing" secondItem="yiB-Fu-VMe" secondAttribute="trailing" id="Med-rL-nAc"/>
+                                                <constraint firstItem="yiB-Fu-VMe" firstAttribute="width" secondItem="yiB-Fu-VMe" secondAttribute="height" multiplier="15:8" id="rmN-8Z-la8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="5nh-3F-hmC" firstAttribute="leading" secondItem="Sq0-rz-pIR" secondAttribute="leading" constant="20" id="3TE-9r-hij"/>
+                                            <constraint firstAttribute="trailing" secondItem="5nh-3F-hmC" secondAttribute="trailing" constant="20" id="Hsw-pZ-JeU"/>
+                                            <constraint firstAttribute="bottom" secondItem="5nh-3F-hmC" secondAttribute="bottom" id="bir-D8-Q82"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="lblCell" destination="UuG-fc-70N" id="3M6-BO-PYe"/>
+                                            <outlet property="viewBottomBorder" destination="5nh-3F-hmC" id="QNh-Il-mwy"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="3za-6s-WqU" id="xNX-iv-vKW"/>
+                                    <outlet property="delegate" destination="3za-6s-WqU" id="oLB-Rk-2Cr"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="zlI-nB-lJx"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="o2O-84-bUY" secondAttribute="trailing" constant="20" id="1dp-iy-Wpx"/>
+                            <constraint firstItem="Khc-Kv-pHu" firstAttribute="leading" secondItem="0Cz-f3-too" secondAttribute="leading" id="HON-Cm-fat"/>
+                            <constraint firstItem="zlI-nB-lJx" firstAttribute="bottom" secondItem="Khc-Kv-pHu" secondAttribute="bottom" id="c09-v8-IKe"/>
+                            <constraint firstItem="o2O-84-bUY" firstAttribute="top" secondItem="zlI-nB-lJx" secondAttribute="top" constant="30" id="dZX-9W-nfw"/>
+                            <constraint firstItem="Khc-Kv-pHu" firstAttribute="top" secondItem="o2O-84-bUY" secondAttribute="bottom" constant="30" id="hCL-gh-vmE"/>
+                            <constraint firstAttribute="trailing" secondItem="Khc-Kv-pHu" secondAttribute="trailing" id="nGi-cJ-8X0"/>
+                            <constraint firstItem="o2O-84-bUY" firstAttribute="leading" secondItem="0Cz-f3-too" secondAttribute="leading" constant="20" id="viS-Gx-mEr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblHeaderMessage" destination="o2O-84-bUY" id="sBr-Kd-eST"/>
+                        <outlet property="tblManuallySetup" destination="Khc-Kv-pHu" id="bYi-Qa-Gfh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hja-NX-E9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="680"/>
+        </scene>
+        <!--Wifi Devices ListVC-->
+        <scene sceneID="KgY-yo-yYo">
+            <objects>
+                <viewController storyboardIdentifier="WifiDevicesListVC" id="Cci-kz-pHH" customClass="WifiDevicesListVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CYt-Kc-XL0"/>
+                        <viewControllerLayoutGuide type="bottom" id="ufa-6n-ZLg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qjV-9z-a2z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="uControl found the following device(s):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFo-J3-cSg">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BvI-hN-nyD">
+                                <rect key="frame" x="0.0" y="53.666666666666686" width="414" height="682.33333333333326"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellSetup" id="UD3-7h-oUo" customClass="CellSetup">
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="59"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UD3-7h-oUo" id="fM0-ih-NFm">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNg-aW-KwK">
+                                                    <rect key="frame" x="20" y="20.666666666666664" width="29" height="17.666666666666664"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next-arrow-white" translatesAutoresizingMaskIntoConstraints="NO" id="cGF-yk-uC8">
+                                                    <rect key="frame" x="364" y="16.333333333333329" width="50" height="26.666666666666671"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="BO6-rh-j9N"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ild-h7-9BH">
+                                                    <rect key="frame" x="20" y="58.666666666666664" width="374" height="0.3333333333333357"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.5" id="f5N-9M-Y13"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="cGF-yk-uC8" secondAttribute="trailing" id="0tg-wD-kkj"/>
+                                                <constraint firstItem="cGF-yk-uC8" firstAttribute="centerY" secondItem="fM0-ih-NFm" secondAttribute="centerY" id="Bek-wB-AUy"/>
+                                                <constraint firstItem="YNg-aW-KwK" firstAttribute="leading" secondItem="fM0-ih-NFm" secondAttribute="leading" constant="20" id="Gb7-Cw-6nA"/>
+                                                <constraint firstItem="YNg-aW-KwK" firstAttribute="centerY" secondItem="fM0-ih-NFm" secondAttribute="centerY" id="JKS-6a-XLP"/>
+                                                <constraint firstItem="cGF-yk-uC8" firstAttribute="width" secondItem="cGF-yk-uC8" secondAttribute="height" multiplier="15:8" id="ZAT-Dj-ZI8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Ild-h7-9BH" firstAttribute="leading" secondItem="UD3-7h-oUo" secondAttribute="leading" constant="20" id="9H2-E6-0aI"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ild-h7-9BH" secondAttribute="trailing" constant="20" id="Pol-B1-3BB"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ild-h7-9BH" secondAttribute="bottom" id="tPB-XV-fXN"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="lblCell" destination="YNg-aW-KwK" id="DSl-t2-XbI"/>
+                                            <outlet property="viewBottomBorder" destination="Ild-h7-9BH" id="zGR-qN-KbN"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Cci-kz-pHH" id="00o-Yb-XQm"/>
+                                    <outlet property="delegate" destination="Cci-kz-pHH" id="wrF-Vz-Zdg"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ThU-X2-aE5"/>
+                        <constraints>
+                            <constraint firstItem="tFo-J3-cSg" firstAttribute="leading" secondItem="ThU-X2-aE5" secondAttribute="leading" constant="20" id="MrZ-H5-V8T"/>
+                            <constraint firstAttribute="trailing" secondItem="BvI-hN-nyD" secondAttribute="trailing" id="Rxu-X5-cTO"/>
+                            <constraint firstItem="BvI-hN-nyD" firstAttribute="top" secondItem="tFo-J3-cSg" secondAttribute="bottom" id="Z1b-ld-Olm"/>
+                            <constraint firstItem="tFo-J3-cSg" firstAttribute="top" secondItem="ThU-X2-aE5" secondAttribute="top" constant="30" id="Zmt-wP-r9V"/>
+                            <constraint firstItem="ufa-6n-ZLg" firstAttribute="top" secondItem="BvI-hN-nyD" secondAttribute="bottom" id="f3u-tD-rVL"/>
+                            <constraint firstItem="ThU-X2-aE5" firstAttribute="trailing" secondItem="tFo-J3-cSg" secondAttribute="trailing" constant="20" id="heJ-fR-xow"/>
+                            <constraint firstItem="BvI-hN-nyD" firstAttribute="leading" secondItem="qjV-9z-a2z" secondAttribute="leading" id="rSD-gH-xfl"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblHeaderMessage" destination="tFo-J3-cSg" id="WYo-2R-RPj"/>
+                        <outlet property="tblSearch" destination="BvI-hN-nyD" id="rb8-Z7-tdq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="awJ-58-lUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3701" y="-1317"/>
+        </scene>
+        <!--SetAP ModeVC-->
+        <scene sceneID="PX0-3l-u9a">
+            <objects>
+                <viewController storyboardIdentifier="SetAPModeVC" id="Xjd-Em-AHQ" customClass="SetAPModeVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vxn-nQ-Kwg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please hold whilst we connect your HDANY-WHERE device to your WiFi router." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvt-v5-d5w">
+                                <rect key="frame" x="20" y="30" width="374" height="47"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.33725490200000002" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check that Discovery Mode indicator light on your device has started flashing." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwA-WM-eaB">
+                                <rect key="frame" x="20" y="97" width="374" height="47"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.33725490196078434" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgL-Ta-1j0" customClass="CustomButton">
+                                <rect key="frame" x="20" y="596" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="nHx-Iv-h3y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="INDICATOR LIGHT(S) ARE STILL SOLID">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnLightsSolid_Clicked:" destination="Xjd-Em-AHQ" eventType="touchUpInside" id="g9W-QO-F8K"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ThU-lI-7Ho" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="fRL-BV-DmQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="INDICATOR LIGHT(S) ARE FLASHING">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnLightsFlashing_Clicked:" destination="Xjd-Em-AHQ" eventType="touchUpInside" id="0AK-PW-szk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Lqm-iz-Xtm"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zgL-Ta-1j0" firstAttribute="trailing" secondItem="ThU-lI-7Ho" secondAttribute="trailing" id="DPk-nx-WDp"/>
+                            <constraint firstItem="Lqm-iz-Xtm" firstAttribute="bottom" secondItem="ThU-lI-7Ho" secondAttribute="bottom" constant="30" id="IeK-71-bIJ"/>
+                            <constraint firstItem="ThU-lI-7Ho" firstAttribute="top" secondItem="zgL-Ta-1j0" secondAttribute="bottom" constant="20" id="RG1-dk-oty"/>
+                            <constraint firstItem="Lqm-iz-Xtm" firstAttribute="trailing" secondItem="ThU-lI-7Ho" secondAttribute="trailing" constant="20" id="Rpe-xt-9w5"/>
+                            <constraint firstItem="zgL-Ta-1j0" firstAttribute="leading" secondItem="ThU-lI-7Ho" secondAttribute="leading" id="S1G-SG-3bN"/>
+                            <constraint firstItem="rwA-WM-eaB" firstAttribute="leading" secondItem="Yvt-v5-d5w" secondAttribute="leading" id="av4-xt-vkp"/>
+                            <constraint firstItem="Yvt-v5-d5w" firstAttribute="leading" secondItem="Lqm-iz-Xtm" secondAttribute="leading" constant="20" id="bcD-6i-SHJ"/>
+                            <constraint firstItem="rwA-WM-eaB" firstAttribute="top" secondItem="Yvt-v5-d5w" secondAttribute="bottom" constant="20" id="ddr-Xa-8X8"/>
+                            <constraint firstItem="rwA-WM-eaB" firstAttribute="trailing" secondItem="Yvt-v5-d5w" secondAttribute="trailing" id="jl6-UA-9Lp"/>
+                            <constraint firstItem="Lqm-iz-Xtm" firstAttribute="trailing" secondItem="Yvt-v5-d5w" secondAttribute="trailing" constant="20" id="thy-Ab-awq"/>
+                            <constraint firstItem="ThU-lI-7Ho" firstAttribute="leading" secondItem="Lqm-iz-Xtm" secondAttribute="leading" constant="20" id="vJH-qG-YFo"/>
+                            <constraint firstItem="Yvt-v5-d5w" firstAttribute="top" secondItem="Lqm-iz-Xtm" secondAttribute="top" constant="30" id="wzd-ST-PR5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_flashing" destination="ThU-lI-7Ho" id="Wwp-6Y-Ugr"/>
+                        <outlet property="btn_solid" destination="zgL-Ta-1j0" id="u6i-az-T9a"/>
+                        <outlet property="lbl_headingTitle1" destination="Yvt-v5-d5w" id="QsT-Da-RW8"/>
+                        <outlet property="lbl_headingTitle2" destination="rwA-WM-eaB" id="MBm-MH-UUA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ioo-wb-nWB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="806" y="680"/>
+        </scene>
+        <!--Wi Fi ImportantVC-->
+        <scene sceneID="go1-V1-hC3">
+            <objects>
+                <viewController storyboardIdentifier="WiFiImportantVC" id="QoJ-hp-CCe" customClass="WiFiImportantVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hax-4O-JP6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Discovery Mode." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d07-ly-KzB">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please hold whilst we connect your HDANY-WHERE device to your WiFi router." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mqq-67-Bcn">
+                                <rect key="frame" x="20" y="83.666666666666671" width="374" height="47.000000000000014"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please hold whilst we connect your HDANY-WHERE device to your WiFi router." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHr-9v-3Ij">
+                                <rect key="frame" x="20" y="160.66666666666666" width="374" height="47"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please hold whilst we connect your HDANY-WHERE device to your WiFi router." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dpc-cD-3HX">
+                                <rect key="frame" x="20" y="237.66666666666663" width="374" height="47"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ed1-sD-U1Y" customClass="CustomButton">
+                                <rect key="frame" x="20" y="596" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="nYG-up-Gih"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="START">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnSTART_Clicked:" destination="QoJ-hp-CCe" eventType="touchUpInside" id="5wI-Ac-rBg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwx-it-UyW" customClass="CustomButton_NoBorder">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="IRG-83-oYp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="ADVANCE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnADVANCE_Clicked:" destination="QoJ-hp-CCe" eventType="touchUpInside" id="85o-aF-daX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FIt-2N-PpO"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="d07-ly-KzB" firstAttribute="leading" secondItem="FIt-2N-PpO" secondAttribute="leading" constant="20" id="6Qv-U2-NbY"/>
+                            <constraint firstItem="FIt-2N-PpO" firstAttribute="trailing" secondItem="d07-ly-KzB" secondAttribute="trailing" constant="20" id="7cg-iN-so8"/>
+                            <constraint firstItem="VHr-9v-3Ij" firstAttribute="leading" secondItem="Mqq-67-Bcn" secondAttribute="leading" id="BEl-ot-12m"/>
+                            <constraint firstItem="Dpc-cD-3HX" firstAttribute="trailing" secondItem="VHr-9v-3Ij" secondAttribute="trailing" id="BJQ-dV-Qcd"/>
+                            <constraint firstItem="ed1-sD-U1Y" firstAttribute="trailing" secondItem="qwx-it-UyW" secondAttribute="trailing" id="ETy-ZN-eny"/>
+                            <constraint firstItem="qwx-it-UyW" firstAttribute="top" secondItem="ed1-sD-U1Y" secondAttribute="bottom" constant="20" id="Eeb-wE-Hwe"/>
+                            <constraint firstItem="VHr-9v-3Ij" firstAttribute="trailing" secondItem="Mqq-67-Bcn" secondAttribute="trailing" id="HMQ-Vb-KiO"/>
+                            <constraint firstItem="Mqq-67-Bcn" firstAttribute="trailing" secondItem="d07-ly-KzB" secondAttribute="trailing" id="KQt-Jw-cLb"/>
+                            <constraint firstItem="Mqq-67-Bcn" firstAttribute="leading" secondItem="d07-ly-KzB" secondAttribute="leading" id="O9N-dm-ONb"/>
+                            <constraint firstItem="Mqq-67-Bcn" firstAttribute="top" secondItem="d07-ly-KzB" secondAttribute="bottom" constant="30" id="UqI-Ez-aVR"/>
+                            <constraint firstItem="ed1-sD-U1Y" firstAttribute="leading" secondItem="qwx-it-UyW" secondAttribute="leading" id="VUx-fk-7VG"/>
+                            <constraint firstItem="d07-ly-KzB" firstAttribute="top" secondItem="FIt-2N-PpO" secondAttribute="top" constant="30" id="cEt-7m-W2p"/>
+                            <constraint firstItem="Dpc-cD-3HX" firstAttribute="top" secondItem="VHr-9v-3Ij" secondAttribute="bottom" constant="30" id="cpk-KS-vNh"/>
+                            <constraint firstItem="VHr-9v-3Ij" firstAttribute="top" secondItem="Mqq-67-Bcn" secondAttribute="bottom" constant="30" id="kJa-m4-P8j"/>
+                            <constraint firstItem="FIt-2N-PpO" firstAttribute="trailing" secondItem="qwx-it-UyW" secondAttribute="trailing" constant="20" id="qGP-pM-jzX"/>
+                            <constraint firstItem="FIt-2N-PpO" firstAttribute="bottom" secondItem="qwx-it-UyW" secondAttribute="bottom" constant="30" id="skr-2a-4Vg"/>
+                            <constraint firstItem="Dpc-cD-3HX" firstAttribute="leading" secondItem="VHr-9v-3Ij" secondAttribute="leading" id="uEg-gi-CEe"/>
+                            <constraint firstItem="qwx-it-UyW" firstAttribute="leading" secondItem="FIt-2N-PpO" secondAttribute="leading" constant="20" id="xhC-AZ-Vqo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_Advance" destination="qwx-it-UyW" id="Tjq-OO-frX"/>
+                        <outlet property="btn_Advance_height" destination="IRG-83-oYp" id="EfN-x3-W3S"/>
+                        <outlet property="btn_Start" destination="ed1-sD-U1Y" id="8gq-lL-Uv8"/>
+                        <outlet property="lbl_heading" destination="d07-ly-KzB" id="760-qo-ngT"/>
+                        <outlet property="lbl_subHeading" destination="Mqq-67-Bcn" id="xmF-9a-dge"/>
+                        <outlet property="lbl_subHeading1" destination="VHr-9v-3Ij" id="YpA-Fo-GNZ"/>
+                        <outlet property="lbl_subHeading2" destination="Dpc-cD-3HX" id="8H4-nD-I2Y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RrF-9b-sqt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1538" y="680"/>
+        </scene>
+        <!--Wifi Discovery ModeVC-->
+        <scene sceneID="tyJ-hE-RbX">
+            <objects>
+                <viewController storyboardIdentifier="WifiDiscoveryModeVC" id="7Te-wn-JtZ" customClass="WifiDiscoveryModeVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TTf-zT-Ka7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The power LED should be flashing." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xev-ie-adG">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please hold whilst we connect your HDANY-WHERE device to your WiFi router." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tH-Lk-opF">
+                                <rect key="frame" x="20" y="83.666666666666671" width="374" height="47.000000000000014"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zkb-5s-X1g" customClass="CustomButton">
+                                <rect key="frame" x="20" y="596" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="L20-Ai-CI1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="THE LED IS FLASHING">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnFLASHING_Clicked:" destination="7Te-wn-JtZ" eventType="touchUpInside" id="8po-sa-MMX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sut-nR-m3i" customClass="CustomButton_NoBorder">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="sL3-Cp-grb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="THE LED IS SOLID">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnSOLID_Clicked:" destination="7Te-wn-JtZ" eventType="touchUpInside" id="puK-L9-tqb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QqL-3N-xfG"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Sut-nR-m3i" firstAttribute="top" secondItem="Zkb-5s-X1g" secondAttribute="bottom" constant="20" id="2i0-0l-OTm"/>
+                            <constraint firstItem="xev-ie-adG" firstAttribute="leading" secondItem="QqL-3N-xfG" secondAttribute="leading" constant="20" id="8gS-ix-ovv"/>
+                            <constraint firstItem="1tH-Lk-opF" firstAttribute="leading" secondItem="xev-ie-adG" secondAttribute="leading" id="CQJ-l9-Ncy"/>
+                            <constraint firstItem="QqL-3N-xfG" firstAttribute="trailing" secondItem="Sut-nR-m3i" secondAttribute="trailing" constant="20" id="ETL-6T-EzO"/>
+                            <constraint firstItem="Sut-nR-m3i" firstAttribute="leading" secondItem="QqL-3N-xfG" secondAttribute="leading" constant="20" id="H6G-jP-IMQ"/>
+                            <constraint firstItem="Zkb-5s-X1g" firstAttribute="trailing" secondItem="Sut-nR-m3i" secondAttribute="trailing" id="LVy-Oc-iop"/>
+                            <constraint firstItem="1tH-Lk-opF" firstAttribute="top" secondItem="xev-ie-adG" secondAttribute="bottom" constant="30" id="a07-xf-HGP"/>
+                            <constraint firstItem="Zkb-5s-X1g" firstAttribute="leading" secondItem="Sut-nR-m3i" secondAttribute="leading" id="ajf-Pi-VlY"/>
+                            <constraint firstItem="xev-ie-adG" firstAttribute="top" secondItem="QqL-3N-xfG" secondAttribute="top" constant="30" id="gkv-8a-rN5"/>
+                            <constraint firstItem="QqL-3N-xfG" firstAttribute="bottom" secondItem="Sut-nR-m3i" secondAttribute="bottom" constant="30" id="mWX-9l-16L"/>
+                            <constraint firstItem="1tH-Lk-opF" firstAttribute="trailing" secondItem="xev-ie-adG" secondAttribute="trailing" id="qxL-Rj-ZNn"/>
+                            <constraint firstItem="QqL-3N-xfG" firstAttribute="trailing" secondItem="xev-ie-adG" secondAttribute="trailing" constant="20" id="yTP-J1-9h7"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_flashing" destination="Zkb-5s-X1g" id="0Gv-hP-j8H"/>
+                        <outlet property="btn_solid" destination="Sut-nR-m3i" id="D1P-gh-m6u"/>
+                        <outlet property="lbl_heading" destination="xev-ie-adG" id="75t-w6-eoh"/>
+                        <outlet property="lbl_subHeading" destination="1tH-Lk-opF" id="y7J-0n-CAP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X7Q-NL-Cw8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2303" y="680"/>
+        </scene>
+        <!--Remove Ethernet CableVC-->
+        <scene sceneID="idB-gs-SkM">
+            <objects>
+                <viewController storyboardIdentifier="RemoveEthernetCableVC" id="eEw-Wa-QKd" customClass="RemoveEthernetCableVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="brB-z1-U6R">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The power LED should be flashing." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6so-wa-7Po">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please hold whilst we connect your HDANY-WHERE device to your WiFi router." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lek-yE-vk0">
+                                <rect key="frame" x="20" y="83.666666666666671" width="374" height="47.000000000000014"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Yp-sy-5Xb" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="xPM-8y-nkz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="ETHERNET HAS BEEN REMOVED">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btn_ETHERNET_REMOVED_Clicked:" destination="eEw-Wa-QKd" eventType="touchUpInside" id="gw0-9S-tIc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Jqh-ce-fgi"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Jqh-ce-fgi" firstAttribute="bottom" secondItem="7Yp-sy-5Xb" secondAttribute="bottom" constant="30" id="Cte-SR-QiX"/>
+                            <constraint firstItem="Jqh-ce-fgi" firstAttribute="trailing" secondItem="6so-wa-7Po" secondAttribute="trailing" constant="20" id="DFe-ge-EYe"/>
+                            <constraint firstItem="Lek-yE-vk0" firstAttribute="trailing" secondItem="6so-wa-7Po" secondAttribute="trailing" id="HAM-XW-9CF"/>
+                            <constraint firstItem="Lek-yE-vk0" firstAttribute="leading" secondItem="6so-wa-7Po" secondAttribute="leading" id="HCn-bc-Ktf"/>
+                            <constraint firstItem="Jqh-ce-fgi" firstAttribute="trailing" secondItem="7Yp-sy-5Xb" secondAttribute="trailing" constant="20" id="Tkq-xd-GjA"/>
+                            <constraint firstItem="Lek-yE-vk0" firstAttribute="top" secondItem="6so-wa-7Po" secondAttribute="bottom" constant="30" id="X7R-XK-QpV"/>
+                            <constraint firstItem="7Yp-sy-5Xb" firstAttribute="leading" secondItem="Jqh-ce-fgi" secondAttribute="leading" constant="20" id="d7B-de-2eZ"/>
+                            <constraint firstItem="6so-wa-7Po" firstAttribute="leading" secondItem="Jqh-ce-fgi" secondAttribute="leading" constant="20" id="dPY-ir-AQj"/>
+                            <constraint firstItem="6so-wa-7Po" firstAttribute="top" secondItem="Jqh-ce-fgi" secondAttribute="top" constant="30" id="efn-Qc-mpB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_cableRemoved" destination="7Yp-sy-5Xb" id="WLU-nT-YYT"/>
+                        <outlet property="lbl_heading" destination="6so-wa-7Po" id="ezC-oM-3ct"/>
+                        <outlet property="lbl_subHeading" destination="Lek-yE-vk0" id="pkG-2h-hso"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d60-az-ZmW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2958" y="680"/>
+        </scene>
+        <!--Switch To WifiVC-->
+        <scene sceneID="hoh-vm-k78">
+            <objects>
+                <viewController storyboardIdentifier="SwitchToWifiVC" id="yld-6Q-EvG" customClass="SwitchToWifiVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ma6-s2-fq8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The power LED should be flashing." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IgX-cz-mqi">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please hold whilst we connect your HDANY-WHERE device to your WiFi router." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0G-ZP-AU5">
+                                <rect key="frame" x="20" y="83.666666666666671" width="374" height="47.000000000000014"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASSWORD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YE-N2-5hA">
+                                <rect key="frame" x="175.66666666666666" y="160.66666666666666" width="63" height="17.666666666666657"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="12"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hdanywhere" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FQ-2r-ORe">
+                                <rect key="frame" x="158" y="178.33333333333334" width="98.333333333333314" height="26.666666666666657"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlk-Wj-rqe">
+                                <rect key="frame" x="20" y="220" width="374" height="0.66666666666665719"/>
+                                <color key="backgroundColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="1xI-cr-UGK"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dX1-kw-YJP" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Z9V-ge-K9A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="I AM CONNECTED TO THE HDA WIFI HOTSPOT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btn_CONNECTED_Clicked:" destination="yld-6Q-EvG" eventType="touchUpInside" id="Pr7-TS-I2v"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="U7u-ZZ-v1l"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="U7u-ZZ-v1l" firstAttribute="bottom" secondItem="dX1-kw-YJP" secondAttribute="bottom" constant="30" id="41z-R9-8ZU"/>
+                            <constraint firstItem="zlk-Wj-rqe" firstAttribute="top" secondItem="9FQ-2r-ORe" secondAttribute="bottom" constant="15" id="6zi-RF-7qV"/>
+                            <constraint firstItem="zlk-Wj-rqe" firstAttribute="trailing" secondItem="t0G-ZP-AU5" secondAttribute="trailing" id="GYa-uN-55E"/>
+                            <constraint firstItem="U7u-ZZ-v1l" firstAttribute="trailing" secondItem="IgX-cz-mqi" secondAttribute="trailing" constant="20" id="Nho-X2-1nB"/>
+                            <constraint firstItem="IgX-cz-mqi" firstAttribute="top" secondItem="U7u-ZZ-v1l" secondAttribute="top" constant="30" id="OaO-Px-AUf"/>
+                            <constraint firstItem="2YE-N2-5hA" firstAttribute="centerX" secondItem="U7u-ZZ-v1l" secondAttribute="centerX" id="T3Q-oV-MCm"/>
+                            <constraint firstItem="9FQ-2r-ORe" firstAttribute="top" secondItem="2YE-N2-5hA" secondAttribute="bottom" id="TI3-DM-HGR"/>
+                            <constraint firstItem="IgX-cz-mqi" firstAttribute="leading" secondItem="U7u-ZZ-v1l" secondAttribute="leading" constant="20" id="WmB-Cx-oIY"/>
+                            <constraint firstItem="U7u-ZZ-v1l" firstAttribute="trailing" secondItem="dX1-kw-YJP" secondAttribute="trailing" constant="20" id="abp-bb-bIN"/>
+                            <constraint firstItem="9FQ-2r-ORe" firstAttribute="centerX" secondItem="2YE-N2-5hA" secondAttribute="centerX" id="bHo-r2-LUC"/>
+                            <constraint firstItem="t0G-ZP-AU5" firstAttribute="top" secondItem="IgX-cz-mqi" secondAttribute="bottom" constant="30" id="ghK-3S-Q4K"/>
+                            <constraint firstItem="zlk-Wj-rqe" firstAttribute="leading" secondItem="t0G-ZP-AU5" secondAttribute="leading" id="ibg-y5-dFN"/>
+                            <constraint firstItem="t0G-ZP-AU5" firstAttribute="leading" secondItem="IgX-cz-mqi" secondAttribute="leading" id="stC-5Z-yvQ"/>
+                            <constraint firstItem="dX1-kw-YJP" firstAttribute="leading" secondItem="U7u-ZZ-v1l" secondAttribute="leading" constant="20" id="ueZ-DL-69r"/>
+                            <constraint firstItem="t0G-ZP-AU5" firstAttribute="trailing" secondItem="IgX-cz-mqi" secondAttribute="trailing" id="wBC-n2-fNr"/>
+                            <constraint firstItem="2YE-N2-5hA" firstAttribute="top" secondItem="t0G-ZP-AU5" secondAttribute="bottom" constant="30" id="yAr-xo-MFm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_connected" destination="dX1-kw-YJP" id="Xce-Gc-Nsr"/>
+                        <outlet property="lbl_hdanywhere" destination="9FQ-2r-ORe" id="B2U-po-0Y8"/>
+                        <outlet property="lbl_heading" destination="IgX-cz-mqi" id="DWb-gm-sdL"/>
+                        <outlet property="lbl_password" destination="2YE-N2-5hA" id="ekb-mk-T8b"/>
+                        <outlet property="lbl_subHeading" destination="t0G-ZP-AU5" id="yWR-xO-zxL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v3t-gS-7Fd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3700" y="680"/>
+        </scene>
+        <!--Wi Fi ErrorVC-->
+        <scene sceneID="kIN-b3-DTh">
+            <objects>
+                <viewController storyboardIdentifier="WiFiErrorVC" id="45y-61-vDJ" customClass="WiFiErrorVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="76p-ap-ZR2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The power LED should be flashing." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O28-7W-eVe">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please hold whilst we connect your HDANY-WHERE device to your WiFi router." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZH-xl-j19">
+                                <rect key="frame" x="20" y="83.666666666666671" width="374" height="47.000000000000014"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="443-A7-EUa" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="gRv-og-KA6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="Try Again">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btn_TRYAGAIN_Clicked:" destination="45y-61-vDJ" eventType="touchUpInside" id="aub-qa-5mz"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vg4-6i-qWh"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xZH-xl-j19" firstAttribute="top" secondItem="O28-7W-eVe" secondAttribute="bottom" constant="30" id="6q4-qL-Gea"/>
+                            <constraint firstItem="443-A7-EUa" firstAttribute="leading" secondItem="vg4-6i-qWh" secondAttribute="leading" constant="20" id="9T4-lK-db9"/>
+                            <constraint firstItem="xZH-xl-j19" firstAttribute="leading" secondItem="O28-7W-eVe" secondAttribute="leading" id="B5D-KG-BJk"/>
+                            <constraint firstItem="O28-7W-eVe" firstAttribute="leading" secondItem="vg4-6i-qWh" secondAttribute="leading" constant="20" id="EjB-S6-ey3"/>
+                            <constraint firstItem="vg4-6i-qWh" firstAttribute="bottom" secondItem="443-A7-EUa" secondAttribute="bottom" constant="30" id="Jog-W7-Qu9"/>
+                            <constraint firstItem="vg4-6i-qWh" firstAttribute="trailing" secondItem="443-A7-EUa" secondAttribute="trailing" constant="20" id="QpN-MT-VLq"/>
+                            <constraint firstItem="O28-7W-eVe" firstAttribute="top" secondItem="vg4-6i-qWh" secondAttribute="top" constant="30" id="ZdA-Hg-ybH"/>
+                            <constraint firstItem="vg4-6i-qWh" firstAttribute="trailing" secondItem="O28-7W-eVe" secondAttribute="trailing" constant="20" id="oLb-z4-qoO"/>
+                            <constraint firstItem="xZH-xl-j19" firstAttribute="trailing" secondItem="O28-7W-eVe" secondAttribute="trailing" id="uIx-H4-uJo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_tryAgain" destination="443-A7-EUa" id="tcp-Pe-ZeL"/>
+                        <outlet property="lbl_heading" destination="O28-7W-eVe" id="Txz-zb-48R"/>
+                        <outlet property="lbl_subHeading" destination="xZH-xl-j19" id="PRk-y2-M6I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YGU-kU-uSc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4496" y="680"/>
+        </scene>
+        <!--Wi Fi Device ConnecteVC-->
+        <scene sceneID="sns-ZF-eiF">
+            <objects>
+                <viewController storyboardIdentifier="WiFiDeviceConnecteVC" id="cCZ-nm-Dfe" customClass="WiFiDeviceConnecteVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bzy-Kz-n37">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your device is now connected to your WiFi network." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ph-GM-X6N">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="you can connect to this system in uControl as normal." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iv-NO-JYe">
+                                <rect key="frame" x="20" y="83.666666666666671" width="374" height="47.000000000000014"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pn-JD-kxw" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="bby-XV-sVj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="COMPLETE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btn_COMPLETED_Clicked:" destination="cCZ-nm-Dfe" eventType="touchUpInside" id="SKy-yd-sWh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7Hy-sT-0MG"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2iv-NO-JYe" firstAttribute="top" secondItem="5ph-GM-X6N" secondAttribute="bottom" constant="30" id="4CG-sK-A3i"/>
+                            <constraint firstItem="2iv-NO-JYe" firstAttribute="trailing" secondItem="5ph-GM-X6N" secondAttribute="trailing" id="BgI-cE-cQz"/>
+                            <constraint firstItem="5ph-GM-X6N" firstAttribute="top" secondItem="7Hy-sT-0MG" secondAttribute="top" constant="30" id="LYE-yr-zNv"/>
+                            <constraint firstItem="5ph-GM-X6N" firstAttribute="leading" secondItem="7Hy-sT-0MG" secondAttribute="leading" constant="20" id="Oaa-1n-guh"/>
+                            <constraint firstItem="7Hy-sT-0MG" firstAttribute="trailing" secondItem="5ph-GM-X6N" secondAttribute="trailing" constant="20" id="SgD-zW-tXA"/>
+                            <constraint firstItem="4pn-JD-kxw" firstAttribute="leading" secondItem="7Hy-sT-0MG" secondAttribute="leading" constant="20" id="bmt-hj-MML"/>
+                            <constraint firstItem="7Hy-sT-0MG" firstAttribute="trailing" secondItem="4pn-JD-kxw" secondAttribute="trailing" constant="20" id="g5t-pg-QCu"/>
+                            <constraint firstItem="2iv-NO-JYe" firstAttribute="leading" secondItem="5ph-GM-X6N" secondAttribute="leading" id="riw-Qo-V3O"/>
+                            <constraint firstItem="7Hy-sT-0MG" firstAttribute="bottom" secondItem="4pn-JD-kxw" secondAttribute="bottom" constant="30" id="vJc-sY-HiK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_complete" destination="4pn-JD-kxw" id="Fgo-EI-dn5"/>
+                        <outlet property="lbl_heading" destination="5ph-GM-X6N" id="RIA-NL-39X"/>
+                        <outlet property="lbl_subHeading" destination="2iv-NO-JYe" id="S12-k2-7wR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bEV-jQ-2QQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5194" y="680"/>
+        </scene>
+        <!--Wifi Final ErrorVC-->
+        <scene sceneID="3wO-xM-eZd">
+            <objects>
+                <viewController storyboardIdentifier="Wifi_Final_ErrorVC" id="vkA-TU-kKi" customClass="Wifi_Final_ErrorVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2QB-w7-k37">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check that you're connected to the device hotspot." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HC0-4B-h2y">
+                                <rect key="frame" x="20" y="30" width="374" height="23.666666666666671"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ensure that you are connected to the HDA device WiFi hotspot." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIH-D2-foV">
+                                <rect key="frame" x="20" y="83.666666666666671" width="374" height="47.000000000000014"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double check that your SSID password is correct." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ui-7S-2bN">
+                                <rect key="frame" x="20" y="160.66666666666666" width="374" height="23.666666666666657"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ensure that the password for your WiFi network is correct." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5X-xS-ebK">
+                                <rect key="frame" x="20" y="214.33333333333334" width="374" height="47.000000000000028"/>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will have to wait several minutes." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6e-Eq-oU6">
+                                <rect key="frame" x="20" y="291.33333333333331" width="374" height="23.666666666666686"/>
+                                <fontDescription key="fontDescription" name="Heebo-Bold" family="Heebo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1EA-kd-p7r">
+                                <rect key="frame" x="20" y="345" width="374" height="94"/>
+                                <string key="text">Your device will revert back to Ethernet mode and your power LED will stop flashing. This will take several minutes. Once that has reverted you can restart the WiFi connection process again.</string>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="16"/>
+                                <color key="textColor" red="0.52549019610000003" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxz-wu-Gwj" customClass="CustomButton">
+                                <rect key="frame" x="20" y="661" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="1cf-Tv-ct9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="14"/>
+                                <state key="normal" title="Try Again">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btn_TRYAGAIN_Clicked:" destination="vkA-TU-kKi" eventType="touchUpInside" id="JJf-hc-8aQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Sd5-wh-Tzx"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Sd5-wh-Tzx" firstAttribute="trailing" secondItem="nxz-wu-Gwj" secondAttribute="trailing" constant="20" id="10b-vq-zuS"/>
+                            <constraint firstItem="P5X-xS-ebK" firstAttribute="trailing" secondItem="2ui-7S-2bN" secondAttribute="trailing" id="385-UK-n8e"/>
+                            <constraint firstItem="w6e-Eq-oU6" firstAttribute="leading" secondItem="P5X-xS-ebK" secondAttribute="leading" id="3jL-NT-CSH"/>
+                            <constraint firstItem="HC0-4B-h2y" firstAttribute="top" secondItem="Sd5-wh-Tzx" secondAttribute="top" constant="30" id="4Iy-nm-4DD"/>
+                            <constraint firstItem="2ui-7S-2bN" firstAttribute="trailing" secondItem="QIH-D2-foV" secondAttribute="trailing" id="6NA-IF-IAr"/>
+                            <constraint firstItem="1EA-kd-p7r" firstAttribute="trailing" secondItem="w6e-Eq-oU6" secondAttribute="trailing" id="6fJ-nq-jXR"/>
+                            <constraint firstItem="P5X-xS-ebK" firstAttribute="top" secondItem="2ui-7S-2bN" secondAttribute="bottom" constant="30" id="7im-Yr-u0b"/>
+                            <constraint firstItem="2ui-7S-2bN" firstAttribute="leading" secondItem="QIH-D2-foV" secondAttribute="leading" id="Cme-YO-LDM"/>
+                            <constraint firstItem="w6e-Eq-oU6" firstAttribute="top" secondItem="P5X-xS-ebK" secondAttribute="bottom" constant="30" id="F1m-C1-OWt"/>
+                            <constraint firstItem="QIH-D2-foV" firstAttribute="trailing" secondItem="HC0-4B-h2y" secondAttribute="trailing" id="GpW-ww-0df"/>
+                            <constraint firstItem="HC0-4B-h2y" firstAttribute="leading" secondItem="Sd5-wh-Tzx" secondAttribute="leading" constant="20" id="NVj-Z4-X1c"/>
+                            <constraint firstItem="1EA-kd-p7r" firstAttribute="leading" secondItem="w6e-Eq-oU6" secondAttribute="leading" id="Nsr-5t-ThI"/>
+                            <constraint firstItem="Sd5-wh-Tzx" firstAttribute="bottom" secondItem="nxz-wu-Gwj" secondAttribute="bottom" constant="30" id="PAR-ET-m6f"/>
+                            <constraint firstItem="QIH-D2-foV" firstAttribute="top" secondItem="HC0-4B-h2y" secondAttribute="bottom" constant="30" id="QjD-xI-ANP"/>
+                            <constraint firstItem="P5X-xS-ebK" firstAttribute="leading" secondItem="2ui-7S-2bN" secondAttribute="leading" id="Sgq-yR-FAc"/>
+                            <constraint firstItem="w6e-Eq-oU6" firstAttribute="trailing" secondItem="P5X-xS-ebK" secondAttribute="trailing" id="WzX-L1-QLK"/>
+                            <constraint firstItem="Sd5-wh-Tzx" firstAttribute="trailing" secondItem="HC0-4B-h2y" secondAttribute="trailing" constant="20" id="aBy-Yl-Tfy"/>
+                            <constraint firstItem="nxz-wu-Gwj" firstAttribute="leading" secondItem="Sd5-wh-Tzx" secondAttribute="leading" constant="20" id="cpp-Oi-6Iy"/>
+                            <constraint firstItem="QIH-D2-foV" firstAttribute="leading" secondItem="HC0-4B-h2y" secondAttribute="leading" id="e7B-SW-nOq"/>
+                            <constraint firstItem="1EA-kd-p7r" firstAttribute="top" secondItem="w6e-Eq-oU6" secondAttribute="bottom" constant="30" id="fqB-xn-7pJ"/>
+                            <constraint firstItem="2ui-7S-2bN" firstAttribute="top" secondItem="QIH-D2-foV" secondAttribute="bottom" constant="30" id="rWA-BN-2ww"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btn_tryAgain" destination="nxz-wu-Gwj" id="eqK-Cn-Tl5"/>
+                        <outlet property="lbl_heading" destination="HC0-4B-h2y" id="CED-Rj-fck"/>
+                        <outlet property="lbl_heading2" destination="2ui-7S-2bN" id="mcY-MT-A98"/>
+                        <outlet property="lbl_heading3" destination="w6e-Eq-oU6" id="kAi-Ph-Nvr"/>
+                        <outlet property="lbl_subHeading" destination="QIH-D2-foV" id="ahT-ZP-glj"/>
+                        <outlet property="lbl_subHeading2" destination="P5X-xS-ebK" id="FaR-Mk-edh"/>
+                        <outlet property="lbl_subHeading3" destination="1EA-kd-p7r" id="cYj-qL-7Fp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gBK-dC-wva" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5878" y="680"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="next-arrow-white" width="171" height="171"/>
+        <image name="wifiDemo" width="469.5" height="280"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

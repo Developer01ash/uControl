@@ -1,0 +1,101 @@
+//
+//  APIManager.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 20/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "AFNetworking.h"
+#import "APIResponse.h"
+#import "SSDPManager.h"
+
+@interface APIManager : NSObject
+
++(void) getmHubDetails_DataSync:(BOOL)isSync completion:(void (^)(APIResponse *responseObject))handler;
+//+(void) getmHubDetails_Address:(NSString*)strAddress completion:(void (^)(APIResponse *responseObject))handler;
+
++(void) mHUBConfigXML_Hub:(Hub*)objHub completion:(void (^)(APIResponse *responseObject))handler;
++(void) mHUBUserProfileXML_Hub:(Hub*)objHub completion:(void (^)(APIResponse *responseObject))handler;
++(void) mHUBAudioStateXML_Audio:(Hub*)objAudioDevice completion:(void (^)(APIResponse *responseObject))handler;
+
++(void) resyncMHUBProData;
++(void) getFORCEMOSUpdate:(Hub*)hubObj updateData:(NSString *)dictParameter completion:(void (^)(APIResponse *responseObject))handler;
++(void) getOutputIREngineStatus:(NSInteger)intSourceIndex completion:(void (^)(APIResponse *responseObject)) handler;
++(void) getInputIREngineStatus:(NSInteger)intSourceIndex completion:(void (^)(APIResponse *responseObject)) handler;
++(void) getAVRIREngineStatus:(NSInteger)intAVRIndex completion:(void (^)(APIResponse *responseObject)) handler;
+
++(void) getSwitchStatus:(NSInteger)intOutputIndex completion:(void (^)(APIResponse *responseObject)) handler;
++(void) putSwitchIn_OutputIndex:(NSInteger)intOutputIndex InputIndex:(NSInteger)intInputIndex completion:(void (^)(APIResponse *responseObject)) handler;
+
+//+(void) callIRCommand:(Command*)objCmd PortNo:(NSInteger)intPort;
++(void) getDashUpgradeDetails:(Hub*)hubObj updateData:(NSString *)dictParameter completion:(void (^)(NSDictionary *responseObject))handler;
++(void) getSequenceList:(NSString*)strMOSVersion completion:(void (^)(APIResponse *responseObject))handler;
++(void) playMacro_AlexaName:(NSString*)strAlexaName completion:(void (^)(APIResponse *responseObject)) handler;
+
++(void) reloadSourceSubView;
++(void) reloadDisplaySubView;
+
++(void) getSSDPServiceXML_Service:(SSDPService *)service completion:(void (^)(APIResponse *responseObject))handler;
+
++(void) postCloudBackup:(NSDictionary *)dictParameter completion:(void (^)(APIResponse *objResponse)) handler;
++(void) postCloudRegistration:(NSDictionary *)dictParameter completion:(void (^)(APIResponse *objResponse)) handler;
++(void) postCloudLogin:(NSDictionary *)dictParameter completion:(void (^)(APIResponse *objResponse)) handler;
++(void) fetchCloudBackup:(NSDictionary *)dictParameter completion:(void (^)(APIResponse *objResponse)) handler;
+
+//+(void) getGroupList_WithCompletion:(void (^)(APIResponse *responseObject))handler;
+//+(void) setGroupAddEdit:(NSDictionary *)dictParameter completion:(void (^)(APIResponse *objResponse)) handler;
+//+(void) setGroupDelete:(NSInteger)intGroupId completion:(void (^)(APIResponse *objResponse)) handler;
+
++(void) methodToCheckUpdatedVersionOnAppStore_WithCompletion:(void(^)(BOOL isUpdate))handler;
+
+//MARK: API V2 Methods
+
+//+(void) fileMHUBConfigJSON_Hub:(Hub*)objHub completion:(void (^)(APIV2Response *responseObject))handler;
+//+(void) fileMHUBUserProfileJSON_Hub:(Hub*)objHub completion:(void (^)(APIV2Response *responseObject))handler;
++(void) filePairJSON_Hub:(Hub*)objHub completion:(void (^)(APIV2Response *responseObject))handler;
++(void) fileIRPackXML_Hub:(Hub*)objHub PortId:(NSInteger)intPortId completion:(void (^)(APIV2Response *responseObject))handler;
+
++(void) fileAllDetails:(Hub*)objHub completion:(void (^)(APIV2Response *responseObject))handler;
+
++(void) getMHUBZoneStatus:(Hub*)objHub Zone:(Zone*)objZone completion:(void (^)(APIV2Response *responseObject))handler;
+//+(void) getUControlPack:(Hub*)objHub PortId:(NSInteger)intPortId completion:(void (^)(APIV2Response *responseObject))handler;
+
++(void) getAllMHUBDetails:(Hub*)objHub Stacked:(BOOL)isStacked Slave:(NSMutableArray*)arrSlaveDevice Sync:(BOOL)isSync completion:(void (^)(APIV2Response *responseObject))handler;
++(void) getSystemDetails:(Hub*)objDevice Stacked:(BOOL)isStacked Slave:(NSMutableArray*)arrSlaveDevice;
+
++(void) zoneSwitchStatus:(Hub*)objHub Zone:(Zone*)objInfo completion:(void (^)(APIV2Response *responseObject))handler;
++(void) switchInZoneOutputToInput:(Hub*)objHub Zone:(Zone*)objZone InputDevice:(InputDevice*)objIP completion:(void (^)(APIV2Response *responseObject))handler;
++(void) switchInAudioZone_Address:(NSString*)strAddress ZoneId:(NSString*)strZoneId InputIndex:(NSInteger)intInputIndex;
+//+(void) switchInAudioZone_Address:(NSString*)strAddress ZoneId:(NSString*)strZoneId InputIndex:(NSInteger)intInputIndex completion:(void (^)(APIV2Response *responseObject))handler;
++(void) controlVolumeAudioZone_Address:(NSString*)strAddress ZoneId:(NSString*)strZoneId Volume:(NSInteger)intVolume;
++(void) controlMuteAudioZone_Address:(NSString*)strAddress ZoneId:(NSString*)strZoneId Mute:(BOOL)isMuted;
+//Without completion block
++(void) switchIn_Address:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex InputIndex:(NSInteger)intInputIndex;
+//With completion block
+//+(void) switchIn_Address:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex InputIndex:(NSInteger)intInputIndex completion:(void (^)(APIV2Response *responseObject))handler;
++(void) controlVolume_Address:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex Volume:(NSInteger)intVolume;
++(void) controlMute_Address:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex Mute:(BOOL)isMuted;
+
++(void) callExecuteCommand_Hub:(Hub*)objHub Command:(Command*)objCmd PortNo:(NSInteger)intPort;
+
++(void) executeSequence:(NSString*)strAddress SequenceId:(NSString*)strSequenceId completion:(void (^)(APIV2Response *responseObject)) handler;
+
++(void) groupManager_Address:(NSString*)strAddress Group:(Group*)objGroup Operation:(GroupOperation)operation completion:(void (^)(APIV2Response *responseObject))handler;
+
++(void) resetMhubSetting:(NSString*)strAddress completion:(void (^)(APIV2Response *responseObject))handler;
++(void) setPairJSON:(Hub*)objHub PairData:(NSDictionary *)dictParameter completion:(void (^)(APIV2Response *responseObject))handler;
++(void) checkMhubIdentity:(NSString*)strAddress updateData:(NSString *)dictParameter completion:(void (^)(APIV2Response *responseObject))handler;
++(void) fileMHUBBenchmark_details:(Hub*)objHub completion:(void (^)(APIV2Response *responseObject))handler;
++(void) getBenchMarkDetails:(NSString*)strAddress updateData:(NSString *)dictParameter completion:(void (^)(NSDictionary *responseObject))handler;
++(void)pingToTheHubExistOrNot:(NSString *)objDevice;
++ (void)writeAndAppendString:(NSString *)strRequestResponse toFile:(NSString *)fileName apiName:(NSString *)apiNameObj isFlag:(BOOL)isRequest requestParameter:(NSString *)requestParams;
++ (void)writeNormalStringWithTimeStamp:(NSString *)strToLog;
+
++ (BOOL)pinghosttoCheckNetworkStatus;
++ (NSData *)sendSynchronousRequestMe:(NSURLRequest *)request
+                   returningResponse:(__autoreleasing NSURLResponse **)responsePtr
+                               error:(__autoreleasing NSError **)errorPtr;
+
+@end

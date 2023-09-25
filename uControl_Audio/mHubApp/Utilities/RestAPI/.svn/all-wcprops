@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/Mobile/!svn/ver/2665/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI
+END
+API.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/API.h
+END
+APIManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/APIManager.m
+END
+APIResponse.m
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/APIResponse.m
+END
+API.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/API.m
+END
+XMLResponse.h
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/XMLResponse.h
+END
+Reachability.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/Reachability.h
+END
+APIManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/APIManager.h
+END
+XMLResponse.m
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/XMLResponse.m
+END
+Reachability.m
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/Reachability.m
+END
+APIResponse.h
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Utilities/RestAPI/APIResponse.h
+END

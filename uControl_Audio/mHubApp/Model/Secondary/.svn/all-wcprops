@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/Mobile/!svn/ver/2578/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary
+END
+UserData.m
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary/UserData.m
+END
+Command.h
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary/Command.h
+END
+CloudData.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary/CloudData.h
+END
+CommandType.h
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary/CommandType.h
+END
+Command.m
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary/Command.m
+END
+CloudData.m
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary/CloudData.m
+END
+CommandType.m
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary/CommandType.m
+END
+UserData.h
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Secondary/UserData.h
+END

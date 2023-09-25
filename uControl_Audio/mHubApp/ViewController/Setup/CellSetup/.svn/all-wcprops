@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/Mobile/!svn/ver/2568/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Setup/CellSetup
+END
+CellHeaderImage.h
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Setup/CellSetup/CellHeaderImage.h
+END
+CellHeaderImage.m
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/Mobile/!svn/ver/2568/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Setup/CellSetup/CellHeaderImage.m
+END
+CellSetup.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Setup/CellSetup/CellSetup.h
+END
+CellSetupDevice.h
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Setup/CellSetup/CellSetupDevice.h
+END
+CellSetup.m
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/Mobile/!svn/ver/2555/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Setup/CellSetup/CellSetup.m
+END
+CellSetupDevice.m
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/Mobile/!svn/ver/2568/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/Setup/CellSetup/CellSetupDevice.m
+END

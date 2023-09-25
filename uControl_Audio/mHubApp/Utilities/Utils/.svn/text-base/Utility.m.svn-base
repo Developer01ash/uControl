@@ -1,0 +1,731 @@
+//
+//  Utility.m
+//  mHubApp
+//
+//  Created by rave on 9/18/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import "Utility.h"
+
+@implementation Utility
+
++(id)checkNullForKey:(NSString*)key Dictionary:(NSDictionary*)dict {
+    @try {
+        id value = [dict valueForKey:key];
+        if (!value) {
+            NSString *strKey = [NSString stringWithFormat:@"_%@", key];
+            value = [dict valueForKey:strKey];
+            if (!value) {
+                NSString *strKey1 = [NSString stringWithFormat:@"_%@", strKey];
+                value = [dict valueForKey:strKey1];
+            }
+        }
+        if(![value isKindOfClass:[NSNull class]] && value) {
+            if ([value isKindOfClass:[NSString class]] && [value isEqualToString:@"null"]) {
+                return @"";
+            } else if ([value isKindOfClass:[NSArray class]] && ![value isNotEmpty]) {
+                return @"";
+            }
+            return value;
+        }
+        value = @"";
+        return value;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(void)saveUserDefaults:(NSString*)key value:(id)value {
+    @try {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if([value isNotEmpty]) {
+            [defaults setObject:value forKey:key];
+        } else {
+            [defaults setObject:@"" forKey:key];
+        }
+        [defaults synchronize];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(id)retrieveUserDefaults:(NSString*)key {
+    @try {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        id value = [defaults objectForKey:key];
+        
+        if([value isNotEmpty] && value) {
+            if ([value isKindOfClass:[NSString class]] && [value isEqualToString:@"null"]) {
+                return @"";
+            }
+            return value;
+        }
+        value = @"";
+        return value;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(void)deleteUserDefaults:(NSString*)key {
+    @try {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults removeObjectForKey:key];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(void)deleteAllUserDefaults {
+    @try {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary * dict = [defaults dictionaryRepresentation];
+        for (id key in dict) {
+            if ([key isEqual:kCOLORTHEMEOBJECT] || [key isEqual:kAppLaunchFirstTime] || [key isEqual:kLogoutOnUpdate] || [key isEqual:kAppSavedVersion] || [key isEqual:KUSERWASLOGGEDIN]) {
+                continue;
+            } else {
+                [defaults removeObjectForKey:key];
+            }
+        }
+        [defaults synchronize];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(UIImage *)imageWithColor:(UIColor *)color Frame:(CGRect)frame {
+    @try {
+        CGRect rect = CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height);
+        UIGraphicsBeginImageContext(rect.size);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        CGContextSetFillColorWithColor(context, [color CGColor]);
+        CGContextFillRect(context, rect);
+        
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return image;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(DeviceType) deviceType {
+    @try {
+        DeviceType deviceType = mobileLarge;
+        if (IS_IPHONE_4_HEIGHT || IS_IPHONE_5_HEIGHT || IS_IPHONE_6_HEIGHT) {
+            deviceType = mobileSmall;
+        } else if (IS_IPHONE_6_PLUS_HEIGHT || IS_IPHONE_X_HEIGHT || IS_IPHONE_XR_HEIGHT) {
+            deviceType = mobileLarge;
+        } else if (IS_IPAD && [[Utility deviceNameByCode] containsString:kIPADMINI]) {
+            deviceType = tabletSmall;
+        } else {
+            deviceType = tabletLarge;
+        }
+        return deviceType;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(DeviceType) deviceTypeByScreenSize {
+    @try {
+        CGFloat size = [Utility deviceSizeDiagonal];
+        DeviceType deviceType = mobileLarge;
+        if (IS_IPHONE && size <= 4.7) {
+            deviceType = mobileSmall;
+        } else if (IS_IPHONE && size > 4.7) {
+            deviceType = mobileLarge;
+        } else if (IS_IPAD && size <= 7.9) {
+            deviceType = tabletSmall;
+        } else {
+            deviceType = tabletLarge;
+        }
+        return deviceType;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
++(NSString*) deviceNameByCode {
+    @try {
+        struct utsname systemInfo;
+        uname(&systemInfo);
+        NSString* code = [NSString stringWithCString:systemInfo.machine
+                                            encoding:NSUTF8StringEncoding];
+        static NSDictionary* deviceNamesByCode = nil;
+        
+        if (!deviceNamesByCode) {
+            deviceNamesByCode = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Device" ofType:@"plist"]];
+        }
+        
+        NSString* deviceName = [deviceNamesByCode objectForKey:code];
+        
+        if (!deviceName) {
+                // Not found on database. At least guess main device type from string contents:
+            
+            if ([code rangeOfString:@"iPod"].location != NSNotFound) {
+                deviceName = @"iPod Touch";
+            }
+            else if([code rangeOfString:@"iPad"].location != NSNotFound) {
+                deviceName = @"iPad";
+            }
+            else if([code rangeOfString:@"iPhone"].location != NSNotFound){
+                deviceName = @"iPhone";
+            }
+            else {
+                deviceName = @"Unknown";
+            }
+        }
+        // deviceName = @"iPad Mini";
+        return [deviceName uppercaseString];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(CGFloat) deviceSizeDiagonal {
+    @try {
+        float scale = [[UIScreen mainScreen] scale];
+        float ppi = scale * (IS_IPAD ? 132 : 163);
+        
+        float width = ([[UIScreen mainScreen] bounds].size.width * scale);
+        float height = ([[UIScreen mainScreen] bounds].size.height * scale);
+        
+        float horizontal = width / ppi, vertical = height / ppi;
+        
+        float diagonal = sqrt(pow(horizontal, 2) + pow(vertical, 2));
+        
+        //DDLogDebug(@"diagonal %f", diagonal);
+        
+        return diagonal;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(BOOL)getBoolValue:(NSString*)value {
+    @try {
+        BOOL isValue = false;
+        if ([value isKindOfClass:[NSString class]] && [value isEqualToString:@"on"]) {
+            isValue = true;
+        } else {
+            isValue = false;
+        }
+        return isValue;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSString*)stringToHex:(NSString*)str {
+    @try {
+        NSMutableArray *array = [NSMutableArray array];
+        for (int i = 0; i < [str length]; i++) {
+            NSString *ch = [str substringWithRange:NSMakeRange(i, 1)];
+            [array addObject:ch];
+        }
+        str = [array componentsJoinedByString:@"~"];
+        
+        NSString * hexStr = [NSString stringWithFormat:@"%@",
+                             [NSData dataWithBytes:[str cStringUsingEncoding:NSUTF8StringEncoding]
+                                            length:strlen([str cStringUsingEncoding:NSUTF8StringEncoding])]];
+        
+        for(NSString * toRemove in [NSArray arrayWithObjects:@"<", @">", @" ", nil])
+            hexStr = [hexStr stringByReplacingOccurrencesOfString:toRemove withString:@""];
+        
+        hexStr = [hexStr stringByReplacingOccurrencesOfString:@"7e" withString:@","];
+        //DDLogDebug(@"%@", hexStr);
+        return hexStr;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(char)integerToCharacter:(NSInteger)intNum {
+    @try {
+        char charReturn = (intNum+96);
+        // DDLogDebug(@"Int %ld == %c", (long)intNum, charReturn);
+        return charReturn;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSInteger)characterToInteger:(NSString*)string {
+    @try {
+        if ([string isValidNumeric]) {
+            NSInteger intReturn = [string integerValue];
+            // DDLogDebug(@"string == %@, integer == %ld", string, (long)intReturn);
+            return intReturn;
+        } else {
+            int asciiCode = [[string lowercaseString] characterAtIndex:0];
+            int intReturn = (asciiCode-96);
+            // DDLogDebug(@"string == %@, asciiCode == %i, integer == %i", string, asciiCode, intReturn);
+            return intReturn;
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+
++(NSDictionary *)getDictionaryFromJSONFile:(NSString *)strFileName {
+    NSDictionary *dictReturn = nil;
+    @try {
+        //get file name
+        NSString *fileName = [[NSBundle mainBundle] pathForResource:strFileName
+                                                             ofType:@"json"];
+        //check file exists
+        if (fileName) {
+            //retrieve file content
+            NSData *jsonData = [[NSData alloc] initWithContentsOfFile:fileName];
+            
+            //convert JSON NSData to a usable NSDictionary
+            NSError *error;
+            dictReturn = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                         options:0
+                                                           error:&error];
+            if (error) {
+                DDLogError(@"Something went wrong! %@", error.localizedDescription);
+            } else {
+                //  DDLogDebug(@"party info: %@", dictReturn);
+                //  return dictReturn;
+            }
+        }
+        else {
+            DDLogDebug(@"Couldn't find file!");
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    
+    return dictReturn;
+}
+
++(NSDictionary *)getDictionaryFromXMLFile:(NSString *)strFileName {
+    NSDictionary *dictReturn = nil;
+    @try {
+        //get file name
+        NSString *fileName = [[NSBundle mainBundle] pathForResource:strFileName
+                                                             ofType:@"xml"];
+        //check file exists
+        if (fileName) {
+            //retrieve file content
+            NSError* err = nil;
+            NSString *xmlString = [[NSString alloc] initWithContentsOfFile:fileName
+                                                                  encoding:NSUTF8StringEncoding
+                                                                     error:&err];
+            if (err) {
+                DDLogError(@"Error: %@", err.localizedDescription);
+            } else {
+                // DDLogDebug(@"string: %@", xmlString);
+                dictReturn = [NSDictionary dictionaryWithXMLString:xmlString];
+            }
+        }
+        else {
+            DDLogDebug(@"Couldn't find file!");
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return dictReturn;
+}
+
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    @try {
+        //UIGraphicsBeginImageContext(newSize);
+        // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+        // Pass 1.0 to force exact pixel size.
+        UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+        [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return newImage;
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(UIImage *)resizeImage:(UIImage *)image {
+    @try {
+        float actualHeight = image.size.height;
+        float actualWidth = image.size.width;
+        float maxHeight = 1000;
+        float maxWidth = 1000;
+        float imgRatio = actualWidth/actualHeight;
+        float maxRatio = maxWidth/maxHeight;
+        float compressionQuality = 0.5;//50 percent compression
+        
+        if (actualHeight > maxHeight || actualWidth > maxWidth)
+            {
+            if(imgRatio < maxRatio)
+                {
+                //adjust width according to maxHeight
+                imgRatio = maxHeight / actualHeight;
+                actualWidth = imgRatio * actualWidth;
+                actualHeight = maxHeight;
+                }
+            else if(imgRatio > maxRatio)
+                {
+                //adjust height according to maxWidth
+                imgRatio = maxWidth / actualWidth;
+                actualHeight = imgRatio * actualHeight;
+                actualWidth = maxWidth;
+                }
+            else
+                {
+                actualHeight = maxHeight;
+                actualWidth = maxWidth;
+                }
+            }
+        
+        CGRect rect = CGRectMake(0.0, 0.0, actualWidth, actualHeight);
+        UIGraphicsBeginImageContext(rect.size);
+        [image drawInRect:rect];
+        UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+        NSData *imageData = UIImageJPEGRepresentation(img, compressionQuality);
+        UIGraphicsEndImageContext();
+        
+        return [UIImage imageWithData:imageData];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++ (UIImage *)blurredImageWithImage:(UIImage *)sourceImage {
+    @try {
+            //  Create our blurred image
+        CIContext *context = [CIContext contextWithOptions:nil];
+        CIImage *inputImage = [CIImage imageWithCGImage:sourceImage.CGImage];
+        
+            //  Setting up Gaussian Blur
+        CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+        [filter setValue:inputImage forKey:kCIInputImageKey];
+        [filter setValue:[NSNumber numberWithFloat:5.0f] forKey:@"inputRadius"];
+        CIImage *result = [filter valueForKey:kCIOutputImageKey];
+        
+        /*  CIGaussianBlur has a tendency to shrink the image a little, this ensures it matches
+         *  up exactly to the bounds of our original image */
+        CGImageRef cgImage = [context createCGImage:result fromRect:[inputImage extent]];
+        
+        UIImage *retVal = [UIImage imageWithCGImage:cgImage];
+        return retVal;
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(UIColor*)colorWithHexString:(NSString*)hex {
+    @try {
+        
+        NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+        
+            // String should be 6 or 8 characters
+        if ([cString length] < 6) return [UIColor grayColor];
+        
+            // strip 0X if it appears
+        if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+        
+        if ([cString length] != 6) return  [UIColor grayColor];
+        
+            // Separate into r, g, b substrings
+        NSRange range;
+        range.location = 0;
+        range.length = 2;
+        NSString *rString = [cString substringWithRange:range];
+        
+        range.location = 2;
+        NSString *gString = [cString substringWithRange:range];
+        
+        range.location = 4;
+        NSString *bString = [cString substringWithRange:range];
+        
+            // Scan values
+        unsigned int r, g, b;
+        [[NSScanner scannerWithString:rString] scanHexInt:&r];
+        [[NSScanner scannerWithString:gString] scanHexInt:&g];
+        [[NSScanner scannerWithString:bString] scanHexInt:&b];
+        
+        return [UIColor colorWithRed:((float) r / 255.0f)
+                               green:((float) g / 255.0f)
+                                blue:((float) b / 255.0f)
+                               alpha:1.0f];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+// reentrant method to drill down and surface all sub-dictionaries' key/value pairs into the top level json
++(NSMutableDictionary *)parseDictionary:(NSDictionary *)inDictionary {
+    NSMutableDictionary *dictParsed = [[NSMutableDictionary alloc] init];
+    @try {
+        NSArray         *keys = [inDictionary allKeys];
+        NSString        *key;
+        for (key in keys) {
+            id thisObject = [inDictionary objectForKey:key];
+            
+            if ([thisObject isKindOfClass:[NSDictionary class]]) {
+                [dictParsed addEntriesFromDictionary:[[self parseDictionary:thisObject] mutableCopy]];
+            }
+            else if ([thisObject isKindOfClass:[NSString class]]) {
+                [dictParsed setObject:[inDictionary objectForKey:key] forKey:key];
+            } else {
+                [dictParsed setObject:[inDictionary objectForKey:key] forKey:key];
+            }
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return dictParsed;
+}
+
+#pragma mark - DocumentDirectory Access Methods
+
++ (NSString *)documentsPathForFileName:(NSInteger)intSourceIndex {
+    @try {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *documentsPath = [paths objectAtIndex:0]; //Get the docs directory
+        NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:kIMGBACKGROUND, (long)intSourceIndex]]; //Add the file name
+        return filePath;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(void)saveImageInDocumentDirectory:(UIImage *)imgBackground SourceIndex:(NSInteger) intSourceIndex {
+    @try {
+        NSData *pngData = UIImagePNGRepresentation(imgBackground);
+        NSString *filePath = [self documentsPathForFileName:intSourceIndex];
+        [pngData writeToFile:filePath atomically:YES]; //Write the file
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(UIImage*)retrieveImageFromDocumentDirectory:(NSInteger)intSourceIndex {
+    @try {
+        NSData *pngData = [NSData dataWithContentsOfFile:[self documentsPathForFileName:intSourceIndex]];
+        UIImage *image = [UIImage imageWithData:pngData];
+        return image;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(void)removeImageFromDocumentDirectory:(NSInteger)intSourceIndex {
+    @try {
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+
+        NSString *filePath = [self documentsPathForFileName:intSourceIndex];
+        NSError *error;
+        BOOL success = [fileManager removeItemAtPath:filePath error:&error];
+        if (!success || error)
+            DDLogError(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++ (NSString *)documentsPathForFileName_ZoneId:(NSString*)strZoneId {
+    @try {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *documentsPath = [paths objectAtIndex:0]; //Get the docs directory
+        NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:kIMGBACKGROUNDZONE, strZoneId]]; //Add the file name
+        return filePath;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(void)saveImageInDocumentDirectory:(UIImage *)imgBackground ZoneId:(NSString*)strZoneId {
+    @try {
+        NSData *pngData = UIImagePNGRepresentation(imgBackground);
+        NSString *filePath = [self documentsPathForFileName_ZoneId:strZoneId];
+        [pngData writeToFile:filePath atomically:YES]; //Write the file
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(UIImage*)retrieveImageFromDocumentDirectory_ZoneId:(NSString*)strZoneId {
+    @try {
+        NSData *pngData = [NSData dataWithContentsOfFile:[self documentsPathForFileName_ZoneId:strZoneId]];
+        UIImage *image = [UIImage imageWithData:pngData];
+        return image;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(void)removeImageFromDocumentDirectory_ZoneId:(NSString*)strZoneId {
+    @try {
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+        NSString *filePath = [self documentsPathForFileName_ZoneId:strZoneId];
+        NSError *error;
+        BOOL success = [fileManager removeItemAtPath:filePath error:&error];
+        if (!success || error)
+            DDLogError(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(void)removeAllImageFromDocumentDirectory {
+    @try {
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *documentsPath = [paths objectAtIndex:0]; //Get the docs directory
+        NSString *directory = [documentsPath stringByAppendingPathComponent:@"/"];
+        NSError *error = nil;
+        for (NSString *file in [fm contentsOfDirectoryAtPath:directory error:&error]) {
+            BOOL success = [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", directory, file] error:&error];
+            if (!success || error) {
+                DDLogError(@"Could not delete file -:%@ ",[error localizedDescription]);
+            }
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray *)getCountryName {
+    @try {
+        NSArray *arrCountryCodes = [NSLocale ISOCountryCodes];
+        NSMutableArray *arrCountryName = [[NSMutableArray alloc] init];
+        // arrCountryName = [NSMutableArray arrayWithCapacity:[arrCountryCodes count]];
+        for (NSString *countryCode in arrCountryCodes)
+            {
+            NSMutableDictionary *dictValue = [[NSMutableDictionary alloc] init];
+            NSString *countryName = [[NSLocale systemLocale] displayNameForKey:NSLocaleCountryCode value:countryCode];
+            [dictValue setValue:countryCode forKey:@"countryCode"];
+            [dictValue setObject:countryName forKey:@"countryName"];
+            
+            [arrCountryName addObject: dictValue];
+            }
+        
+        DDLogDebug(@"countryCount =%lu \n countryCode = %@, countryName = %@",(unsigned long)[arrCountryName count],arrCountryCodes,arrCountryName);
+        return arrCountryName;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++ (NSString *)getIPAddress {
+    @try {
+        NSString *address = @"error";
+        struct ifaddrs *interfaces = NULL;
+        struct ifaddrs *temp_addr = NULL;
+        int success = 0;
+        // retrieve the current interfaces - returns 0 on success
+        success = getifaddrs(&interfaces);
+        if (success == 0) {
+            // Loop through linked list of interfaces
+            temp_addr = interfaces;
+            while(temp_addr != NULL) {
+                if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                    // Check if interface is en0 which is the wifi connection on the iPhone
+                    if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                        // Get NSString from C String
+                        address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                        
+                    }
+                    
+                }
+                
+                temp_addr = temp_addr->ifa_next;
+            }
+        }
+        // Free memory
+        freeifaddrs(interfaces);
+        return address;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++ (NSString *)getMacAddress {
+    @try {
+        int mgmtInfoBase[6];
+        char *msgBuffer = NULL;
+        NSString *errorFlag = NULL;
+        size_t length;
+        // Setup the management Information Base (mib)
+        mgmtInfoBase[0] = CTL_NET; // Request network subsystem
+        mgmtInfoBase[1] = AF_ROUTE; // Routing table info
+        mgmtInfoBase[2] = 0;
+        mgmtInfoBase[3] = AF_LINK; // Request link layer information
+        mgmtInfoBase[4] = NET_RT_IFLIST; // Request all configured interfaces
+                                         // With all configured interfaces requested, get handle index
+        if ((mgmtInfoBase[5] = if_nametoindex("en0")) == 0)
+            errorFlag = @"if_nametoindex failure";
+        // Get the size of the data available (store in len)
+        else if (sysctl(mgmtInfoBase, 6, NULL, &length, NULL, 0) < 0)
+            errorFlag = @"sysctl mgmtInfoBase failure";
+        // Alloc memory based on above call
+        else if ((msgBuffer = malloc(length)) == NULL)
+            errorFlag = @"buffer allocation failure";
+        // Get system information, store in buffer
+        else if (sysctl(mgmtInfoBase, 6, msgBuffer, &length, NULL, 0) < 0) {
+            free(msgBuffer);
+            errorFlag = @"sysctl msgBuffer failure";
+        } else {
+            // Map msgbuffer to interface message structure
+            struct if_msghdr *interfaceMsgStruct = (struct if_msghdr *) msgBuffer;
+            // Map to link-level socket structure
+            struct sockaddr_dl *socketStruct = (struct sockaddr_dl *) (interfaceMsgStruct + 1);
+            // Copy link layer address data in socket structure to an array
+            unsigned char macAddress[6];
+            memcpy(&macAddress, socketStruct->sdl_data + socketStruct->sdl_nlen, 6);
+            // Read from char array into a string object, into traditional Mac address format
+            NSString *macAddressString = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X",
+                                          macAddress[0], macAddress[1], macAddress[2], macAddress[3], macAddress[4], macAddress[5]];
+            DDLogDebug(@"Mac Address: %@", macAddressString);
+            // Release the buffer memory
+            free(msgBuffer);
+            return macAddressString;
+        }
+        // Error...
+        DDLogDebug(@"Error: %@", errorFlag);
+        return nil;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++ (NSInteger) getRamdomNumber {
+    @try {
+        int randomID = arc4random() % 900 + 100;
+        return randomID;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+@end

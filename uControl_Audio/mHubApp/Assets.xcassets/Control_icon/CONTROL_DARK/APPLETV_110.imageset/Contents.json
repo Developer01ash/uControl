@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "APPLETV_110.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,331 @@
+//
+//  UpdateAvailableViewController.m
+//  mHubApp
+//
+//  Created by Rave on 06/12/18.
+//  Copyright © 2018 Rave Infosys. All rights reserved.
+//
+
+#import "UpdateAvailableViewController.h"
+#import "TermsNConditionViewController.h"
+#import "CellHubUpdateVersionTableViewCell.h"
+#import "HubUpdatingViewController.h"
+@interface UpdateAvailableViewController ()
+{
+    NSMutableArray *arrFilterData;
+}
+@end
+
+@implementation UpdateAvailableViewController
+
+- (void)viewDidLoad {
+    @try {
+        
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    
+    //self.navigationItem.backBarButtonItem = customBackBarButton;
+    self.navigationItem.hidesBackButton = true;
+    self.view.backgroundColor = [AppDelegate appDelegate].themeColoursSetup.colorBackground;
+    
+    self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_UPDATE_IS_AVAILABLE];
+    if ([AppDelegate appDelegate].deviceType == mobileSmall)  {
+        [self.lbl_HoldForUpdateMsg setFont:textFontRegular12];
+        [self.lbl_updateMessage setFont:textFontRegular12];
+    } else {
+        [self.lbl_HoldForUpdateMsg setFont:textFontRegular16];
+        [self.lbl_updateMessage setFont:textFontRegular16];
+    }
+     [self.lbl_updateMessage setText:[NSString stringWithFormat:HUB_UPDATE_AVAILABLE_MESSAGE,self.objSelectedMHubDevice.mosVersion,self.latestOSVersion]];
+//        [self.lbl_updateMessage setText:HUB_UPDATE_AVAILABLE_MESSAGE];
+//        [self.lblSubHeaderMessage setText:[NSString stringWithFormat:HUB_UPDATE_AVAILABLE__SUBHEADING,self.objSelectedMHubDevice.mosVersion,[self->dict_upgradeDetails objectForKey:@"version"]]];
+    
+    
+    
+    } @catch(NSException *exception) {
+            [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+        }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    @try {
+        
+    
+    ////NSLog(@"tbl_hubListWithVersion count %ld",self.arrSearchData.count);
+    
+    arrFilterData = [[NSMutableArray alloc] init];
+    if(self.objSelectedMHubDevice != nil)
+    {
+        [arrFilterData addObject:self.objSelectedMHubDevice];
+    }
+    else
+    {
+            for (Hub *objHub in self.arrSearchData) {
+                [arrFilterData addObject:objHub];
+                //DDLogDebug(@"viewDidAppear %f == %@", objHub.mosVersion, objHub.modelName);
+            }
+
+//    for (SearchData *objData in self.arrSearchData) {
+//        // DDLogDebug(@"%@ == %ld", objData.strTitle, (long)objData.arrItems.count);
+//        for (Hub *objHub in objData.arrItems) {
+//            [arrFilterData addObject:objHub];
+//
+//            DDLogDebug(@"viewDidAppear %f == %@", objHub.mosVersion, objHub.modelName);
+//        }}
+   }
+    [self.tbl_hubListWithVersion reloadData];
+    } @catch(NSException *exception) {
+            [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+        }
+    
+}
+
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+}
+
+- (IBAction)btnUpdateMhub_Clicked:(CustomButton *)sender {
+    @try {
+        
+     
+        
+        
+        
+        
+   // for (int i = 0; i < [arrFilterData count]; i++) {
+        
+        Hub *hubObj = self.objSelectedMHubDevice;
+        
+        if(_navigateFromType ==  menu_update)
+        {
+           // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"ISTermsNConditionTrue" ];
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"ISTermsNConditionTrue" ])
+            {
+                    HubUpdatingViewController *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"HubUpdatingViewController"];
+                    objVC.objSelectedMHubDevice = hubObj;
+                    //objVC.latestOSVersion = self.latestOSVersion;
+                    objVC.navigateFromType = self.navigateFromType;
+                    if(arrFilterData.count  == 1)
+                            objVC.isSingleUnit = true ;
+                    else
+                            objVC.isSingleUnit = false ;
+                    [self.navigationController pushViewController:objVC animated:YES];
+            }
+            else
+            {
+                TermsNConditionViewController *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"TermsNConditionViewController"];
+                objVC.arrSearchData = self.arrSearchData;
+               // objVC.latestOSVersion = self.latestOSVersion;
+                objVC.navigateFromType = self.navigateFromType;
+                objVC.objSelectedMHubDevice = hubObj;
+                if(arrFilterData.count  == 1)
+                    objVC.isSingleUnit = true ;
+                else
+                    objVC.isSingleUnit = false ;
+                [self.navigationController pushViewController:objVC animated:NO];
+            }
+            
+
+            
+        }
+        else
+        {
+        
+//        if(hubObj.mosVersion < hubObj.MHub_BenchMarkVersion)
+//        {
+           // [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"ISTermsNConditionTrue" ];
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"ISTermsNConditionTrue" ])
+            {
+                HubUpdatingViewController *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"HubUpdatingViewController"];
+                objVC.objSelectedMHubDevice = hubObj;
+               // objVC.latestOSVersion = self.latestOSVersion;
+                objVC.navigateFromType = self.navigateFromType;
+                if(arrFilterData.count  == 1)
+                objVC.isSingleUnit = true ;
+                else
+                objVC.isSingleUnit = false ;
+                [self.navigationController pushViewController:objVC animated:YES];
+            }
+            else
+            {
+                TermsNConditionViewController *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"TermsNConditionViewController"];
+                objVC.arrSearchData = self.arrSearchData;
+               // objVC.latestOSVersion = self.latestOSVersion;
+                objVC.navigateFromType = self.navigateFromType;
+                objVC.objSelectedMHubDevice = hubObj;
+                if(arrFilterData.count  == 1)
+                    objVC.isSingleUnit = true ;
+                else
+                    objVC.isSingleUnit = false ;
+                [self.navigationController pushViewController:objVC animated:NO];
+            }
+            
+            
+            
+            
+          //  break;
+        //}
+        //}
+    
+        }
+} @catch(NSException *exception) {
+    [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+}
+    
+}
+
+- (IBAction)btn_gotoMenu_clicked:(CustomButton *)sender {
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return arrFilterData.count;
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            return heightBiggerCellView_SmallMobile;
+        } else {
+            return heightBiggerCellView;
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        static NSString *CellIdentifier = @"CellHubUpdateVersionTableViewCell";
+        CellHubUpdateVersionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        Hub *objHub = (Hub *)[arrFilterData objectAtIndex:indexPath.row];
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            [cell.lbl_HubName setFont:textFontBold12];
+            [cell.lbl_HubVersion setFont:textFontRegular12];
+            //[cell.imgHubDevice setImage:kDEVICEMODEL_IMAGE_MHUB4K44PRO_CARBONITE];
+            //cell.constraint_heightCenterView.constant  = 70.0;
+          //  [cell.view_roundView addRoundedCorner_CornerRadius:35];
+        } else {
+            [cell.lbl_HubVersion setFont:textFontRegular16];
+            [cell.lbl_HubName setFont:textFontBold16];
+            // [cell.imgHubDevice  setImage:kDEVICEMODEL_IMAGE_MHUB4K44PRO_CARBONITE];
+           // cell.constraint_heightCenterView.constant  = 90.0;
+          //  [cell.view_roundView addRoundedCorner_CornerRadius:45];
+        }
+        
+        cell.lbl_HubName.text = objHub.modelName;
+        cell.lbl_HubVersion.text =  [NSString stringWithFormat:@"%.02f",objHub.mosVersion];
+//        if(objHub.mosVersion < objHub.MHub_BenchMarkVersion)
+//        {
+//            cell.view_roundView.backgroundColor = [UIColor colorWithRed:188.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+//            cell.view_roundView.alpha = 0.75;
+//        }
+//        else
+//        {
+//            cell.view_roundView.backgroundColor = [UIColor blackColor];
+//        }
+//        [cell.imgHubDevice  setImage:[self getHubDeviceImage:objHub.modelName]];
+        
+        return cell;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+-(UIImage *)getHubDeviceImage:(NSString *)secType{
+    
+    
+        UIImage *imageObj;
+   
+    if ([secType isContainString:kDEVICEMODEL_MHUB4K44PRO] || [secType isContainString:kDEVICEMODEL_MHUBPRO24440] ) {
+        imageObj = kDEVICEMODEL_IMAGE_MHUB4K44PRO_CARBONITE;
+
+    }
+    if ([secType isContainString:kDEVICEMODEL_MHUB4K88PRO] || [secType isContainString:kDEVICEMODEL_MHUBPRO288100]) {
+        imageObj =  kDEVICEMODEL_IMAGE_MHUB4K88PRO_CARBONITE;
+
+    }
+        if ([secType isContainString:kDEVICEMODEL_MHUB4K431]) {
+            
+            imageObj =  kDEVICEMODEL_IMAGE_MHUB4K431_CARBONITE;
+            
+        }
+         if ([secType isContainString:kDEVICEMODEL_MHUB4K862]) {
+            
+            imageObj =   kDEVICEMODEL_IMAGE_MHUB4K862_CARBONITE;
+            
+        }
+            
+         if ([secType isContainString:kDEVICEMODEL_MHUB431U]) {
+            imageObj =   kDEVICEMODEL_IMAGE_MHUB431U_CARBONITE;
+           
+        }
+         if ([secType isContainString:kDEVICEMODEL_MHUB862U]) {
+            imageObj =   kDEVICEMODEL_IMAGE_MHUB862U_CARBONITE;
+        }
+            
+        if ([secType isContainString:kDEVICEMODEL_MHUBPRO4440]) {
+            imageObj =   kDEVICEMODEL_IMAGE_MHUBPRO4440_CARBONITE;
+        }
+         if ([secType isContainString:kDEVICEMODEL_MHUBPRO8840]) {
+            imageObj =   kDEVICEMODEL_IMAGE_MHUBPRO8840_CARBONITE;
+        }
+            
+         if ([secType isContainString:kDEVICEMODEL_MHUBAUDIO64]) {
+            imageObj =   kDEVICEMODEL_IMAGE_MHUBAUDIO64_CARBONITE;
+        }
+            
+         if ([secType isContainString:kDEVICEMODEL_MHUBMAX44]) {
+            
+            imageObj =   kDEVICEMODEL_IMAGE_MHUBMAX44_CARBONITE;
+           
+        }
+    return imageObj;
+    
+}
+
+
+#pragma mark - UITableView Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [AppDelegate appDelegate].isSearchNetworkPopVC = true;
+}
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+@end

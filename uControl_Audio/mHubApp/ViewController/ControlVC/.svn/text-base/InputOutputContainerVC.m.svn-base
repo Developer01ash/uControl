@@ -1,0 +1,1024 @@
+//
+//  InputOutputContainerVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 15/11/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+/**
+ This is the container view, child Class of SourceContainerVC.
+ This is the base class for Container like ControlGroupBGVC and OutputControlVC.
+ This is important class when system is configured as Stack. Following functionality performed here:
+ 1. Switch between Input and Zone for connected stacked Audio device.
+ 2. Grouped Zone Volume handling for connected stacked Audio device.
+ */
+
+#import "InputOutputContainerVC.h"
+#import "CellPower.h"
+#import "CellGroupVolume.h"
+
+@interface InputOutputContainerVC ()<UIGestureRecognizerDelegate, CellGroupVolumeDelegate, OutputControlDelegate> {
+    NSMutableArray *arrAudioDevice;
+    NSTimer *timerHideGroup;
+    NSInteger seconds;
+}
+@property (weak, nonatomic) IBOutlet UIView *vcControlView;
+@property (weak, nonatomic) IBOutlet UIView *vcBottomView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintOutputControlConstant;
+@property (weak, nonatomic) IBOutlet UIView *viewOpaqueAudio;
+@property (weak, nonatomic) IBOutlet UITableView *tblAudioOutput;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintTblAudioOutput;
+@property (weak, nonatomic) IBOutlet UIView *viewOpaqueAudioGroupVolume;
+@property (weak, nonatomic) IBOutlet UITableView *tblAudioGroupVolume;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintTblAudioGroupVolume;
+@end
+
+@implementation InputOutputContainerVC
+- (void)viewDidLoad {
+    @try {
+        [super viewDidLoad];
+        self.navigationItem.backBarButtonItem = customBackBarButton;
+        
+        UITapGestureRecognizer *tapGestureAudio = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAudioTableView:)];
+        tapGestureAudio.delegate = self;
+        tapGestureAudio.numberOfTapsRequired = 1;
+        tapGestureAudio.numberOfTouchesRequired = 1;
+        tapGestureAudio.cancelsTouchesInView = NO;
+        [self.viewOpaqueAudio addGestureRecognizer:tapGestureAudio];
+        
+        UISwipeGestureRecognizer *swipeGestureAudio = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAudioTableView:)];
+        [swipeGestureAudio setDelegate:self];
+        [swipeGestureAudio setNumberOfTouchesRequired:1];
+        [swipeGestureAudio setDirection:UISwipeGestureRecognizerDirectionDown];
+        [self.viewOpaqueAudio addGestureRecognizer:swipeGestureAudio];
+        
+        UITapGestureRecognizer *tapGestureGroupVolume = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureGroupVolumeTableView:)];
+        tapGestureGroupVolume.delegate = self;
+        tapGestureGroupVolume.numberOfTapsRequired = 1;
+        tapGestureGroupVolume.numberOfTouchesRequired = 1;
+        tapGestureGroupVolume.cancelsTouchesInView = NO;
+        [self.viewOpaqueAudioGroupVolume addGestureRecognizer:tapGestureGroupVolume];
+        
+        [self setHiddenAudioTableView:true];
+        [self setHiddenGroupVolumeTableView:true];
+        
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationReloadInputOutputContainer object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receiveNotification:)
+                                                     name:kNotificationReloadInputOutputContainer
+                                                   object:nil];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+-(void)viewDidLayoutSubviews {
+    @try {
+        [super viewDidLayoutSubviews];
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            self.heightConstraintOutputControlConstant.constant = heightFooterView_SmallMobile;
+        } else {
+            self.heightConstraintOutputControlConstant.constant = heightFooterView;
+        }
+        [self.view layoutIfNeeded];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - Navigation
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    @try {
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
+        if ([[segue identifier] isEqualToString:kOutputControlVC]) {
+            OutputControlVC *objCtrlType = (OutputControlVC *)[segue destinationViewController];
+            objCtrlType.delegate = self;
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - Audio Source Device
+-(void)showHideAudioTable:(BOOL)isHide {
+    @try {
+        //testgroupchanges ok
+        //  arrAudioDevice = [[NSMutableArray alloc] initWithArray: mHubManagerInstance.arrAudioSourceDeviceManaged];
+        // This code filter the audio inputs, which is only connected with Zone, not all audio inputs must be shown.
+
+        NSLog(@"mHubManagerInstance.objSelectedZone.audio_input %ld",(long)mHubManagerInstance.objSelectedOutputDevice.Index);
+        NSMutableArray *newTempArr = [[NSMutableArray alloc] init];
+        for(int i = 0 ; i < [mHubManagerInstance.arrAudioSourceDeviceManaged count]; i++)
+            {
+            InputDevice *objInput = [mHubManagerInstance.arrAudioSourceDeviceManaged objectAtIndex:i];
+            NSMutableArray *arrOutDevice = [[NSMutableArray alloc] initWithArray:mHubManagerInstance.objSelectedZone.arrOutputs];
+            for(int i = 0 ; i < [arrOutDevice count]; i++)
+                {
+                OutputDevice *outputObj = (OutputDevice *)[arrOutDevice objectAtIndex:i];
+                if([objInput.UnitId isEqualToString:outputObj.UnitId ])
+                    {
+                    [newTempArr addObject:objInput];
+                    //                    if([[[NSUserDefaults standardUserDefaults]valueForKey:@"MappingKeyData"] isKindOfClass:NSArray.class]){
+                    //                        NSArray *array_mappingData = [[NSUserDefaults standardUserDefaults]valueForKey:@"MappingKeyData" ];
+                    //                        for(int i =0 ;i < array_mappingData.count;i++)
+                    //                            {
+                    //                            NSDictionary *dataDictionary = [array_mappingData objectAtIndex:i];
+                    //                            if ([dataDictionary isKindOfClass:[NSDictionary class]]) {
+                    //                                NSString *modeObj = [Utility checkNullForKey:kMODE Dictionary:dataDictionary];
+                    //                                if([modeObj isEqualToString:kAUTO])
+                    //                                    {
+                    //                                    NSDictionary *dataOutputDict = [dataDictionary objectForKey:kOUTPUT];
+                    //                                    NSInteger outputIndx = [Utility characterToInteger:[Utility checkNullForKey:kOUTPUT_ID Dictionary:dataOutputDict]];
+                    //                                    if(outputIndx == mHubManagerInstance.objSelectedOutputDevice.Index)
+                    //                                        {
+                    //                                        NSDictionary *dataInputDict = [dataDictionary objectForKey:kINPUT];
+                    //                                        NSInteger IndexVal = [[dataInputDict objectForKey:kINPUT_ID]integerValue ];
+                    //                                        if(IndexVal  == objInput.Index)
+                    //                                            {
+                    //                                            [newTempArr removeObject:objInput];
+                    //                                            }
+                    //                                        }
+                    //                                    }
+                    //                            }
+                    //                            }
+                    //                    }
+                    //                    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isAutoSwitchMode"] &&  (mHubManagerInstance.objSelectedOutputDevice.Index != 0))
+                    //                    {
+                    //                    NSDictionary *dict_output = [[NSUserDefaults standardUserDefaults]valueForKey:@"dictOutputDATA" ];
+                    //                    NSLog(@"dict_output %@ and selcted %ld ", [dict_output objectForKey:@"output_id"],(long)mHubManagerInstance.objSelectedOutputDevice.Index);
+                    //                    if([Utility characterToInteger:[dict_output objectForKey:@"output_id"]] == mHubManagerInstance.objSelectedOutputDevice.Index){
+                    //                        NSDictionary *dict_input = [[NSUserDefaults standardUserDefaults]valueForKey:@"dictInputDATA" ];
+                    //
+                    //                        NSInteger IndexVal = [[dict_input objectForKey:@"input_id"]integerValue ];
+                    //                        if(IndexVal  == objInput.Index)
+                    //                        {
+                    //                            [newTempArr removeObject:objInput];
+                    //
+                    //                        }
+                    //                    }
+                    //                    }
+                    }
+                }
+            }
+        // In the pro2 standalone units, there is no need to show all "hdbaset arc" and "hdmi arc" inputs. So if there is Video OUTPUT in selected Zone then all inputs will not shown which have type "hdbaset arc" and "hdmi arc", only single single object will be shown of "hdbaset arc" and "hdmi arc". so this single object will be added to inputs array those index/position is matched with index/position of video output in the zone.
+        if([mHubManagerInstance.objSelectedHub isPro2Setup] && mHubManagerInstance.objSelectedOutputDevice.Index != 0 ){
+            OutputDevice *objOutput = mHubManagerInstance.objSelectedOutputDevice;
+            NSMutableArray *hdBaseArr =  [[NSMutableArray alloc] init];
+            NSMutableArray *hdmiArr = [[NSMutableArray alloc] init];
+            NSMutableArray *normalArr = [[NSMutableArray alloc] init];
+            for(int i = 0 ; i < [newTempArr count]; i++)
+                {
+                InputDevice *objInput = [newTempArr objectAtIndex:i];
+                if([objInput.inputType isEqualToString:@"hdbaset arc" ])
+                {
+                    [hdBaseArr addObject:objInput];
+                }
+                else if([objInput.inputType isEqualToString:@"hdmi arc" ])
+                {
+                    [hdmiArr addObject:objInput];
+                }
+                else
+                {
+                    [normalArr addObject:objInput];
+                }
+                }
+            [normalArr addObject:[hdBaseArr objectAtIndex:objOutput.Index]];
+            [normalArr addObject:[hdmiArr objectAtIndex:objOutput.Index]];
+            arrAudioDevice = [[NSMutableArray alloc] initWithArray: normalArr];
+        }
+        else
+        {
+            arrAudioDevice = [[NSMutableArray alloc] initWithArray: newTempArr];
+        }
+
+
+        //arrAudioDevice = [arrAudioDevice valueForKeyPath:@"@distinctUnionOfObjects.self"];
+        NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:arrAudioDevice];
+        arrAudioDevice = [orderedSet array].mutableCopy;
+        //arrAudioDevice = [[NSOrderedSet orderedSetWithArray:arrAudioDevice]allObjects];
+        [self setHiddenAudioTableView:isHide];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)tapGestureAudioTableView:(UIGestureRecognizer *)gesture {
+    [self setHiddenAudioTableView:true];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+-(void)setHiddenAudioTableView:(BOOL)isHide {
+    @try {
+        ThemeColor *objTheme = [[ThemeColor alloc] initWithThemeColor:[AppDelegate appDelegate].themeColours];
+        [self.viewOpaqueAudio setBackgroundColor:objTheme.colorBackground];
+        [self.tblAudioOutput setBackgroundColor:objTheme.colorPowerControlBG];
+        [self.tblAudioOutput reloadData];
+        
+        if (isHide) {
+            /*To hide*/
+            [self.viewOpaqueAudio setHidden:isHide];
+            [self.tblAudioOutput downSlideWithCompletion:^(BOOL finished) {
+            }];
+        } else {
+            /*To unhide*/
+            CGFloat heightAudio = MAX(self.tblAudioOutput.bounds.size.height, self.tblAudioOutput.contentSize.height);
+            if ([AppDelegate appDelegate].deviceType == mobileSmall && heightAudio > 350) {
+                heightAudio = 350.0f;
+            } else if ([AppDelegate appDelegate].deviceType == mobileLarge && heightAudio > 450) {
+                heightAudio = 450.0f;
+            } else if ([AppDelegate appDelegate].deviceType == tabletSmall && heightAudio > 450) {
+                heightAudio = 450.0f;
+            } else if ([AppDelegate appDelegate].deviceType == tabletLarge && heightAudio > 800) {
+                heightAudio = 800.0f;
+            }
+            self.heightConstraintTblAudioOutput.constant = heightAudio;
+            
+            [self.tblAudioOutput upSlideWithCompletion:^(BOOL finished) {
+                [self.viewOpaqueAudio setHidden:isHide];
+                CGFloat yView = self.view.frame.size.height - (self.vcBottomView.frame.size.height+heightAudio);
+                if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+                    self.tblAudioOutput.frame = CGRectMake(0, yView, SCREEN_WIDTH, heightAudio);
+                } else {
+                    self.tblAudioOutput.frame = CGRectMake(0, yView, SCREEN_WIDTH, heightAudio);
+                }
+            }];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - Audio Group Volume
+-(void)showHideGroupVolume:(BOOL)isHide {
+    @try {
+        [self setHiddenGroupVolumeTableView:isHide];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)tapGestureGroupVolumeTableView:(UITapGestureRecognizer *)gesture {
+    [self setHiddenGroupVolumeTableView:true];
+}
+
+-(void)setHiddenGroupVolumeTableView:(BOOL)isHide {
+    @try {
+        ThemeColor *objTheme = [[ThemeColor alloc] initWithThemeColor:[AppDelegate appDelegate].themeColours];
+        [self.viewOpaqueAudioGroupVolume setBackgroundColor:objTheme.colorBackground];
+        [self.tblAudioGroupVolume setBackgroundColor:objTheme.colorPowerControlBG];
+        
+        self.heightConstraintTblAudioGroupVolume.constant = SCREEN_HEIGHT*0.6;
+        [self.tblAudioGroupVolume reloadData];
+        [self.tblAudioGroupVolume layoutIfNeeded];
+        
+        //self.tblAudioGroupVolume.backgroundColor =  [UIColor redColor];
+        
+        if (isHide) {
+            /*To hide*/
+            [self.viewOpaqueAudioGroupVolume setHidden:isHide];
+            [self.tblAudioGroupVolume setHidden:YES];
+            [self.tblAudioGroupVolume downSlideWithCompletion:^(BOOL finished) {
+            }];
+        } else {
+            /*To unhide*/
+            [self setTimerHideGroup];
+            [self.tblAudioGroupVolume setHidden:NO];
+
+            CGFloat heightAudio = MIN(self.tblAudioGroupVolume.bounds.size.height, self.tblAudioGroupVolume.contentSize.height);
+            self.heightConstraintTblAudioGroupVolume.constant = heightAudio;
+            if (self.viewOpaqueAudioGroupVolume.isHidden && mHubManagerInstance.arrSelectedGroupZoneList.count > 0) {
+                [self.tblAudioGroupVolume upSlideWithCompletion:^(BOOL finished) {
+                    [self.viewOpaqueAudioGroupVolume setHidden:isHide];
+                    CGFloat yView = self.view.frame.size.height - (self.vcBottomView.frame.size.height+heightAudio);
+                    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+                        self.tblAudioGroupVolume.frame = CGRectMake(0, yView, SCREEN_WIDTH, heightAudio);
+                    } else {
+                        self.tblAudioGroupVolume.frame = CGRectMake(0, yView, SCREEN_WIDTH, heightAudio);
+                    }
+                }];
+            }
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) setTimerHideGroup {
+    @try {
+        [timerHideGroup invalidate];
+        seconds = 5;
+        timerHideGroup = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                          target:self
+                                                        selector:@selector(timerHideGroupRun)
+                                                        userInfo:nil
+                                                         repeats:YES];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) timerHideGroupRun {
+    @try {
+        if (seconds > 0) {
+            // DDLogDebug(@"seconds = %ld", seconds);
+            seconds--;
+        } else {
+            [timerHideGroup invalidate];
+            [self setHiddenGroupVolumeTableView:true];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([tableView isEqual:self.tblAudioOutput]) {
+        return 15.0;
+    } else {
+        return 0.0;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    static NSString *HeaderCellIdentifier = @"HeaderCellAudioInput";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
+    if(cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier];
+    }
+
+    UITapGestureRecognizer *tapGestureAudio = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAudioTableView:)];
+    tapGestureAudio.delegate = self;
+    tapGestureAudio.numberOfTapsRequired = 1;
+    tapGestureAudio.numberOfTouchesRequired = 1;
+    tapGestureAudio.cancelsTouchesInView = NO;
+    [cell addGestureRecognizer:tapGestureAudio];
+    
+    UISwipeGestureRecognizer *swipeGestureAudio = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAudioTableView:)];
+    [swipeGestureAudio setDelegate:self];
+    [swipeGestureAudio setNumberOfTouchesRequired:1];
+    [swipeGestureAudio setDirection:UISwipeGestureRecognizerDirectionDown];
+    [cell addGestureRecognizer:swipeGestureAudio];
+
+    return cell;
+}
+
+-(UIView *) tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *viewFooter = [[UIView alloc] initWithFrame:CGRectZero];
+    return viewFooter;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([tableView isEqual:self.tblAudioOutput]) {
+        return arrAudioDevice.count;
+    } else if ([tableView isEqual:self.tblAudioGroupVolume]) {
+        return mHubManagerInstance.arrSelectedGroupZoneList.count;
+    } else {
+        return 0;
+    }
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    if ([tableView isEqual:self.tblAudioGroupVolume]) {
+    //        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+    //            return heightFooterView_SmallMobile;
+    //        } else {
+    //            return heightFooterView;
+    //        }
+    //    } else {
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        return heightTableViewRowWithPadding_SmallMobile;
+    } else {
+        return heightTableViewRowWithPadding;
+    }
+    //    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        if ([tableView isEqual:self.tblAudioGroupVolume]) {
+            CellGroupVolume *cell = [tableView dequeueReusableCellWithIdentifier:@"CellGroupVolume"];
+            if (cell == nil) {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"CellGroupVolume"];
+            }
+            [cell setBackgroundColor:[AppDelegate appDelegate].themeColours.colorPowerControlBG];
+            [cell setTag:indexPath.row];
+            cell.delegate = self;
+            cell.cellIndexPath = indexPath;
+            Zone *objZone = [mHubManagerInstance.arrSelectedGroupZoneList objectAtIndex:indexPath.row];
+            [cell.lblGroupOutputName setTextColor:[AppDelegate appDelegate].themeColours.colorSettingControlBorder];
+            [cell.lblGroupOutputName setFont:textFontLight10];
+            [cell.lblGroupOutputName setText:[objZone.zone_label uppercaseString]];
+            [cell.sliderGroupVolumeOutput setValue:objZone.Volume];
+            [cell.sliderGroupVolumeOutput setTag:indexPath.row];
+            cell.btnGroupVolumeMute.infoData = objZone;
+            [cell.btnGroupVolumeMute setTag:indexPath.row];
+            
+            if ([AppDelegate appDelegate].themeColours.themeType == Light) {
+                [cell.btnGroupAudioImage setImage:kImageIconAudioPairedGray forState:UIControlStateNormal];
+                if (!objZone.isMute) {
+                    [cell.btnGroupVolumeMute setImage:kImageIconAudioMuteActiveGray forState:UIControlStateNormal];
+                } else {
+                    [cell.btnGroupVolumeMute setImage:kImageIconAudioMuteInActiveGray forState:UIControlStateNormal];
+                }
+                [cell.sliderGroupVolumeOutput setMinimumTrackTintColor:colorGray_646464];
+                [cell.sliderGroupVolumeOutput setMaximumTrackTintColor:colorWhite_254254254];
+            } else {
+                [cell.btnGroupAudioImage setImage:kImageIconAudioPaired forState:UIControlStateNormal];
+                if (!objZone.isMute) {
+                    [cell.btnGroupVolumeMute setImage:kImageIconAudioMuteActive forState:UIControlStateNormal];
+                } else {
+                    [cell.btnGroupVolumeMute setImage:kImageIconAudioMuteInActive forState:UIControlStateNormal];
+                }
+                [cell.sliderGroupVolumeOutput setMinimumTrackTintColor:colorWhite_254254254];
+                [cell.sliderGroupVolumeOutput setMaximumTrackTintColor:colorDarkGray_202020];
+            }
+            return cell;
+        } else {
+            CellPower *cell = [tableView dequeueReusableCellWithIdentifier:@"CellPower"];
+            if (cell == nil) {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"CellPower"];
+            }
+            cell.backgroundColor = [AppDelegate appDelegate].themeColours.colorPowerControlBG;
+            [cell.imgBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorPowerControlBorder BorderWidth:1.0];
+            //[cell.lblName setTextColor:[AppDelegate appDelegate].themeColours.colorPowerControlText];
+            [cell.lblName setTextColor:[AppDelegate appDelegate].themeColours.colorSettingControlBorder];
+
+            InputDevice *objInput = [arrAudioDevice objectAtIndex:indexPath.row];
+            if (objInput.Index == mHubManagerInstance.objSelectedZone.audio_input) {
+                [cell.imgBackground setImage:[Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorPowerControlBorder Frame:cell.imgBackground.frame]];
+            }
+            else
+                {
+                [cell.imgBackground setImage:[Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorPowerControlBG Frame:cell.imgBackground.frame]];
+                }
+            cell.lblName.text = [objInput.CreatedName uppercaseString];
+            //cell.backgroundColor = [UIColor greenColor];
+            return cell;
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - UITableView Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        if ([tableView isEqual:self.tblAudioOutput]) {
+            InputDevice *objInput = [arrAudioDevice objectAtIndex:indexPath.row];
+            [self switchInAudioDevice_InputIndex:objInput.Index];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)didReceivedTapOnCellGroupImageButton:(CellGroupVolume *)sender {
+    @try {
+        
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)didReceivedTapOnCellGroupVolumeMuteButton:(CellGroupVolume *)sender {
+    @try {
+        [[CustomAVPlayer sharedInstance] soundPlay:Beep];
+        CustomButton *btnSender = (CustomButton *)sender.btnGroupVolumeMute;
+        Zone *objZone = (Zone*)btnSender.infoData;
+        if (objZone.isMute) {
+            [self setAudioControlMute:false ForOutputMute:btnSender];
+        } else {
+            [self setAudioControlMute:true ForOutputMute:btnSender];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+// Override to support conditional editing of the table view.
+// This only needs to be implemented if you are going to be returning NO
+// for some items. By default, all items are editable.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    if ([tableView isEqual:self.tblAudioOutput]) {
+        return NO;
+    } else {
+        return NO;
+    }
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //[self deleteAudioOutput:indexPath];
+    }
+}
+
+#pragma mark - CellGroupAudioDelegate
+- (void)didReceivedTapOnCellDeleteButton:(CellGroupVolume *)sender {
+    [self deleteAudioOutput:sender.cellIndexPath];
+}
+
+
+#pragma mark - SSTTapSliderDelegate
+- (void)tapSlider:(SSTTapSlider *)tapSlider valueDidChange:(float)value {
+    // DDLogDebug(@"%@ (%f)", NSStringFromSelector(_cmd), value);
+    // [self setAudioControlVolume:value GroupAvg:false ForOutputSlider:tapSlider];
+    // [self updateSliderValueAverage];
+}
+
+- (void)tapSlider:(SSTTapSlider *)tapSlider tapEndedWithValue:(float)value {
+    // DDLogDebug(@"%@ (%f)", NSStringFromSelector(_cmd), value);
+    [self setAudioControlVolume:value GroupAvg:false ForOutputSlider:tapSlider];
+    [self updateSliderValueAverage];
+}
+
+- (void)tapSlider:(SSTTapSlider *)tapSlider panBeganWithValue:(float)value {
+    // DDLogDebug(@"%@ (%f)", NSStringFromSelector(_cmd), value);
+    // [self setAudioControlVolume:value ForOutputSlider:tapSlider];
+}
+
+- (void)tapSlider:(SSTTapSlider *)tapSlider panEndedWithValue:(float)value {
+    // DDLogDebug(@"%@ (%f)", NSStringFromSelector(_cmd), value);
+    [self setAudioControlVolume:value GroupAvg:false ForOutputSlider:tapSlider];
+    [self updateSliderValueAverage];
+}
+
+#pragma mark - OutputControlDelegate
+-(void) didReceivedReloadAudioDevice:(ControlDeviceType)deviceType {
+    @try {
+        // DDLogDebug(@"<%s deviceType == %ld>", __FUNCTION__, (unsigned long)deviceType);
+        if (deviceType == AudioSource) {
+            [self showHideAudioTable:false];
+        } else {
+            [self showHideAudioTable:true];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+/* Please take Pull, as i have added another cell on Appoinments tab. and started working on medical questionnaire views.
+
+ */
+- (void) receiveNotification:(NSNotification *) notification {
+    @try {
+        // DDLogInfo(RECEIVENOTIFICATION, __FUNCTION__, [notification name]);
+        [self didReceivedReloadGroupVolume:Uncontrollable];
+        [self didReceivedReloadAudioDevice:AudioSource];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) didReceivedReloadGroupVolume:(ControlDeviceType)deviceType {
+    @try {
+        // DDLogDebug(@"<%s deviceType == %ld>", __FUNCTION__, (unsigned long)deviceType);
+        if (deviceType == AudioSource) {
+            [self showHideGroupVolume:false];
+        } else {
+            [self showHideGroupVolume:true];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) didReceivedTapOnGroupVolumeMuteButton:(BOOL)sender {
+    @try {
+        DDLogDebug(@"<%s == %d>", __FUNCTION__, sender);
+        for (int counter = 0; counter < mHubManagerInstance.arrSelectedGroupZoneList.count; counter++) {
+            // OutputDevice *objAOP = [arrGroupOutput objectAtIndex:counter];
+            // NSIndexPath* indexpath = [NSIndexPath indexPathForRow:counter inSection:0]; // in case this row in in your first section
+            // CellGroupVolume* cell = [self.tblAudioGroupVolume cellForRowAtIndexPath:indexpath];
+            // CustomButton *btnSender = cell.btnGroupVolumeMute;
+            // btnSender.infoData.isMute = sender;
+            // [self setAudioControlMute:sender ForOutputMute:btnSender];
+            mHubManagerInstance.arrSelectedGroupZoneList[counter].isMute = sender;
+        }
+        [self.tblAudioGroupVolume reloadData];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) didReceivedSliderAudioVolumeValueChanged_Previous:(NSInteger)intPValue New:(NSInteger)intNValue {
+    @try {
+        DDLogDebug(@"<%s Previous == %ld, New == %ld>", __FUNCTION__, (long)intPValue, (long)intNValue);
+        NSInteger diff = intNValue-intPValue;
+        // DDLogDebug(@"Slider value diff == (%ld)", (long)diff);
+        for (int counter = 0; counter < mHubManagerInstance.arrSelectedGroupZoneList.count; counter++) {
+            //OutputDevice *objAOP = [arrGroupOutput objectAtIndex:counter];
+            NSIndexPath* indexpath = [NSIndexPath indexPathForRow:counter inSection:0]; // in case this row in in your first section
+            CellGroupVolume* cell = [self.tblAudioGroupVolume cellForRowAtIndexPath:indexpath];
+            SSTTapSlider* tapSlider = cell.sliderGroupVolumeOutput;
+            DDLogDebug(@"Slider value == (%f)", tapSlider.value);
+            NSInteger intDiff = tapSlider.value+diff;
+            DDLogDebug(@"intDiff == (%ld)", (long)intDiff);
+            if (intDiff < 0) {
+                [tapSlider setValue:0 animated:true];
+                //[self setAudioControlVolume:0 ForOutputSlider:tapSlider];
+            } else if (intDiff > 100) {
+                [tapSlider setValue:100 animated:true];
+                //[self setAudioControlVolume:100 ForOutputSlider:tapSlider];
+            } else {
+                [tapSlider setValue:intDiff animated:true];
+                //[self setAudioControlVolume:intDiff ForOutputSlider:tapSlider];
+            }
+            mHubManagerInstance.arrSelectedGroupZoneList[counter].Volume = tapSlider.value;
+        }
+        // [self.tblAudioGroupVolume reloadData];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - API Calling Methods
+-(void) switchInAudioDevice_InputIndex:(NSInteger)intInputIndex {
+    @try {
+        [[AppDelegate appDelegate] showHudView:ShowIndicator Message:@""];
+        //testgroupchanges ok
+        //[APIManager switchIn_Address:mHubManagerInstance.objSelectedHub.Address OutputIndex:mHubManagerInstance.objSelectedOutputDevice.Index InputIndex:intInputIndex];
+        mHubManagerInstance.objSelectedZone.audio_input = intInputIndex;
+
+        //Without completion block
+        [APIManager switchInAudioZone_Address:mHubManagerInstance.objSelectedHub.Address ZoneId:mHubManagerInstance.objSelectedZone.zone_id InputIndex:intInputIndex];
+
+        //With completion block
+        // Audio changes for single slave-OLD
+        //        [APIManager switchInAudioZone_Address:mHubManagerInstance.objSelectedHub.Address ZoneId:mHubManagerInstance.objSelectedZone.zone_id InputIndex:intInputIndex  completion:^(APIV2Response *responseObject) {
+        //
+        ////            if (responseObject.error) {
+        ////                dispatch_async(dispatch_get_main_queue(), ^{
+        ////                    if ([responseObject.error_description isEqualToString:HUB_APPUPDATE_MESSAGE]) {
+        ////                        [[AppDelegate appDelegate] methodToCheckUpdatedVersionOnAppStore];
+        ////                        [[AppDelegate appDelegate] hideHudView:ErrorMessage Message:@""];
+        ////                    } else {
+        ////                        if (![mHubManagerInstance.objSelectedHub isDemoMode]) {
+        ////                            [[SearchDataManager sharedInstance] startSearchNetwork];
+        ////                            [SearchDataManager sharedInstance].delegate = self;
+        ////                        }
+        ////                    }
+        ////                });
+        ////            } else {
+        ////
+        ////            }
+        //        }];
+        /*
+         // Audio changes for single slave-NEW
+         Hub *objAudioSlave = [mHubManagerInstance.arrSlaveAudioDevice firstObject];
+         // [APIManager switchInAudioZone_Address:objAudioSlave.Address ZoneId:mHubManagerInstance.objSelectedZone.zone_id InputIndex:intInputIndex];
+         */
+
+        
+        // SWITCHING: Direct Connection with Slave without Zone, in that case we commented above "slave-NEW" code, because that is used to send with Zone ID
+        /*
+         Zone *objZoneList0 = mHubManagerInstance.objSelectedHub.HubZoneData[0];
+         if(objZoneList0.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager switchIn_Address:objAudioSlave.Address OutputIndex:1 InputIndex:intInputIndex - mHubManagerInstance.objSelectedHub.InputCount];
+         }
+
+         Zone *objZoneList1 = mHubManagerInstance.objSelectedHub.HubZoneData[1];
+         if(objZoneList1.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager switchIn_Address:objAudioSlave.Address OutputIndex:2 InputIndex:intInputIndex- mHubManagerInstance.objSelectedHub.InputCount];
+         }
+
+         Zone *objZoneList2 = mHubManagerInstance.objSelectedHub.HubZoneData[2];
+         if(objZoneList2.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager switchIn_Address:objAudioSlave.Address OutputIndex:3 InputIndex:intInputIndex-mHubManagerInstance.objSelectedHub.InputCount];
+         }
+
+         Zone *objZoneList3 = mHubManagerInstance.objSelectedHub.HubZoneData[3];
+         if(objZoneList3.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager switchIn_Address:objAudioSlave.Address OutputIndex:4 InputIndex:intInputIndex-mHubManagerInstance.objSelectedHub.InputCount];
+         }
+
+         */
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadOutputControlLabel object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:intInputIndex] forKey:kINPUTINDEX]];
+        [self.tblAudioOutput reloadData];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) setAudioControlVolume:(NSInteger)value GroupAvg:(BOOL)isGroupAvg ForOutputSlider:(SSTTapSlider*)tapSlider {
+    @try {
+        Zone *objZone = [mHubManagerInstance.arrSelectedGroupZoneList objectAtIndex:tapSlider.tag];
+        if (value == tapSlider.minimumValue) {
+            [tapSlider setMinimumTrackTintColor:colorDarkGray_202020];
+            [tapSlider setThumbImage:kImageIconAudioSliderEnd forState:UIControlStateNormal];
+            if ([AppDelegate appDelegate].themeColours.themeType == Light) {
+                [tapSlider setMinimumTrackTintColor:colorLightGray_230230230];
+                [tapSlider setMaximumTrackTintColor:colorWhite_254254254];
+            } else {
+                [tapSlider setMinimumTrackTintColor:colorDarkGray_202020];
+                [tapSlider setMaximumTrackTintColor:colorDarkGray_202020];
+            }
+        } else if (value == tapSlider.maximumValue) {
+            [tapSlider setThumbImage:kImageIconAudioSliderEnd forState:UIControlStateNormal];
+            if ([AppDelegate appDelegate].themeColours.themeType == Light) {
+                [tapSlider setMinimumTrackTintColor:colorGray_646464];
+                [tapSlider setMaximumTrackTintColor:colorLightGray_230230230];
+            } else {
+                [tapSlider setMinimumTrackTintColor:colorWhite_254254254];
+                [tapSlider setMaximumTrackTintColor:colorDarkGray_202020];
+            }
+        } else {
+            [tapSlider setThumbImage:kImageIconAudioSlider forState:UIControlStateNormal];
+            if ([AppDelegate appDelegate].themeColours.themeType == Light) {
+                [tapSlider setMinimumTrackTintColor:colorGray_646464];
+                [tapSlider setMaximumTrackTintColor:colorWhite_254254254];
+            } else {
+                [tapSlider setMinimumTrackTintColor:colorWhite_254254254];
+                [tapSlider setMaximumTrackTintColor:colorDarkGray_202020];
+            }
+        }
+        objZone.Volume = value;
+        [mHubManagerInstance.arrSelectedGroupZoneList replaceObjectAtIndex:tapSlider.tag withObject:objZone];
+        //testgroupchanges ok
+        // [APIManager controlVolume_Address:mHubManagerInstance.objSelectedHub.Address OutputIndex:objAOP.Index Volume:value];
+        
+        // Audio changes for single slave-OLD
+        [APIManager controlVolumeAudioZone_Address:mHubManagerInstance.objSelectedHub.Address ZoneId:objZone.zone_id Volume:value];
+
+        
+        /*
+         // Audio changes for single slave-NEW
+         Hub *objAudioSlave = [mHubManagerInstance.arrSlaveAudioDevice firstObject];
+         //  [APIManager controlVolumeAudioZone_Address:objAudioSlave.Address ZoneId:objZone.zone_id Volume:value];
+         */
+        
+        // SWITCHING: Direct Connection with Slave without Zone, in that case we commented above "slave-NEW" code, because that is used to send with Zone ID
+        /*
+         Zone *objZoneList0 = mHubManagerInstance.objSelectedHub.HubZoneData[0];
+         if(objZoneList0.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager controlVolume_Address:objAudioSlave.Address OutputIndex:1 Volume:value];
+
+         }
+
+         Zone *objZoneList1 = mHubManagerInstance.objSelectedHub.HubZoneData[1];
+         if(objZoneList1.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager controlVolume_Address:objAudioSlave.Address OutputIndex:2 Volume:value];
+
+         }
+
+         Zone *objZoneList2 = mHubManagerInstance.objSelectedHub.HubZoneData[2];
+         if(objZoneList2.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager controlVolume_Address:objAudioSlave.Address OutputIndex:3 Volume:value];
+         }
+
+         Zone *objZoneList3 = mHubManagerInstance.objSelectedHub.HubZoneData[3];
+         if(objZoneList3.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager controlVolume_Address:objAudioSlave.Address OutputIndex:4 Volume:value];
+         }
+
+         */
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) setAudioControlMute:(BOOL)isMute ForOutputMute:(CustomButton*)btnSender {
+    @try {
+        Zone *objZone = (Zone*)btnSender.infoData;
+        if (!isMute) {
+            if ([AppDelegate appDelegate].themeColours.themeType == Light) {
+                [btnSender setImage:kImageIconAudioMuteActiveGray forState:UIControlStateNormal];
+            } else {
+                [btnSender setImage:kImageIconAudioMuteActive forState:UIControlStateNormal];
+            }
+        } else {
+            if ([AppDelegate appDelegate].themeColours.themeType == Light) {
+                [btnSender setImage:kImageIconAudioMuteInActiveGray forState:UIControlStateNormal];
+            } else {
+                [btnSender setImage:kImageIconAudioMuteInActive forState:UIControlStateNormal];
+            }
+        }
+        objZone.isMute = isMute;
+        [mHubManagerInstance.arrSelectedGroupZoneList replaceObjectAtIndex:btnSender.tag withObject:objZone];
+        
+        //testgroupchanges ok
+        // [APIManager controlMute_Address:mHubManagerInstance.objSelectedHub.Address OutputIndex:objOP.Index Mute:isMute];
+        
+        // Audio changes for single slave-OLD
+        [APIManager controlMuteAudioZone_Address:mHubManagerInstance.objSelectedHub.Address ZoneId:objZone.zone_id Mute:isMute];
+
+        // Audio changes for single slave-NEW
+        /*
+         Hub *objAudioSlave = [mHubManagerInstance.arrSlaveAudioDevice firstObject];
+         DDLogDebug(@"slave IP address controlMuteAudioZone_Address %@", objAudioSlave.Address);
+         //[APIManager controlMuteAudioZone_Address:objAudioSlave.Address ZoneId:objZone.zone_id Mute:isMute];
+         */
+
+        // SWITCHING: Direct Connection with Slave without Zone, in that case we commented above "slave-NEW" code, because that is used to send with Zone ID
+        /*
+         Zone *objZoneList0 = mHubManagerInstance.objSelectedHub.HubZoneData[0];
+         if(objZoneList0.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager controlMute_Address:objAudioSlave.Address OutputIndex:1 Mute:isMute];
+
+         }
+
+         Zone *objZoneList1 = mHubManagerInstance.objSelectedHub.HubZoneData[1];
+         if(objZoneList1.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager controlMute_Address:objAudioSlave.Address OutputIndex:2 Mute:isMute];
+
+         }
+
+         Zone *objZoneList2 = mHubManagerInstance.objSelectedHub.HubZoneData[2];
+         if(objZoneList2.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager controlMute_Address:objAudioSlave.Address OutputIndex:3 Mute:isMute];
+         }
+
+         Zone *objZoneList3 = mHubManagerInstance.objSelectedHub.HubZoneData[3];
+         if(objZoneList3.zone_id == mHubManagerInstance.objSelectedZone.zone_id)
+         {
+         [APIManager controlMute_Address:objAudioSlave.Address OutputIndex:4 Mute:isMute];
+         }
+         */
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+
+-(void) deleteAudioOutput:(NSIndexPath *)indexPath {
+    @try {
+        
+        [mHubManagerInstance.arrSelectedGroupZoneList removeObjectAtIndex:indexPath.row];
+        [mHubManagerInstance.objSelectedGroup.arrGroupedZones removeObjectAtIndex:indexPath.row];
+
+        if (mHubManagerInstance.arrSelectedGroupZoneList.count <= 1) {
+
+            // Audio changes for single slave-OLD
+            [APIManager groupManager_Address:mHubManagerInstance.objSelectedHub.Address Group:mHubManagerInstance.objSelectedGroup Operation:GRPO_Delete completion:^(APIV2Response *responseObject) {
+
+                /*
+                 // Audio changes for single slave-NEW
+                 Hub *objAudioSlave = [mHubManagerInstance.arrSlaveAudioDevice firstObject];
+                 DDLogDebug(@"slave IP address objAudioSlave %@", objAudioSlave.Address);
+                 [APIManager groupManager_Address:objAudioSlave.Address Group:mHubManagerInstance.objSelectedGroup Operation:GRPO_Delete completion:^(APIV2Response *responseObject) {
+
+                 */
+                NSDictionary *dict;
+                if (responseObject.error) {
+                    [[AppDelegate appDelegate] hideHudView:ErrorMessage Message:responseObject.error_description];
+                } else {
+                    for (int i = 0; i < mHubManagerInstance.objSelectedHub.HubZoneData.count; i++) {
+                        Zone *tempZone = mHubManagerInstance.objSelectedHub.HubZoneData[i];
+                        if ([mHubManagerInstance.objSelectedGroup.arrGroupedZones containsObject:tempZone.zone_id]) {
+                            tempZone.isGrouped = NO;
+                            tempZone.imgGroupedZone = nil;
+                            if ([mHubManagerInstance.objSelectedZone.zone_id isEqualToString:tempZone.zone_id]) {
+                                mHubManagerInstance.objSelectedZone = tempZone;
+                                dict = [tempZone dictionaryRepresentation];
+                            }
+                        }
+                        [mHubManagerInstance.objSelectedHub.HubZoneData replaceObjectAtIndex:i withObject:tempZone];
+                    }
+                    
+                    
+                    
+                    //************
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadZoneControlVC object:self userInfo:dict];
+                    
+                    
+                    
+                    mHubManagerInstance.objSelectedHub.HubGroupData = [[NSMutableArray alloc] initWithArray:[mHubManagerInstance deleteGroupData:mHubManagerInstance.objSelectedHub.HubGroupData Group:mHubManagerInstance.objSelectedGroup]];
+
+                    mHubManagerInstance.objSelectedGroup = nil;
+                    [mHubManagerInstance.arrSelectedGroupZoneList removeAllObjects];
+                    [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+                    [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+                }
+            }];
+        } else {
+            // Audio changes for single slave-OLD
+            [APIManager groupManager_Address:mHubManagerInstance.objSelectedHub.Address Group:mHubManagerInstance.objSelectedGroup Operation:GRPO_Add completion:^(APIV2Response *responseObject) {
+
+
+                /*
+                 // Audio changes for single slave-NEW
+                 Hub *objAudioSlave = [mHubManagerInstance.arrSlaveAudioDevice firstObject];
+                 DDLogDebug(@"slave IP address groupManager_Address %@", objAudioSlave.Address);
+                 [APIManager groupManager_Address:objAudioSlave.Address Group:mHubManagerInstance.objSelectedGroup Operation:GRPO_Add completion:^(APIV2Response *responseObject) {
+                 */
+                NSDictionary *dict;
+                if (responseObject.error) {
+                    [[AppDelegate appDelegate] hideHudView:ErrorMessage Message:responseObject.error_description];
+                } else {
+                    
+                    for (int i = 0; i < mHubManagerInstance.objSelectedHub.HubZoneData.count; i++) {
+                        Zone *tempZone = mHubManagerInstance.objSelectedHub.HubZoneData[i];
+                        if ([mHubManagerInstance.objSelectedGroup.arrGroupedZones containsObject:tempZone.zone_id]) {
+                            tempZone.isGrouped = NO;
+                            tempZone.imgGroupedZone = nil;
+                            if ([mHubManagerInstance.objSelectedZone.zone_id isEqualToString:tempZone.zone_id]) {
+                                mHubManagerInstance.objSelectedZone = tempZone;
+                                dict = [tempZone dictionaryRepresentation];
+                            }
+                            
+                        }
+                        [mHubManagerInstance.objSelectedHub.HubZoneData replaceObjectAtIndex:i withObject:tempZone];
+                    }
+                    
+                    
+                    
+                    //************
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadZoneControlVC object:self userInfo:dict];
+                    
+                    
+                    mHubManagerInstance.objSelectedHub.HubGroupData = [mHubManagerInstance updateGroupData:mHubManagerInstance.objSelectedHub.HubGroupData Group:mHubManagerInstance.objSelectedGroup];
+                    [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+                    [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+                }
+            }];
+        }
+        [self.tblAudioGroupVolume reloadData];
+        [self.tblAudioGroupVolume layoutIfNeeded];
+        
+        CGFloat heightAudio = MIN(self.tblAudioGroupVolume.bounds.size.height, self.tblAudioGroupVolume.contentSize.height);
+        self.heightConstraintTblAudioGroupVolume.constant = heightAudio;
+        
+        CGFloat yView = self.view.frame.size.height - (self.vcBottomView.frame.size.height+heightAudio);
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            self.tblAudioGroupVolume.frame = CGRectMake(0, yView, SCREEN_WIDTH, heightAudio);
+        } else {
+            self.tblAudioGroupVolume.frame = CGRectMake(0, yView, SCREEN_WIDTH, heightAudio);
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) updateSliderValueAverage {
+    NSInteger intTotalValue = 0;
+    NSInteger intNoOfDevice = mHubManagerInstance.arrSelectedGroupZoneList.count;
+    for (int counter = 0; counter < mHubManagerInstance.arrSelectedGroupZoneList.count; counter++) {
+        //OutputDevice *objAOP = [arrGroupOutput objectAtIndex:counter];
+        NSIndexPath* indexpath = [NSIndexPath indexPathForRow:counter inSection:0]; // in case this row in in your first section
+        CellGroupVolume* cell = [self.tblAudioGroupVolume cellForRowAtIndexPath:indexpath];
+        SSTTapSlider* tapSlider = cell.sliderGroupVolumeOutput;
+        // DDLogDebug(@"Slider value == (%f)", tapSlider.value);
+        intTotalValue+=tapSlider.value;
+    }
+    NSInteger intAverage = intTotalValue/intNoOfDevice;
+    DDLogDebug(@"Average == %ld", (long)intAverage);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadOutputControlSlider object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:intAverage] forKey:kSLIDERAVERAGE]];
+}
+
+-(void) updateSliderValueAverageToGroupFromZone {
+    @try {
+        NSInteger intTotalValue = 0;
+        NSInteger intNoOfDevice = mHubManagerInstance.arrSelectedGroupZoneList.count;
+        for (int counter = 0; counter < mHubManagerInstance.arrSelectedGroupZoneList.count; counter++) {
+            //OutputDevice *objAOP = [arrGroupOutput objectAtIndex:counter];
+            NSIndexPath* indexpath = [NSIndexPath indexPathForRow:counter inSection:0]; // in case this row in in your first section
+            CellGroupVolume* cell = [self.tblAudioGroupVolume cellForRowAtIndexPath:indexpath];
+            SSTTapSlider* tapSlider = cell.sliderGroupVolumeOutput;
+            // DDLogDebug(@"Slider value == (%f)", tapSlider.value);
+            intTotalValue+=tapSlider.value;
+        }
+
+        NSInteger intAverage = intTotalValue/intNoOfDevice;
+        DDLogDebug(@"Average == %ld", (long)intAverage);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadOutputControlSlider object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:intAverage] forKey:kSLIDERAVERAGE]];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+@end

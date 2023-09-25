@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/Mobile/!svn/ver/2635/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup
+END
+CellHubUpdateVersionTableViewCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/Mobile/!svn/ver/2722/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellHubUpdateVersionTableViewCell.h
+END
+CellHeaderImage.h
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellHeaderImage.h
+END
+CellStackedSystemTableViewCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/Mobile/!svn/ver/2722/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellStackedSystemTableViewCell.m
+END
+CellEnterIPAddressContainer.h
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellEnterIPAddressContainer.h
+END
+CellHubUpdateVersionTableViewCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/Mobile/!svn/ver/2722/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellHubUpdateVersionTableViewCell.m
+END
+CellHeaderImage.m
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellHeaderImage.m
+END
+CellSetup.h
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellSetup.h
+END
+CellSetupDevice.h
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellSetupDevice.h
+END
+CellEnterIPAddressContainer.m
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellEnterIPAddressContainer.m
+END
+CellSetup.m
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellSetup.m
+END
+CellSetupDevice.m
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellSetupDevice.m
+END
+CellStackedSystemTableViewCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/Mobile/!svn/ver/2722/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/CellSetup/CellStackedSystemTableViewCell.h
+END

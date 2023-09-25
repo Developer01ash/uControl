@@ -1,0 +1,28 @@
+//
+//  CommandType.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 30/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface CommandType : NSObject
+@property(nonatomic, retain) NSMutableArray *allCommands;
+@property(nonatomic, retain) NSMutableArray<Order*> *arrCGOrder;
+@property(nonatomic, retain) NSMutableArray *volume;
+@property(nonatomic, retain) NSMutableArray *powerKey;
+@property(nonatomic, retain) NSMutableArray *gesture;
+@property(nonatomic, retain) NSMutableArray *gestureKey;
+@property(nonatomic, retain) NSMutableArray *number;
+@property(nonatomic, retain) NSMutableArray *direction;
+@property(nonatomic, retain) NSMutableArray *playhead;
+
++(CommandType*) getObjectForOutput_fromArray:(NSArray*)arrCommandServer;
++(CommandType*) getObjectForInput_fromArray:(NSArray*)arrCommandXMLServer;
++(CommandType*) getObjectForAVR_fromArray:(NSArray*)arrCommandXMLServer IRCommandArray:(NSArray*)arrCommandServer; 
+
++ (void)saveCustomObject:(CommandType *)object key:(NSString *)key;
++ (CommandType *)retrieveCustomObjectWithKey:(NSString *)key;
+@end

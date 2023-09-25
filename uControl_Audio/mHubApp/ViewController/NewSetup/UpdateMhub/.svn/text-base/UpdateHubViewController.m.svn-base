@@ -1,0 +1,252 @@
+//
+//  UpdateHubViewController.m
+//  mHubApp
+//
+//  Created by Rave on 04/12/18.
+//  Copyright © 2018 Rave Infosys. All rights reserved.
+//
+
+#import "UpdateHubViewController.h"
+#import "UpdateAvailableViewController.h"
+
+@interface UpdateHubViewController ()
+{
+    NSMutableArray *arrFilterData;
+}
+@end
+
+@implementation UpdateHubViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    self.navigationItem.backBarButtonItem = customBackBarButton;
+    self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_UPDATE_REQUIRED];
+    
+    [self.updateMhub addBorder_Color:[UIColor whiteColor] BorderWidth:1.0];
+
+    
+    
+    self.lblHeaderMessage.text = HUB_UPDATE_MESSAGE;
+    self.lbl_checkingHubUpdate.text = HUB_HOLD_MESSAGE_FOR_CHECKING_UPDATE;
+    if ([AppDelegate appDelegate].deviceType == mobileSmall)  {
+        [self.lblHeaderMessage setFont:textFontRegular12];
+        [self.lbl_checkingHubUpdate setFont:textFontRegular12];
+        
+    } else {
+        [self.lblHeaderMessage setFont:textFontRegular16];
+        [self.lbl_checkingHubUpdate setFont:textFontRegular16];
+    }
+    
+    
+    
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    @try {
+        arrFilterData = [[NSMutableArray alloc] init];
+       
+        if(self.objSelectedMHubDevice != nil)
+        {
+            
+            [arrFilterData addObject:self.objSelectedMHubDevice];
+            [self.img_mhub  setImage:[Hub getHubDeviceImage:self.objSelectedMHubDevice.modelName]];
+        }
+        else
+        {
+            
+            bool flag_checkAllUpdatedOrNot = false;
+            for (Hub *objHub in self.arrSearchData) {
+                [arrFilterData addObject:objHub];
+                
+                
+                 [self.img_mhub  setImage:[Hub getHubDeviceImage:objHub.modelName]];
+                if(objHub.mosVersion >= objHub.MHub_BenchMarkVersion)
+                {
+                    
+                    flag_checkAllUpdatedOrNot = true;
+                }
+                else
+                {
+                    flag_checkAllUpdatedOrNot = false;
+                }
+            }
+            
+            
+           
+            
+           
+            if(flag_checkAllUpdatedOrNot)
+            {
+                self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_UPDATE_IS_UPTODATE];
+                [self.gotoMenu setTitle:[ALERT_BTN_TITLE_GOBACK uppercaseString] forState:UIControlStateNormal];
+                [self.updateMhub setHidden:YES];
+                self.lblHeaderMessage.text = HUB_UP_TO_DATE_MESSAGE;
+                
+            }
+            else
+            {
+                 [self.updateMhub setHidden:NO];
+                
+            }
+            
+            
+            
+            
+            
+            //        for (SearchData *objData in self.arrSearchData) {
+            //            // DDLogDebug(@"%@ == %ld", objData.strTitle, (long)objData.arrItems.count);
+            //            for (Hub *objHub in objData.arrItems) {
+            //                [arrFilterData addObject:objHub];
+            //
+            //                DDLogDebug(@"viewDidAppear %f == %@", objHub.mosVersion, objHub.modelName);
+            //            }}
+        }
+        
+        
+        
+
+        
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    
+}
+
+- (IBAction)btnUpdateMhub_Clicked:(CustomButton *)sender {
+    
+   
+    //[self.view_checkingUpdates setHidden:NO];
+    
+    //[self call_DashUpgradeApi];
+    
+    
+    
+    if(self.navigateFromType == 2){
+        
+        
+        [self.view_checkingUpdates setHidden:NO];
+        //self.lblHeaderMessage.text = HUB_HOLD_MESSAGE_FOR_CHECKING_UPDATE;
+
+        [self call_DashUpgradeApi];
+        
+        
+        
+    }
+    
+        else{
+    UpdateAvailableViewController *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateAvailableViewController"];
+    objVC.navigateFromType = _navigateFromType;
+    objVC.arrSearchData = arrFilterData;
+//    if( arrFilterData.count > 1)
+//    {
+//        objVC.arrSearchData = arrFilterData;
+//    }
+//    else
+//    {
+//        objVC.objSelectedMHubDevice = self.objSelectedMHubDevice;
+//
+//    }
+//
+    
+    [self.navigationController pushViewController:objVC animated:YES];
+    }
+    
+    
+    
+    
+   
+}
+
+- (IBAction)btn_gotoMenu_clicked:(CustomButton *)sender {
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+-(void)call_DashUpgradeApi
+{
+    @try {
+    [[AppDelegate appDelegate]showHudView:ShowIndicator Message:@"" ];
+        
+        for (int i = 0; i < [arrFilterData count]; i++) {
+            
+            Hub *hubObj = (Hub *)[arrFilterData objectAtIndex:i];
+            
+            if(hubObj.mosVersion < hubObj.MHub_BenchMarkVersion)
+            {
+                self.objSelectedMHubDevice = hubObj;
+            break;
+                
+            }
+           
+        }
+        
+        
+        
+        
+        
+    [APIManager getDashUpgradeDetails:self.objSelectedMHubDevice updateData:nil completion:^(NSDictionary *responseObject) {
+        [[AppDelegate appDelegate]hideHudView:HideIndicator Message:@""];
+         [self.view_checkingUpdates setHidden:YES];
+        self->mArr_upgradeDetails  =  (NSMutableArray *)responseObject;
+        self->dict_upgradeDetails = (NSDictionary *)responseObject;
+        //NSLog(@"mArr_upgradeDetails %@ and dict %@",mArr_upgradeDetails,[dict_upgradeDetails objectForKey:@"version"]);
+//        if([dict_upgradeDetails objectForKey:@"version"] != nil && [[dict_upgradeDetails objectForKey:@"version"] isEqualToString:@""]){
+//        }
+        if(self.objSelectedMHubDevice.mosVersion >= [[self->dict_upgradeDetails objectForKey:@"version"]floatValue ]  || [[self->dict_upgradeDetails objectForKey:@"version"] isEqualToString:@""])
+      {
+          self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_UPDATE_IS_UPTODATE];
+          [self.gotoMenu setTitle:[ALERT_BTN_TITLE_GOBACK uppercaseString] forState:UIControlStateNormal];
+          [self.updateMhub setHidden:YES];
+          [self.gotoMenu addBorder_Color:[UIColor whiteColor] BorderWidth:1.0];
+
+          self.lblHeaderMessage.text = HUB_UP_TO_DATE_MESSAGE;
+      self.objSelectedMHubDevice.MHub_LatestVersion = [[self->dict_upgradeDetails objectForKey:@"version"]floatValue ];
+
+      }
+      else
+      {
+      self.objSelectedMHubDevice.MHub_LatestVersion = [[self->dict_upgradeDetails objectForKey:@"version"]floatValue ];
+                  UpdateAvailableViewController *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateAvailableViewController"];
+      objVC.navigateFromType = self->_navigateFromType;
+      objVC.arrSearchData = self->arrFilterData;
+//                 if( self.arrSearchData.count > 1)
+//                 {
+//                     objVC.arrSearchData = self.arrSearchData;
+//                 }
+//                else
+//                {
+//                    objVC.objSelectedMHubDevice = self.objSelectedMHubDevice;
+//
+//                }
+          
+          
+                  [self.navigationController pushViewController:objVC animated:YES];
+      }
+
+        
+        
+    }];
+        
+} @catch(NSException *exception) {
+    [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+}
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [AppDelegate appDelegate].isSearchNetworkPopVC = true;
+}
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

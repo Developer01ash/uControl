@@ -1,0 +1,482 @@
+//
+//  Constant.h
+//  mHubApp
+//
+//  Created by rave on 9/17/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#ifndef Constant_h
+#define Constant_h
+
+#ifdef DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#   define DLog(...)
+#endif
+
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
+
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+#endif
+
+static const float ALPHA_MIN = 0.9f;
+static const float ALPHA_MAX = 1.0f;
+static const float ALPHA_DISABLE = 0.3f;
+static const float ALPHA_ENABLE = 1.0f;
+static const float ANIMATION_DURATION_MOVE = 0.25f;
+
+#define mainStoryboard [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]
+#define controlStoryboard [UIStoryboard storyboardWithName:@"Control" bundle:[NSBundle mainBundle]]
+#define settingsStoryboard [UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]]
+
+#define kSSDPServiceType_UPnP_TVpicture1 @"urn:schemas-upnp-org:service:tvpicture:1"
+
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+    //MARK: IPHONE SCREEN WIDTH AND HEIGHT BOUND CONDITION
+#define IS_IPHONE_4_OR_5_WIDTH (fabs((double)[[UIScreen mainScreen]bounds].size.width-(double)320) < DBL_EPSILON)
+#define IS_IPHONE_4_HEIGHT (fabs((double)[[UIScreen mainScreen]bounds].size.height-(double)480) < DBL_EPSILON)
+#define IS_IPHONE_5_HEIGHT (fabs((double)[[UIScreen mainScreen]bounds].size.height-(double)568) < DBL_EPSILON)
+#define IS_IPHONE_6_WIDTH (fabs((double)[[UIScreen mainScreen]bounds].size.width-(double)375) < DBL_EPSILON)
+#define IS_IPHONE_6_HEIGHT (fabs((double)[[UIScreen mainScreen]bounds].size.height-(double)667) < DBL_EPSILON)
+#define IS_IPHONE_6_PLUS_WIDTH (fabs((double)[[UIScreen mainScreen]bounds].size.width-(double)414) < DBL_EPSILON)
+#define IS_IPHONE_6_PLUS_HEIGHT (fabs((double)[[UIScreen mainScreen]bounds].size.height-(double)736) < DBL_EPSILON)
+#define IS_IPHONE_X_WIDTH (fabs((double)[[UIScreen mainScreen]bounds].size.width-(double)375) < DBL_EPSILON)
+#define IS_IPHONE_X_HEIGHT (fabs((double)[[UIScreen mainScreen]bounds].size.height-(double)812) < DBL_EPSILON)
+#define IS_IPHONE_XR_HEIGHT (fabs((double)[[UIScreen mainScreen]bounds].size.height-(double)896) < DBL_EPSILON)
+
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define IS_IPAD_PRO_1366 (IS_IPAD && MAX(SCREEN_WIDTH,SCREEN_HEIGHT) == 1366.0)
+#define IS_IPAD_PRO_1024 (IS_IPAD && MIN(SCREEN_WIDTH,SCREEN_HEIGHT) == 1024.0)
+
+
+
+#define heightBiggerCellView                120.0f
+#define heightBiggerCellView_SmallMobile    90.0f
+
+#define heightFooterView                77.0f
+#define heightFooterView_SmallMobile    64.4f
+
+#define heightTableViewRow              44.5f
+#define heightTableViewRow_SmallMobile  36.2f
+
+#define heightTableViewRowWithPadding               heightTableViewRow+15.0f
+#define heightTableViewRowWithPadding_SmallMobile   heightTableViewRow_SmallMobile+15.0f
+
+#define heightTableViewHeaderWithPadding               heightTableViewRow*2
+#define heightTableViewHeaderWithPadding_SmallMobile   heightTableViewRow_SmallMobile*2
+
+#define heightTableViewRowWithPaddingWithLabel              heightTableViewRow+35.0f
+#define heightTableViewRowWithPaddingWithLabel_SmallMobile  heightTableViewRow_SmallMobile+35.0f
+
+#define MOSUPDATEVERSIONTOCHECK                8.00f
+
+//#define tableViewHeaderHeight SCREEN_HEIGHT*0.06
+//#define tableViewRowHeight SCREEN_HEIGHT*0.06+15.0f
+//#define tableViewRowHeightForAddLabel SCREEN_HEIGHT*0.06+45.0f
+
+#define RECEIVENOTIFICATION @"<%s: Notification received %@!>"
+#define EXCEPTIONLOG        @"<Exception from %s: [Line %d] \n %@\n\n>"
+#define ERRORLOG            @"<Error from %s: [Line %d] \n %@\n\n>"
+#define URLLOG              @"<%s> \n\nURL == %@\n\n"
+#define TRACKINGLOG         @"DEVICE %@ FROM %@"
+
+#define kIPADMINI @"MINI"
+
+
+#define kCOLORTHEMEOBJECT   @"colorThemeObject"
+#define kAppLaunchFirstTime @"AppLaunchedFirstTime"
+#define kAppSavedVersion    @"currentAppVersionString"
+#define kLogoutOnUpdate     @"LOGGEDOUTONAPPUPDATE"
+#define KUSERWASLOGGEDIN     @"USERWASLOGGEDIN"
+
+//MARK: PRODUCTION BUNDLE ID AND GROUP ID
+#define kNotificationBundleIndentifierProd              @"group.com.hdanywhere.ucontrol"
+#define kNotificationIndentifierContinuityProd          @"com.hdanywhere.ucontrol.Continuity"
+
+//MARK: DEVELOPMENT BUNDLE ID AND GROUP ID
+#define kNotificationBundleIndentifierDev               @"group.com.hdanywhere.ucontroldev"
+#define kNotificationIndentifierContinuityDev           @"com.hdanywhere.ucontroldev.Continuity"
+
+#define kNotificationCloseSafari                        @"CloseSafari"
+#define kNotificationReloadControlVC                    @"ReloadControlVC"
+#define kNotificationLoadLeftMenu                    @"LoadLeftMenu"
+
+#define kNotificationReloadZoneControlVC                @"ReloadZoneControlVC"
+#define kNotificationReloadControlVC_ViewWillAppear     @"ReloadControlVC_ViewWillAppear"
+
+#define kNotificationReloadControlGroupBGVC_AudioDevice @"ReloadControlGroupBGVC_AudioDevice"
+#define kNotificationReloadInput                        @"SelectedInput"
+#define kNotificationReloadOutput                       @"ReloadOutput"
+#define kNotificationReloadSourceControl                @"ReloadSourceControl"
+#define kNotificationReloadSourceSwitch                 @"ReloadSourceSwitch"
+#define kNotificationReloadZoneSourceSwitch             @"ReloadZoneSourceSwitch"
+#define kNotificationReloadSourceSwitch_ViewWillAppear  @"ReloadSourceSwitch_ViewWillAppear"
+#define kNotificationReloadInputOutputContainer                       @"ReloadInputOutputContainer"
+
+#define kNotificationReloadOutputControl                @"ReloadOutputControl"
+#define kNotificationReloadOutputControlSlider          @"ReloadOutputControlSlider"
+#define kNotificationReloadOutputControlLabel           @"ReloadOutputControlLabel"
+
+#define kControlGroupBGVC       @"ControlGroupBG"
+#define kOutputControlVC        @"OutputControlVC"
+#define kInputOutputContainerVC @"InputOutputContainerVC"
+#define kControlDeviceType      @"ControlDeviceType"
+
+    //MARK: IR Control Section Contants
+#define kControlTypeNone            @"ControlNoneVC"
+#define kControlTypeGesturePad      @"GestureVC"
+#define kControlTypeNumberPad       @"NumberKeypadVC"
+#define kControlTypeDirectionPad    @"DirectionKeypadVC"
+#define kControlTypePlayheadPad     @"PlayheadKeypadVC"
+#define kDynamicControlGroup        @"DynamicControlGroupVC"
+
+    //MARK: AlertView Title and Message Constants
+#define ALERT_TITLE @"Alert"
+#define ALERT_ERROR @"Error"
+#define ALERT_TITLE_UPDATE_AVAILABLE @"There is an update available"
+#define ALERT_DELETEGROUP @"Delete Group"
+#define ALERT_TROUBLECONNECTING @"uControl is having trouble connecting to your MHUB system."
+#define ALERT_ENTER_AUDIOIPADDRESS  @"MHUB AUDIO IP address."
+#define ALERT_TITLE_START_UPDATE @"Start Update?"
+#define ALERT_TITLE_Restore_MHUB @"Restore MHUB?"
+
+
+#define ALERT_MESSAGE_SELECT_HUBMODEL       @"\nSelect MHUB."
+#define ALERT_MESSAGE_SELECT_MHUB4KV3TYPE   @"\nSelect %@ type."
+#define ALERT_MESSAGE_ENTER_IPADDRESS       @"\nEnter IP address."
+#define ALERT_MESSAGE_ENTER_DEVICE_IPADDRESS    @"\nEnter \"%@\" IP address."
+#define ALERT_MESSAGE_SELECT_DEVICE         @"Select MHUB system."
+#define ALERT_MESSAGE_SELECT_ZONE           @"Select Zone."
+#define ALERT_MESSAGE_INTERNETNOTAVAILABEL  @"\nuControl is unable to detect an active Internet connection.\n"
+#define ALERT_MESSAGE_ENTER_EMAILID         @"\nEnter email address."
+#define ALERT_MESSAGE_ENTER_PASSWORD        @"\nEnter password."
+#define ALERT_MESSAGE_ENTER_SERIALNO        @"\nEnter MHUB serial number."
+#define ALERT_MESSAGE_ENTER_MHUBTYPE        @"\nEnter MHUB system."
+#define ALERT_MESSAGE_ENTER_FIRSTNAME       @"\nEnter first name."
+#define ALERT_MESSAGE_ENTER_SECONDNAME      @"\nEnter second name."
+#define ALERT_MESSAGE_SELECT_CALLEDCOUNTRY  @"\nSelect country."
+#define ALERT_MESSAGE_ENTER_TELEPHONE       @"\nEnter telephone number."
+#define ALERT_MESSAGE_ENTER_DATEOFPURCHASE  @"\nEnter purchase date."
+#define ALERT_MESSAGE_ENTER_PURCHASEDWHERE  @"\nEnter purchase location."
+#define ALERT_MESSAGE_ALREADYLOGIN          @"HDA Cloud has detected that your account already exists."
+#define ALERT_MESSAGE_TROUBLECONNECTING     @"Rescan for MHUB?"
+#define ALERT_MESSAGE_ENTER_AUDIOIPADDRESS  @"\nMHUB AUDIO IP address.\n"
+#define ALERT_MESSAGE_ENTER_GROUPNAME       @"\nEnter audio group name."
+#define ALERT_MESSAGE_SELECT_GROUPDEVICE    @"\nYou must select at least 2 MHUB devices."
+#define ALERT_MESSAGE_FILENOTFOUND          @"\nuControl is having trouble getting the correct data from you MHUB system.\n"
+#define ALERT_MESSAGE_APINOTFOUND           @"\nuControl is sending commands to your MHUB which are not being understood. Please make sure that MHUB-OS is version 8 or higher or contact support@hdanywhere.com for assistance.\n"
+
+#define ALERT_BTN_TITLE_OK          @"OK"
+#define ALERT_BTN_TITLE_CANCEL      @"Cancel"
+#define ALERT_BTN_TITLE_YES         @"Yes"
+#define ALERT_BTN_TITLE_NO          @"No"
+#define ALERT_BTN_TITLE_UPDATE      @"Update"
+#define ALERT_BTN_TITLE_RETRY       @"Retry"
+#define ALERT_BTN_TITLE_CONTINUE    @"Continue"
+#define ALERT_BTN_TITLE_GOBACK      @"Go Back"
+#define ALERT_BTN_TITLE_RESTORE @"RESTORE"
+
+    //MARK: Hub messages while connection
+#define HUB_CONNECTING                  @"Connecting..."
+#define HUB_SUCCESS                     @"uControl has successfully connected to your MHUB system."
+#define HUB_REMOVEUCONTROL_CONFIRMATION @"Remove this MHUB from uControl?"
+#define HUB_RESYNCUCONTROL_CONFIRMATION @"Resync uControl with your MHUB system?"
+#define HUB_RESTART_MHUBSYSTEM 			@"Restart process?"
+
+#define HUB_LOADING                     @"Loading..."
+#define HUB_TROUBLECONNECTING           @"uControl is having trouble connecting to your MHUB system, please check your network settings or try again later."
+
+#define HUB_SELECTEDDEVICE                  @"Please select a device."
+#define HUB_NOSLAVEDEVICES                  @"Unable to connect, there is no slave or secondary MHUB connected."
+#define HUB_FIRSTTIMESETUP_HEADER           @"Initial setup."
+#define HUB_FIRSTTIMESETUP_MESSAGE          @""
+#define HUB_LANDINGPAGE_MESSAGE             @"Seamless Entertainment Discreet Technology"
+
+#define HUB_MHUBFOUND_HEADER                @"MHUB device(s) found."
+#define HUB_MHUBFOUND_MESSAGE               @"uControl has found the following MHUB devices(s) on your network..."
+#define HUB_NOTSETUP_HEADER                 @"uControl has detected that your MHUB system has not been setup."
+#define HUB_NOTSETUP_MESSAGE                @"uControl has detected that your MHUB system has not gone through its first boot process. Your MHUB system must be configured before you can use uControl."
+#define HUB_NOTSETUP_BUTTON                 @"Setup MHUB."
+
+#define HUB_UNABLETOFIND_HEADER             @"Unable to establish a connection."
+#define HUB_UNABLETOFIND_MESSAGE            @"uControl was unable to connect to your MHUB. Please check your network settings and ensure that your MHUB is wired to your network. uControl must be on the same network as your MHUB in order to connect to it."
+
+#define HUB_ATTEMPTINGTOPAIRWITHMHUB_HEADER     @"Attempting to pair with your MHUB."
+#define HUB_ATTEMPTINGTOPAIRWITHMHUB_MESSAGE    @"uControl is attempting to connect to your MHUB to sync all data and settings.\nPlease be patient as this process can take up to 1 minute to complete."
+
+#define HUB_UNABLETOCONNECT_MESSAGE             @"uControl is having difficulty connecting to your MHUB. The last known address was %@.\n\n Would you like uControl to rescan for your MHUB?"
+
+#define APP_UPDATE_MESSAGE             @"uControl has been updated with the latest features from HDANYWHERE. You will need to reconnect to your MHUB system to complete setup."
+#define APP_NO_GROUP_MESSAGE  @"There is no group available for this MHUB."
+#define HUB_ADVANCEMOSUPDATE_HEADER @"Advance MHUB Options"
+#define HUB_UPDATING_HEADER @"MHUB IS UPDATING"
+#define HUB_UPDATED_HEADER @"MHUB is updated"
+#define HUB_UPDATE_COMPLETED @"UPDATE COMPLETED"
+
+#define HUB_ADVANCEMOSUPDATE_MESSAGE @"Advance options for MHUB can be found here."
+#define HUB_ADVANCEMOSUPDATE_MESSAGE_WARNING_MERGED @"Advance options for MHUB can be found here.\n\nWARNING: Proceed only\n if you know what you are doing or have been instructed by HDANYWHERER staff as you can damage your system."
+#define HUB_ADVANCEMOSUPDATE_WARNING @"WARNING: Proceed only\n if you know what you are doing or have been instructed by HDANYWHERER staff as you can damage your system."
+#define HUB_UPDATING_MESSAGE @"Please do not touch or power down\nyour MHUB system as it is performing an update."
+#define HUB_RETURNTOUCONTROL_BUTTON @"RETURN TO UCONTROL"
+#define HUB_IS_UPDATING @"Your update is installing. Please hold until the update is complete.\nPlease do not power down or interact with MHUB whilst the update installs."
+
+#define HUB_UNABLETOCONNECT_SHORT_MESSAGE       @"uControl is having difficulty connecting to your MHUB. The last known address was %@."
+
+#define HUB_CONNECTED_HEADER                    @"Connected."
+#define HUB_CONNECTED_MESSAGE                   @"uControl is now paired to your MHUB system."
+#define HUB_CONNECTED_BUTTON                    @"Complete setup."
+#define HUB_ADDMANUALLY_HEADER                  @"Connect manually"
+#define HUB_ADDMANUALLY_MESSAGE                 @"If you know the correct IP address for your MHUB device then you can connect to it manually.\n\nSelect which type of MHUB system you want to connect to..."
+
+#define HUB_CLOUDREGISTRATION_MESSAGE   		@"Register this MHUB within 30 days of purchase and extend your warranty by 1 year."
+
+#define HUB_MULTIPLESERIALNO_MESSAGE    		@"There are %ld MHUB system(s) registered to this account. Which MHUB system would you like to download data for?"
+#define HUB_APPUPDATE_MESSAGE           		@"Please update to the latest version of uControl."
+#define HUB_MOSUPDATE_MESSAGE           		@"Please update your %@ with the latest version of MHUB-OS."
+#define HUB_MOSUPDATE_WARNING_TERMSANDCONDITION                   @"WARNING: You can not exit this process after it has started.\nDO NOT power down your MHUB during this process and ensure that no one is interacting with MHUB."
+#define HUB_MOSUPDATE_MESSAGE_Without_Model  @"To continue using uControl with MHUB, please update MHUB-OS to the latest version.\n\nThis update can take up to 5 minutes to complete. Once started, you can not exit this process."
+#define HUB_MOSUPDATE_MESSAGE_Without_Model_With_NoticeTitle_Bold  @"Notice\nTo continue using uControl with MHUB, please update MHUB-OS to the latest version."
+#define HUB_REMOVEGROUPMESSAGE  @"Are you sure you want to delete this group?"
+#define HUB_NO_ZONE_CREATE_GROUP  @"All zones belong to other audio groups. You can not create a new group at this time."
+#define HUB_RESTORE_HUB_WARNING                   @"WARNING: You can not undo this process."
+#define HUB_RESTORE_HUB_WARNING_Message_Header                   @"WARNING: by continuing, you will restore your MHUB device back to factory settings.\nThis will remove all user data,all HDA cloud information and any configuration settings."
+
+#define HUB_RESTORE_HUB_Success_Message                   @"Your MHUB has been restored back to manufacturer defaults."
+
+#define HUB_Notice                          @"Notice"
+#define HUB_RESYNCUCONTROL_MHUBOS           @"Resync uControl with MHUB."
+#define HUB_RESYNCUCONTROL_HDACLOUD         @"RESYNC uControl with HDA Cloud."
+#define HUB_RESYNCUCONTROL_DEVICE           @"RESYNC uControl with \"%@\""
+
+#define HUB_MHUBSYSTEM                      @"MHUB system"
+#define HUB_NAMEANDIPADDRESS                @"Master\n%@: %@ [%.2f]" // [NAME] [IP ADDRESS]
+#define HUB_PAIREDNAMEANDIPADDRESS          @"Paired\n%@: %@ [%.2f]" // [NAME] [IP ADDRESS] (UP TO X2 MAXIMUM CHILD MHUB)
+#define HUB_NAMEANDIPADDRESS_STANDALONE                @"%@: %@ [%.2f]" // [NAME] [IP ADDRESS]
+#define HUB_PAIREDNAMEANDIPADDRESS_STANDALONE          @"%@: %@ [%.2f]" // [NAME] [IP ADDRESS] (UP TO X2 MAXIMUM CHILD MHUB)
+#define HUB_ACCESSMHUBOS                    @"Access MHUB"
+#define HUB_MANAGEUCONTROLPACKS             @"Manage uControl Packs"
+#define HUB_MANAGESEQUENCES                 @"Manage Sequences"
+#define HUB_MANAGEZONESOURCELABELS          @"Manage zone / source labels"
+#define HUB_ZONELABELS                      @"Zone labels"
+#define HUB_SOURCELABELS                    @"Source labels"
+#define HUB_REMOVE_THIS_MHUB                @"Remove MHUB"
+#define HUB_ADVANCE_UPDATE_MOS              @"ADVANCED"
+#define HUB_SETUP_MISMATCH                  @"Setup Mismatch"
+#define HUB_SOFTWARE_MISMATCH               @"Software Mismatch"
+#define HUB_SYSTEM_CONFIGURED               @"MHUB System Configured"
+#define HUB_HDACLOUD_HEADER                 @"HDA Cloud"
+#define HUB_CREATEHDACLOUDACCOUNT           @"Create a HDA Cloud account"
+#define HUB_BACKUPUCONTROLTOHDACLOUD        @"Backup uControl"
+
+#define HUB_UCONTROLSETTINGS                @"uControl settings"
+#define HUB_DISPLAYSETTINGS                 @"Display settings"
+#define HUB_ZONEBACKGROUNDIMAGE             @"Zone background image"
+#define HUB_THEMES                          @"Themes"
+#define HUB_ADDITIONALCUSTOMISATION         @"Additional customisation"
+#define HUB_MENUSETTINGS                    @"Menu settings"
+#define HUB_MANAGEZONES                     @"zones(Show/Hide)"
+#define HUB_SETAPPQUICKACTIONS              @"Setup Quick Actions"
+#define HUB_MANAGEQUICKACTIONS              @"Manage Quick Actions"
+#define HUB_MANAGESOURCEDEVICES             @"source devices(Show/Hide)"
+#define HUB_BUTTONBORDERS                   @"Borders and appearance" // [TOGGLE Y/N]
+#define HUB_BUTTONVIBRATION                 @"Vibration settings" // [TOGGLE Y/N]
+#define HUB_AUDIOGROUPS                     @"Audio groups"
+#define HUB_BUTTONSENDREPORTORBUG           @"Report a bug or problem" // [TOGGLE Y/N]
+#define HUB_CONNECTINGTOMHUBOS              @"Connecting to MHUB-OS, this can take up to 30 seconds"
+
+//MARK: New
+#define HUB_SEARCHING_NETWORK_HEADER        @"Searching Network"
+#define HUB_MULTIPLE_MHUB_FOUND_HEADER      @"Multiple MHUB Devices Discovered"
+#define HUB_CONNECTION_OPTIONS_HEADER       @"Connection Options"
+#define HUB_SELECT_SYSTEM_HEADER            @"Select System"
+#define HUB_SELECT_PRIMARY_SYSTEM_HEADER    @"Select Primary Controlling Device"
+#define HUB_SELECT_SECONDARY_SYSTEM_HEADER  @"Select Secondary Device(s)"
+#define HUB_SETUP_COMPLETE_HEADER           @"Setup Complete"
+#define HUB_CONTINUE_SETUP_ON_MHUBOS_HEADER @"Continue Setup on MHUB device"
+#define HUB_MHUB_ALREADY_CONFIGURED_HEADER  @"Your MHUB is already configured"
+#define HUB_MHUB_ALREADY_PAIRED_HEADER      @"uControl is already paired to your MHUB."
+#define HUB_UPDATE_REQUIRED                 @"Update Required"
+#define HUB_UPDATE_IS_AVAILABLE             @"Update is Available"
+#define HUB_SELECT_STACKED_SYSTEM           @"Select Stacked System"
+#define HUB_UPDATE_IS_UPTODATE              @"MHUB is Up to Date"
+#define HUB_UPDATE_TERMSNCONDITION          @"Terms & Conditions"
+#define HUB_SOFTWARE_BENCHMARK              @"Software Benchmark"
+#define HUB_RESTORE_MHUB                    @"Restore MHUB"
+#define HUB_MHUB_RESET_SUCCESSFUL           @"MHUB Reset Successful"
+#define HUB_UNABLE_TO_AUTOMATICALLY_CONNECT @"Unable to Automatically Connect"
+#define HUB_AVAILABLE_SYSTEMS               @"Available System(s)"
+#define HUB_SOFTWARE_BENCHMARK_PLACEHOLDER_TEXT               @"Software benchmark details will be shown when you'll have a active internet connection"
+
+
+
+#define HUB_SETUP_COMPLETE_BUTTON           @"Access uControl"
+#define HUB_CONTINUE_SETUP_ON_MHUBOS_BUTTON @"Continue Setup on MHUB Device"
+#define HUB_MULTIPLE_MHUB_SETUP_HEADER      @"Your MHUB system has already been configured"
+
+//#define HUB_CONNECT_MANUALLY_HEADER                 @"Connect manually"
+#define HUB_CONNECT_MANUALLY_HEADER                   @"Manually Connect"
+#define HUB_CONNECT_ADVANCE_OPTIONS                   @"Advance Options"
+#define HUB_CONNECT_MANUALLY_WARNING_HEADER           @"WARNING - PLEASE READ!"
+#define HUB_CONNECT_MANUALLY_PAGE_DESCRIPTION         @"Menu for direct connection and advanced management of MHUB systems."
+
+//#define HUB_MULTIPLE_MHUB_FOUND_MESSAGE @"We have detected a number of different MHUB devices on your network.What type of MHUB system do you wish to create?"
+
+#define HUB_MULTIPLE_MHUB_FOUND_MESSAGE             @"Select the type of MHUB system you would like to create?"
+#define HUB_CONNECTION_OPTIONS_VIDEO_MESSAGE        @"Video distribution"
+#define HUB_CONNECTION_OPTIONS_AUDIO_MESSAGE        @"Audio distribution"
+#define HUB_CONNECTION_OPTIONS_VIDEOAUDIO_MESSAGE   @"Video + Audio distribution"
+#define HUB_UPDATE_MESSAGE                          @"Your MHUB will require an update to work with this version of uControl.\nYou will not be able  to use uControl until your MHUB has been updated."
+#define HUB_UPDATE_AVAILABLE_MESSAGE                @"There is an update available for your MHUB system.\nYour MHUB will update from  %@ to %@"
+#define HUB_MHUB_ALREADY_CONFIGURED_MESSAGE         @"The primary MHUB device you have selected has already been configured. If you proceed all existing data will be removed from MHUB."
+#define HUB_MHUB_ALREADY_PAIRED_MESSAGE             @"The MHUB device(s) in the list below are reporting that they belong to a previously configured system. If you proceed all existing data will be removed from all MHUB(s)."
+#define HUB_CONNECT_MANUALLY_SETUP_MESSAGE          @"If you know the correct IP address for your MHUB then you can connect to it manually.\n\nBefore proceeding, are you connecting to an existing MHUB system or creating a new system?"
+#define HUB_CONNECT_MANUALLY_WARNING_MESSAGE        @"This process will remove any pre-configured data and will reset your MHUB. Are you sure you want to proceed?"
+#define HUB_UP_TO_DATE_MESSAGE @"There are no updates for your MHUB system. You are up to date."
+#define HUB_HOLD_MESSAGE_FOR_CHECKING_UPDATE @"Please hold whilst we check with MHUB & HDA Cloud for any updates."
+#define HUB_SETUP_MISMATCH_MSG @"uControl has detected multiple MHUB devices on your network. One or more of these devices have not been through their first boot proccess.\n\nAs a result, uControl can not determine which MHUB it should automatically connect to.\n\nIf you want to configure your MHUB systems in to a stack then you will need to reset one or more of your devices before proceeding. This can be done from the “Connect Manually” option in the main menu."
+#define HUB_SOFTWARE_MISMATCH_MSG @"uControl has detected multiple MHUB devices on your network. One or more of these devices do not meet the minimum software requirement to work with uControl.\n\nTo connect to a single device you will need to return to the main menu and connect manually.\n\nTo connect automatically to any device, all MHUB systems must be updated to MHUB-OS 8 or higher.This can be achieved by accessing the main menu and forcing MHUB to update."
+#define HUB_UNABLE_TO_AUTO_CONNECT_MESSAGE @"uControl is unable to detect or determine how to connect to your MHUB system.\n\nPlease ensure that all MHUB devices are powered on and are connected to your local network.\n\nIf you keep seeing this page then try connecting directly manually to MHUB to diagnose any issues."
+#define HUB_CONNECT_MANUALLY_DEVICE_TYPE_MESSAGE        @"What device type are you connecting to?"
+#define HUB_CONNECT_MANUALLY_IPADDRESS_MESSAGE          @"Enter the IP address."
+#define HUB_CONNECT_MANUALLY_PRIMARY_DEVICE_MESSAGE     @"Select a master (primary) MHUB device."
+#define HUB_CONNECT_MANUALLY_SECONDARY_DEVICE_MESSAGE   @"Select slave (secondary) MHUB device(s)."
+
+#define HUB_SETUP_A_NEW_MHUB_SYSTEM                 @"Setup a new MHUB system"
+//#define HUB_CONNECT_TO_AN_EXISTING_MHUB_SYSTEM    @"Connect to an existing MHUB system"
+#define HUB_CONNECT_TO_AN_EXISTING_MHUB_SYSTEM      @"Connect to MHUB system"
+#define HUB_MANUALLY_CONNECT_FIND_DEVICES           @"FIND DEVICES"
+#define HUB_CONNECT_REQUEST_SOFTWARE_BENCHMARK      @"REQUEST HDA SOFTWARE BENCHMARK"
+#define HUB_FORCE_MHUB_UPDATE                       @"MHUB UPDATE"
+#define HUB_CONNECT_NEW_SYSTEM                      @"SETUP A NEW MHUB SYSTEM"
+#define HUB_CONNECT_RESET_MHUB                      @"RESET MHUB"
+
+#define HUB_ENTER_DEMO_MODE_old                     @"Access uControl in demo mode"
+#define HUB_ENTER_DEMO_MODE                         @"ENTER DEMO MODE"
+#define HUB_ADD_ANOTHER_SLAVE                       @"Add another MHUB device"
+
+#define HUB_RETURN_TO_CONNECTION_OPTIONS            @"Return to connection options"
+#define HUB_CONTINUE_WITH_SETUP                     @"Continue with setup"
+#define HUB_RETURN_TO_MANUAL_CONNECTION             @"Return to manual setup"
+
+
+//MARK: OLD SETTING MENU
+#define HUB_ACCESSMHUBDASH          @"ACCESS MHUB"
+#define HUB_ACCESSMHUBDASHUCONTROL  @"DOWNLOAD UCONTROL PACKS"
+#define HUB_BACKUPHDACLOUD          @"BACKUP DATA TO HDA CLOUD™"
+#define HUB_CONNECTHDACLOUD         @"CONNECT TO HDA CLOUD™"
+#define HUB_QUICKSYNCHDACLOUD       @"QUICK SYNC WITH HDA CLOUD™"
+#define HUB_CREATEHDACLOUDACCOUNT   @"CREATE HDA CLOUD™ ACCOUNT"
+
+#define HUB_LABELS_HEADER           @"SOURCE/ROOM/DISPLAY LABELS"
+#define HUB_DISPLAYLABELS           @"DISPLAY/ROOM LABELS"
+#define HUB_SOURCELABELS            @"SOURCE LABELS"
+
+#define HUB_HDACLOUD_HEADER         @"HDA CLOUD™"
+#define HUB_REGISTERCLOUD           @"REGISTER CLOUD™"
+#define HUB_LOGINCLOUD              @"LOGIN CLOUD™"
+#define HUB_BACKUPTOCLOUD           @"BACKUP TO CLOUD™"
+#define HUB_SYNCWITHCLOUD           @"SYNC WITH CLOUD™"
+#define HUB_VALIDATESERIALNUMBER    @"VALIDATE SERIAL NUMBER"
+
+//MARK: Image
+#define kImageIconNO                 [UIImage imageNamed:@"icon_no"]
+#define kImageIconYES                 [UIImage imageNamed:@"icon_yes"]
+#define kImageIconWarning                 [UIImage imageNamed:@"icon-warning"]
+
+
+#define kImageCheckMark                 [UIImage imageNamed:@"HDA_icon_checkmark"]
+#define kImageShadowThemeBlack          [UIImage imageNamed:@"HDA_shadow_theme_black"]
+#define kImageShadowThemeWhite          [UIImage imageNamed:@"HDA_shadow_theme_white"]
+#define kImage_HDA_icon_setup_done_small  [UIImage imageNamed:@"HDA_icon_setup_done_small"]
+#define kImageHDALogo                   [UIImage imageNamed:@"HDA_logo"]
+#define kImageIconNavBack               [UIImage imageNamed:@"HDA_icon_nav_back"]
+#define kImageIconPowerMain             [UIImage imageNamed:@"HDA_icon_power_main"]
+#define kImageIconPowerExplicitBlue     [UIImage imageNamed:@"icon-power-explicit-method"]
+//#define kImageIconPowerClearColor             [UIImage imageNamed:@"icon_color_powertoggle"]
+#define kImageIconPowerClearColor             [UIImage imageNamed:@"power_toggle_new"]
+#define kImageIconPowerClearColor_New             [UIImage imageNamed:@"power_toggle_new2"]
+#define kImageIconSettings              [UIImage imageNamed:@"HDA_icon_setting_gray"]
+#define kImageIconIREnabled             [UIImage imageNamed:@"HDA_icon_ir_enabled"]
+#define kImageIconSequence              [UIImage imageNamed:@"HDA_icon_sequence"]
+#define kImageIconNoSourceWhite         [UIImage imageNamed:@"HDA_icon_no_source"]
+#define kImageIconNoSourceDarkGray      [UIImage imageNamed:@"HDA_icon_no_source_darkgray"]
+
+#define kImageIconGestureWhite          [UIImage imageNamed:@"gesture_white"]
+#define kImageIconNumericWhite          [UIImage imageNamed:@"numeric_white"]
+#define kImageIconNavigationWhite       [UIImage imageNamed:@"navigation_white"]
+#define kImageIconPlayheadWhite         [UIImage imageNamed:@"playhead_white"]
+
+#define kImageIconGestureLightGray      [UIImage imageNamed:@"gesture_lightgray"]
+#define kImageIconNumericLightGray      [UIImage imageNamed:@"numeric_lightgray"]
+#define kImageIconNavigationLightGray   [UIImage imageNamed:@"navigation_lightgray"]
+#define kImageIconPlayheadLightGray     [UIImage imageNamed:@"playhead_lightgray"]
+
+#define kImageIconTVWrapper             [UIImage imageNamed:@"icon_tv_wrapper"]
+#define kImageIconTVDisplay             [UIImage imageNamed:@"icon_tv_display"]
+#define kImageIconTVSpeakerDisplay      [UIImage imageNamed:@"icon_tv_speaker_display"]
+#define kImageIconTVAVR                 [UIImage imageNamed:@"icon_tv_avr"]
+#define kImageIconTVMute                [UIImage imageNamed:@"icon_tv_mute"]
+
+#define kImageIconTVAUDIO               [UIImage imageNamed:@"icon_tv_audio"]
+#define kImageIconAudioSlider           [UIImage imageNamed:@"icon_tv_slider"]
+#define kImageIconAudioSliderEnd        [UIImage imageNamed:@"icon_tv_slider_end"]
+#define kImageIconAudioSliderEndGray    [UIImage imageNamed:@"icon_tv_slider_end_gray"]
+
+#define kImageIconAudioSonos            [UIImage imageNamed:@"icon_tv_sonos"]
+
+#define kImageIconAudioMuteActive       [UIImage imageNamed:@"icon_audio_mute_active"]
+#define kImageIconAudioMuteInActive     [UIImage imageNamed:@"icon_audio_mute_inactive"]
+#define kImageIconAudioPaired           [UIImage imageNamed:@"icon_audio_paired"]
+
+#define kImageIconAudioMuteActiveGray   [UIImage imageNamed:@"icon_light_audio_mute_active"]
+#define kImageIconAudioMuteInActiveGray [UIImage imageNamed:@"icon_light_audio_mute_inactive"]
+#define kImageIconAudioPairedGray       [UIImage imageNamed:@"icon_light_audio_paired"]
+
+//MARK: NEW
+#define kImageIconSetupVideoCarbonite           [UIImage imageNamed:@"HDA_icon_setup_video_carbonite"]
+#define kImageIconSetupAudioCarbonite           [UIImage imageNamed:@"HDA_icon_setup_audio_carbonite"]
+#define kImageIconSetupVideoAudioCarbonite      [UIImage imageNamed:@"HDA_icon_setup_video_audio_carbonite"]
+#define kImageIconSetupVideoSmallCarbonite      [UIImage imageNamed:@"HDA_icon_setup_video_small_carbonite"]
+#define kImageIconSetupAudioSmallCarbonite      [UIImage imageNamed:@"HDA_icon_setup_audio_small_carbonite"]
+#define kImageIconSetupVideoAudioSmallCarbonite [UIImage imageNamed:@"HDA_icon_setup_video_audio_small_carbonite"]
+#define kImageIconSetupVideoLargeCarbonite      [UIImage imageNamed:@"HDA_icon_setup_video_large_carbonite"]
+#define kImageIconSetupAudioLargeCarbonite      [UIImage imageNamed:@"HDA_icon_setup_audio_large_carbonite"]
+#define kImageIconSetupVideoAudioLargeCarbonite [UIImage imageNamed:@"HDA_icon_setup_video_audio_large_carbonite"]
+
+#define kImageIconSetupVideoSnow                [UIImage imageNamed:@"HDA_icon_setup_video_snow"]
+#define kImageIconSetupAudioSnow                [UIImage imageNamed:@"HDA_icon_setup_audio_snow"]
+#define kImageIconSetupVideoAudioSnow           [UIImage imageNamed:@"HDA_icon_setup_video_audio_snow"]
+#define kImageIconSetupVideoSmallSnow           [UIImage imageNamed:@"HDA_icon_setup_video_small_snow"]
+#define kImageIconSetupAudioSmallSnow           [UIImage imageNamed:@"HDA_icon_setup_audio_small_snow"]
+#define kImageIconSetupVideoAudioSmallSnow      [UIImage imageNamed:@"HDA_icon_setup_video_audio_small_snow"]
+#define kImageIconSetupVideoLargeSnow           [UIImage imageNamed:@"HDA_icon_setup_video_large_snow"]
+#define kImageIconSetupAudioLargeSnow           [UIImage imageNamed:@"HDA_icon_setup_audio_large_snow"]
+#define kImageIconSetupVideoAudioLargeSnow      [UIImage imageNamed:@"HDA_icon_setup_video_audio_large_snow"]
+
+//#define kImageIconSetupMHUBOSLarge              [UIImage imageNamed:@"HDA_icon_mhub_os_large"]
+//#define kImageIconSetupDoneLarge                [UIImage imageNamed:@"HDA_icon_setup_done_large"]
+//#define kImageIconSetupMHUBOSLarge              [UIImage imageNamed:@"icon-setup-mos"]
+//#define kImageIconSetupDoneLarge                [UIImage imageNamed:@"icon-setup-complete"]
+
+#define kImageIconSetupMHUBOSLarge              [UIImage imageNamed:@"icon-SETUP-INCOMPLETE"]
+#define kImageIconSetupDoneLarge                [UIImage imageNamed:@"icon-SETUP-COMPLETE"]
+
+
+//MARK: Custom
+#define customBackBarButton [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]
+
+#endif /* Constant_h */

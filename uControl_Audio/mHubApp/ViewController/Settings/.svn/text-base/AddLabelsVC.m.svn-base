@@ -1,0 +1,260 @@
+//
+//  AddLabelsVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 02/12/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import "AddLabelsVC.h"
+#import "CellAddLabel.h"
+
+@interface AddLabelsVC () {
+    UITextField *activeField;
+}
+@property (weak, nonatomic) IBOutlet UITableView *tblLabels;
+@property (nonatomic, retain) NSMutableArray *arrData;
+
+@end
+
+@implementation AddLabelsVC
+@synthesize labelType;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.backBarButtonItem = customBackBarButton;
+    switch (labelType) {
+        case Display:
+            self.navigationItem.titleView = [CustomNavigationBar customNavigationLabelSettings:HUB_DISPLAYLABELS];
+            self.arrData = [[NSMutableArray alloc] initWithArray:mHubManagerInstance.objSelectedHub.HubOutputData];
+            break;
+        case Source:
+            self.navigationItem.titleView = [CustomNavigationBar customNavigationLabelSettings:HUB_SOURCELABELS];
+            self.arrData = [[NSMutableArray alloc] initWithArray:mHubManagerInstance.objSelectedHub.HubInputData];
+            break;
+        default:
+            break;
+    }
+    [self registerForKeyboardNotifications];
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.view.backgroundColor = [AppDelegate appDelegate].themeColours.colorBackground;
+    [[AppDelegate appDelegate] setShouldRotate:NO];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 1) {
+        return 1;
+    }
+    return self.arrData.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectZero];
+    return viewHeader;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.0f;
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            return heightTableViewRowWithPadding_SmallMobile;
+        } else {
+            return heightTableViewRowWithPadding;
+        }
+    }
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        return heightTableViewRowWithPaddingWithLabel_SmallMobile;
+    } else {
+        return heightTableViewRowWithPaddingWithLabel;
+    }
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 1) {
+        CellSetup *cell = [tableView dequeueReusableCellWithIdentifier:@"CellSaveButton"];
+        if (cell == nil) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"CellSaveButton"];
+        }
+
+        [cell.imgBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+        [cell.lblCell setTextColor:[AppDelegate appDelegate].themeColours.colorNormalText];
+
+        cell.lblCell.text = @"SAVE";
+        return cell;
+    } else {
+        CellAddLabel *cell = [tableView dequeueReusableCellWithIdentifier:@"CellAddLabel"];
+        if (cell == nil) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"CellAddLabel"];
+        }
+        switch (labelType) {
+            case Display: {
+                OutputDevice *objOP = [self.arrData objectAtIndex:indexPath.row];
+                [cell.lblCell setText:[objOP.Name uppercaseString]];
+                [cell.txtCell setTag:indexPath.row];
+                if ([objOP.CreatedName isNotEmpty]) {
+                    [cell.txtCell setText:objOP.CreatedName];
+                }
+                break;
+            }
+            case Source: {
+                InputDevice *objIP = [self.arrData objectAtIndex:indexPath.row];
+                [cell.lblCell setText:[objIP.Name uppercaseString]];
+                [cell.txtCell setTag:indexPath.row];
+                if ([objIP.CreatedName isNotEmpty]) {
+                    [cell.txtCell setText:objIP.CreatedName];
+                }
+                break;
+            }
+            default:
+                break;
+        }
+        return cell;
+    }
+}
+
+#pragma mark - UITableView Delegate
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        switch (labelType) {
+            case Display: {
+                mHubManagerInstance.objSelectedHub.HubOutputData = [[NSMutableArray alloc] initWithArray:self.arrData];
+                [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+                break;
+            }
+            case Source: {
+                mHubManagerInstance.objSelectedHub.HubInputData = [[NSMutableArray alloc] initWithArray:self.arrData];
+                [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+                break;
+            }
+            default:
+                break;
+        }
+        
+        [self.navigationController popViewControllerAnimated:true];
+    }
+}
+
+#pragma mark - UITextField Delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    activeField = nil;
+    NSString *strCreatedName = [[NSString stringWithFormat:@"%@", [textField.text isNotEmpty] ? textField.text : @""] getTrimmedString];
+    switch (labelType) {
+        case Display: {
+            OutputDevice *objOP = [self.arrData objectAtIndex:textField.tag];
+            objOP.CreatedName = strCreatedName;
+            [self.arrData replaceObjectAtIndex:textField.tag withObject:objOP];
+            break;
+        }
+        case Source: {
+            InputDevice *objIP = [self.arrData objectAtIndex:textField.tag];
+            objIP.CreatedName = strCreatedName;
+            [self.arrData replaceObjectAtIndex:textField.tag withObject:objIP];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.length + range.location > textField.text.length)
+        return false;
+    NSInteger newLength = textField.text.length + string.length - range.length;
+    return newLength <= 24;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    activeField = textField;
+}
+
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height, 0.0, kbSize.height, 0.0);
+    self.tblLabels.contentInset = contentInsets;
+    self.tblLabels.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height+self.navigationController.navigationBar.frame.size.height;
+    if (!CGRectContainsPoint(aRect, activeField.frame.origin) ) {
+        [self.tblLabels scrollRectToVisible:activeField.frame animated:YES];
+    }
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height + self.tblLabels.frame.origin.y, 0.0, 0.0, 0.0); //UIEdgeInsetsZero;
+    self.tblLabels.contentInset = contentInsets;
+    self.tblLabels.scrollIndicatorInsets = contentInsets;
+}
+
+@end

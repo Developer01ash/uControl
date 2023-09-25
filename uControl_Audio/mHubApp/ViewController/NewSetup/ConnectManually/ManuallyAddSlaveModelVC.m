@@ -1,0 +1,208 @@
+//
+//  ManuallyAddSlaveModelVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 27/03/18.
+//  Copyright © 2018 Rave Infosys. All rights reserved.
+//
+
+#import "ManuallyAddSlaveModelVC.h"
+#import "CellHeaderImage.h"
+#import "CellSetupDevice.h"
+#import "SetupConfirmationVC.h"
+#import "SetupTypeVC.h"
+#import "ManuallyEnterSlaveIPAddressVC.h"
+
+@interface ManuallyAddSlaveModelVC () {
+    Hub *objSelectedMHubDevice;
+    BOOL isSelectedPaired;
+    NSMutableArray <Hub*>*arrSelectedSlaveDevice;
+}
+@end
+
+@implementation ManuallyAddSlaveModelVC
+
+- (void)viewDidLoad {
+    @try {
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+        ThemeColor *themeColor = [AppDelegate appDelegate].themeColoursSetup;
+        self.view.backgroundColor = themeColor.colorBackground;
+        [self.lblHeaderMessage setTextColor:themeColor.colorNormalText];
+        //self.navigationItem.backBarButtonItem = customBackBarButton;
+        self.navigationItem.hidesBackButton = true;
+        self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_SELECT_SECONDARY_SYSTEM_HEADER];
+        [self.lblHeaderMessage setText:HUB_CONNECT_MANUALLY_SECONDARY_DEVICE_MESSAGE];
+
+        objSelectedMHubDevice = [[Hub alloc] init];
+        objSelectedMHubDevice.Generation = self.hubModel;
+        objSelectedMHubDevice.modelName = [Hub getModelName:objSelectedMHubDevice];
+        if(objSelectedMHubDevice.Generation == mHubZP)
+        {
+            arrSelectedSlaveDevice = [[NSMutableArray alloc] initWithObjects:[Hub getSlaveMubSObjectFromCount:1], nil];
+        }
+        else{
+        arrSelectedSlaveDevice = [[NSMutableArray alloc] initWithObjects:[Hub getAudioObjectFromCount:1], nil];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    @try {
+        [super viewWillAppear:animated];
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            [self.lblHeaderMessage setFont:textFontRegular12];
+        } else {
+            [self.lblHeaderMessage setFont:textFontRegular18];
+        }
+        [[AppDelegate appDelegate] setShouldRotate:NO];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void)viewDidLayoutSubviews {
+    @try {
+        [super viewDidLayoutSubviews];
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            [self.lblHeaderMessage setFont:textFontRegular12];
+        } else {
+            [self.lblHeaderMessage setFont:textFontRegular18];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([tableView isEqual:self.tblConnectOption]) {
+        return 2;
+    } else {
+        return [arrSelectedSlaveDevice count];
+    }
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        return heightTableViewRowWithPadding_SmallMobile;
+    } else {
+        return heightTableViewRowWithPadding;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        if ([tableView isEqual:self.tblConnectOption]) {
+            if (indexPath.row == 0) {
+                CellSetupDevice *cell = [tableView dequeueReusableCellWithIdentifier:@"CellSetupDevice"];
+                if (cell == nil) {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"CellSetupDevice"];
+                }
+                cell.lblCell.text = @"CONNECT";
+                cell.imgCell.image = nil;
+                [cell setUserInteractionEnabled:true];
+                [cell.contentView setAlpha:ALPHA_ENABLE];
+                return cell;
+
+            } else {
+                CellSetupDevice *cell = [tableView dequeueReusableCellWithIdentifier:@"CellSetupWOBorder"];
+                if (cell == nil) {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"CellSetupWOBorder"];
+                }
+                cell.imgCellBackground.image = nil;
+                cell.lblCell.text = [HUB_ADD_ANOTHER_SLAVE uppercaseString];
+                cell.imgCell.image = nil;
+                if ([arrSelectedSlaveDevice count] < 3) {
+                    [cell setUserInteractionEnabled:true];
+                    [cell.contentView setAlpha:ALPHA_ENABLE];
+                } else {
+                    [cell setUserInteractionEnabled:false];
+                    [cell.contentView setAlpha:ALPHA_DISABLE];
+                }
+                return cell;
+            }
+        } else {
+            CellSetupDevice *cell = [tableView dequeueReusableCellWithIdentifier:@"CellSetupDevice"];
+            if (cell == nil) {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"CellSetup"];
+            }
+            // cell.imgCellBackground.image = [Utility imageWithColor:[AppDelegate appDelegate].themeColoursSetup.colorBackground Frame:cell.imgCellBackground.frame];
+
+            Hub *objHub = [arrSelectedSlaveDevice objectAtIndex:indexPath.row];
+            NSMutableString *title = [[NSMutableString alloc] init];
+            if ([arrSelectedSlaveDevice count] > 1) {
+                NSInteger intCount = indexPath.row+1;
+                [title appendString:[NSString stringWithFormat:@"%@ #%ld", objHub.Name, (long)intCount]];
+            } else {
+                [title appendString:[NSString stringWithFormat:@"%@", objHub.Name]];
+            }
+
+            cell.lblCell.text = [title uppercaseString];
+            cell.imgCell.image = nil;
+            [cell setUserInteractionEnabled:true];
+            [cell.contentView setAlpha:ALPHA_ENABLE];
+            return cell;
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - UITableView Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        if ([tableView isEqual:self.tblConnectOption]) {
+            if (indexPath.row == 0) {
+                // forward navigation
+                ManuallyEnterSlaveIPAddressVC *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"ManuallyEnterSlaveIPAddressVC"];
+                objVC.setupType = self.setupType;
+                objVC.objSelectedMHubDevice = objSelectedMHubDevice;
+                objVC.arrSelectedSlaveDevice = arrSelectedSlaveDevice;
+                [self.navigationController pushViewController:objVC animated:YES];
+            } else {
+                if (arrSelectedSlaveDevice.count < 3) {
+                    if(objSelectedMHubDevice.Generation == mHubZP)
+                    {
+                        [arrSelectedSlaveDevice addObject:[Hub getSlaveMubSObjectFromCount:(arrSelectedSlaveDevice.count+1)]];
+                        
+                    }
+                    else{
+                    [arrSelectedSlaveDevice addObject:[Hub getAudioObjectFromCount:(arrSelectedSlaveDevice.count+1)]];
+                    }
+                    [self.tblSlaveDevice reloadData];
+                    [self.tblConnectOption reloadData];
+                }
+            }
+        } else {
+        }
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+@end

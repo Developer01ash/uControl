@@ -1,0 +1,510 @@
+//
+//  SearchData.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 07/12/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+/*
+ SearchData Object is used to filter device details of particular MODEL TYPE.
+
+ SearchDataManager is another class available in this file which consist of all SearchData List which is being used to display the data on the search sections.
+ */
+
+#import "SearchData.h"
+
+@implementation SearchData
++(SearchData*) initWithSectionType:(HDAModelType)secType RowArray:(NSMutableArray*)arrRows {
+    SearchData *objReturn = [[SearchData alloc] init];
+    @try {
+        ThemeColor *objTheme = [AppDelegate appDelegate].themeColoursSetup;
+        
+        objReturn.arrItems = [[NSMutableArray alloc] initWithArray:arrRows];
+        objReturn.modelType = secType;
+        switch (secType) {
+            case HDA_MHUB4K44Pro: {
+                objReturn.strTitle = kDEVICEMODEL_MHUB4K44PRO;
+                //  objReturn.imgSection = kDEVICEMODEL_IMAGE_MHUB4K44PRO;
+                //  objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K44PRO_IPAD : kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K44PRO;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUB4K44PRO_SNOW : kDEVICEMODEL_IMAGE_MHUB4K44PRO_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+            case HDA_MHUBPRO24440: {
+                objReturn.strTitle = kDEVICEMODEL_MHUBPRO24440;
+                //  objReturn.imgSection = kDEVICEMODEL_IMAGE_MHUB4K44PRO;
+                //  objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K44PRO_IPAD : kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K44PRO;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUB4K44PRO_SNOW : kDEVICEMODEL_IMAGE_MHUB4K44PRO_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+            case HDA_MHUB4K88Pro: {
+                objReturn.strTitle = kDEVICEMODEL_MHUB4K88PRO;
+                // objReturn.imgSection = kDEVICEMODEL_IMAGE_MHUB4K88PRO;
+                // objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K88PRO_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K88PRO;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUB4K88PRO_SNOW : kDEVICEMODEL_IMAGE_MHUB4K88PRO_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+
+                break;
+            }
+            case HDA_MHUBPRO288100: {
+                objReturn.strTitle = kDEVICEMODEL_MHUBPRO288100;
+                // objReturn.imgSection = kDEVICEMODEL_IMAGE_MHUB4K88PRO;
+                // objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K88PRO_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K88PRO;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUB4K88PRO_SNOW : kDEVICEMODEL_IMAGE_MHUB4K88PRO_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+
+                break;
+            }
+            case HDA_MHUB4K431: {
+                objReturn.strTitle = kDEVICEMODEL_MHUB4K431;
+                // objReturn.imgSection = kDEVICEMODEL_IMAGE_MHUB4K431;
+                // objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K431_IPAD : kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K431;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUB4K431_SNOW : kDEVICEMODEL_IMAGE_MHUB4K431_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+            case HDA_MHUB4K862: {
+                objReturn.strTitle = kDEVICEMODEL_MHUB4K862;
+                // objReturn.imgSection = kDEVICEMODEL_IMAGE_MHUB4K862;
+                // objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K862_IPAD : kDEVICEMODEL_IMAGE_HEIGHT_MHUB4K862;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUB4K862_SNOW : kDEVICEMODEL_IMAGE_MHUB4K862_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+                
+            case HDA_MHUB431U: {
+                objReturn.strTitle = kDEVICEMODEL_MHUB431U;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUB431U_SNOW : kDEVICEMODEL_IMAGE_MHUB431U_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+            case HDA_MHUB862U: {
+                objReturn.strTitle = kDEVICEMODEL_MHUB862U;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUB862U_SNOW : kDEVICEMODEL_IMAGE_MHUB862U_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+                
+            case HDA_MHUBPRO4440: {
+                objReturn.strTitle = kDEVICEMODEL_MHUBPRO4440;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUBPRO4440_SNOW : kDEVICEMODEL_IMAGE_MHUBPRO4440_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+            case HDA_MHUBPRO8840: {
+                objReturn.strTitle = kDEVICEMODEL_MHUBPRO8840;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUBPRO8840_SNOW : kDEVICEMODEL_IMAGE_MHUBPRO8840_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+                
+            case HDA_MHUBAUDIO64: {
+                objReturn.strTitle = kDEVICEMODEL_MHUBAUDIO64;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUBAUDIO64_SNOW : kDEVICEMODEL_IMAGE_MHUBAUDIO64_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+                
+            case HDA_MHUBMAX44: {
+                objReturn.strTitle = kDEVICEMODEL_MHUBMAX44;
+                objReturn.imgSection = objTheme.themeType == Light ? kDEVICEMODEL_IMAGE_MHUBMAX44_SNOW : kDEVICEMODEL_IMAGE_MHUBMAX44_CARBONITE;
+                objReturn.sectionHeight = IS_IPAD ? kDEVICEMODEL_IMAGE_HEIGHT_NEW_IPAD :  kDEVICEMODEL_IMAGE_HEIGHT_NEW;
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
+-(NSDictionary*) dictionaryRepresentation {
+    @try {
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:self.strTitle forKey:kSearchTitle];
+        [dict setValue:[NSNumber numberWithInteger:self.modelType] forKey:kSearchModelType];
+        [dict setValue:[NSNumber numberWithDouble:self.sectionHeight] forKey:kSearchHeight];
+        [dict setValue:self.imgSection forKey:kSearchImage];
+        [dict setValue:self.arrItems forKey:kSearchItems];
+        return dict;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - ENCODER DECODER METHODS
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    @try {
+        //Encode properties, other class variables, etc
+        [encoder encodeObject:self.strTitle forKey:kSearchTitle];
+        [encoder encodeInteger:self.modelType forKey:kSearchModelType];
+        [encoder encodeDouble:self.sectionHeight forKey:kSearchHeight];
+        [encoder encodeObject:self.imgSection forKey:kSearchImage];
+        [encoder encodeObject:self.arrItems forKey:kSearchItems];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    @try {
+        if(self = [super init]) {
+            //decode properties, other class vars
+            self.strTitle = [decoder decodeObjectForKey:kSearchTitle];
+            self.modelType = (HDAModelType)[decoder decodeIntegerForKey:kSearchModelType];
+            self.sectionHeight = [decoder decodeDoubleForKey:kSearchHeight];
+            self.imgSection = [decoder decodeObjectForKey:kSearchImage];
+            self.arrItems = [decoder decodeObjectForKey:kSearchItems];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+@end
+
+@implementation SearchDataManager
+
++ (instancetype)sharedInstance {
+    static SearchDataManager *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[SearchDataManager alloc] init];
+    });
+    return sharedInstance;
+}
+
+- (void)resetSharedInstance {
+//    sharedInstance = nil;
+//    if (arrSearchData) {
+//        arrSearchData = nil;
+//    }
+
+}
+#pragma mark - Get Search Data Method
+
+-(void) startSearchNetwork {
+    objMhub44Pro = [SearchData initWithSectionType:HDA_MHUB4K44Pro RowArray:[[NSMutableArray alloc] init]];
+    objMhub88Pro = [SearchData initWithSectionType:HDA_MHUB4K88Pro RowArray:[[NSMutableArray alloc] init]];
+    objMhub431 = [SearchData initWithSectionType:HDA_MHUB4K431 RowArray:[[NSMutableArray alloc] init]];
+    objMhub862 = [SearchData initWithSectionType:HDA_MHUB4K862 RowArray:[[NSMutableArray alloc] init]];
+    
+    objMhub431U = [SearchData initWithSectionType:HDA_MHUB431U RowArray:[[NSMutableArray alloc] init]];
+    objMhub862U = [SearchData initWithSectionType:HDA_MHUB862U RowArray:[[NSMutableArray alloc] init]];
+    objMhubPro4440 = [SearchData initWithSectionType:HDA_MHUBPRO4440 RowArray:[[NSMutableArray alloc] init]];
+    objMhubPro8840 = [SearchData initWithSectionType:HDA_MHUBPRO8840 RowArray:[[NSMutableArray alloc] init]];
+    objMhubAudio64 = [SearchData initWithSectionType:HDA_MHUBAUDIO64 RowArray:[[NSMutableArray alloc] init]];
+    objMhubMAX44 = [SearchData initWithSectionType:HDA_MHUBMAX44 RowArray:[[NSMutableArray alloc] init]];
+    objMhubPro24440 = [SearchData initWithSectionType:HDA_MHUBPRO24440 RowArray:[[NSMutableArray alloc] init]];
+    objMhubPro288100 = [SearchData initWithSectionType:HDA_MHUBPRO288100 RowArray:[[NSMutableArray alloc] init]];
+
+
+    NSMutableArray *arrSearchData = [[NSMutableArray alloc] init];
+    [arrSearchData addObject:objMhub44Pro];
+    [arrSearchData addObject:objMhub88Pro];
+    
+    [arrSearchData addObject:objMhubPro4440];
+    [arrSearchData addObject:objMhubPro8840];
+    [arrSearchData addObject:objMhubMAX44];
+    [arrSearchData addObject:objMhubAudio64];
+    [arrSearchData addObject:objMhub431U];
+    [arrSearchData addObject:objMhub862U];
+
+    [arrSearchData addObject:objMhub431];
+    [arrSearchData addObject:objMhub862];
+    [arrSearchData addObject:objMhubPro24440];
+    [arrSearchData addObject:objMhubPro288100];
+
+    
+//    // Start Browsing
+    [[MDNSManager sharedInstance] startBrowsingMDNS];
+    [MDNSManager sharedInstance].delegate = self;
+    // Start Browsing
+    [[MDNSManager sharedInstance] startBrowsingMDNS2];
+    [MDNSManager sharedInstance].delegate = self;
+    
+    // SSDP searching
+    [[SSDPManager sharedInstance] startBrowsingSSDP];
+    [SSDPManager sharedInstance].delegate = self;
+}
+
+
+-(void) reloadSearchedData {
+    @try {
+        if (arrSearchData) {
+            [arrSearchData removeAllObjects];
+        } else {
+            arrSearchData = [[NSMutableArray alloc] init];
+        }
+        arrSearchData = [[NSMutableArray alloc] init];
+        [arrSearchData addObject:objMhub44Pro];
+        [arrSearchData addObject:objMhub88Pro];
+        [arrSearchData addObject:objMhubPro4440];
+        [arrSearchData addObject:objMhubPro8840];
+        [arrSearchData addObject:objMhubMAX44];
+        [arrSearchData addObject:objMhubAudio64];
+        [arrSearchData addObject:objMhub431U];
+        [arrSearchData addObject:objMhub862U];
+        [arrSearchData addObject:objMhub431];
+        [arrSearchData addObject:objMhub862];
+        [arrSearchData addObject:objMhubPro24440];
+        [arrSearchData addObject:objMhubPro288100];
+
+
+        for (SearchData *objData in arrSearchData) {
+            if (objData.modelType != HDA_MHUB4K431 && objData.modelType != HDA_MHUB4K862) {
+                //NSLog(@"objData.modelType %ld",(long)objData.modelType);
+                for (Hub *objHub in objData.arrItems) {
+                    //NSLog(@"objHub.Address %@",objHub.Address);
+                    if (![objHub.Address isIPAddressEmpty] && ![objHub.SerialNo isNotEmpty]) {
+                        [APIManager fileAllDetails:objHub completion:^(APIV2Response *responseObject) {
+                            if (!responseObject.error) {
+                                Hub *objHubAPI = (Hub *)responseObject.data_description;
+
+                                if ([objHubAPI.Name isNotEmpty]) {
+                                    objHub.Name = objHubAPI.Name;
+                                }
+
+                                if ([objHubAPI.modelName isNotEmpty]) {
+                                    objHub.modelName = objHubAPI.modelName;
+                                }
+
+                                if ([objHubAPI.Official_Name isNotEmpty]) {
+                                    objHub.Official_Name = objHubAPI.Official_Name;
+                                }
+
+                                if ([objHubAPI.SerialNo isNotEmpty]) {
+                                    objHub.SerialNo = objHubAPI.SerialNo;
+                                }
+
+                                if (objHubAPI.apiVersion != 0) {
+                                    objHub.apiVersion = objHubAPI.apiVersion;
+                                }
+
+                                if (objHubAPI.mosVersion != 0) {
+                                    objHub.mosVersion = objHubAPI.mosVersion;
+                                }
+
+                                if ([objHubAPI.strMOSVersion isNotEmpty]) {
+                                    objHub.strMOSVersion = objHubAPI.strMOSVersion;
+                                }
+
+                                if (objHubAPI.BootFlag == true) {
+                                    objHub.BootFlag = objHubAPI.BootFlag;
+                                }
+
+                                if ([objHubAPI.HubInputData isNotEmpty]) {
+                                    objHub.HubInputData = objHubAPI.HubInputData;
+                                }
+
+                                if ([objHubAPI.HubOutputData isNotEmpty]) {
+                                    objHub.HubOutputData = objHubAPI.HubOutputData;
+                                }
+
+                                if ([objHubAPI.HubZoneData isNotEmpty]) {
+                                    objHub.HubZoneData = objHubAPI.HubZoneData;
+                                }
+
+                                if (objHubAPI.isPaired == true) {
+                                    objHub.isPaired = objHubAPI.isPaired;
+                                }
+
+                                if (![objHubAPI.PairingDetails isPairEmpty]) {
+                                    objHub.PairingDetails = objHubAPI.PairingDetails;
+                                }
+                                //NSLog(@"mHubAudio objHub 11 %@    %@",objHubAPI.Address,objHubAPI.Address);
+                                if (self.delegate) {
+                                    [self.delegate searchData:self didFindDataArray:self->arrSearchData];
+                                }
+                            }
+                        }];
+                    }
+                }
+            }
+        }
+
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - MDNSManager Delegate
+-(void) mdnsManager_ReloadData:(MDNSManager *)manager {
+    [self reloadSearchedData];
+}
+
+-(void) mdnsManager:(MDNSManager *)manager didFindMHUB:(Hub *)objHub {
+    switch (objHub.Generation) {
+        case mHubPro: {
+            if (objHub.InputCount == 4) {
+                if ([objHub.modelName isContainString:kDEVICEMODEL_MHUB4K44PRO]) {
+                    [objMhub44Pro.arrItems addObject:objHub];
+                } else if ([objHub.modelName isContainString:kDEVICEMODEL_MHUBPRO4440]) {
+                    [objMhubPro4440.arrItems addObject:objHub];
+                }
+            } else if (objHub.InputCount == 8) {
+                if ([objHub.modelName isContainString:kDEVICEMODEL_MHUB4K88PRO]) {
+                    [objMhub88Pro.arrItems addObject:objHub];
+                } else if ([objHub.modelName isContainString:kDEVICEMODEL_MHUBPRO8840]) {
+                    [objMhubPro8840.arrItems addObject:objHub];
+                }
+            }
+            break;
+        }
+        case mHub4KV4: {
+            if (objHub.InputCount == 4) {
+                [objMhub431U.arrItems addObject:objHub];
+            } else if (objHub.InputCount == 8) {
+                [objMhub862U.arrItems addObject:objHub];
+            }
+            break;
+        }
+        case mHubMAX: {
+            [objMhubMAX44.arrItems addObject:objHub];
+            break;
+        }
+        case mHubAudio: {
+            //NSLog(@"mHubAudio objHub %@",objHub.Address);
+            [objMhubAudio64.arrItems addObject:objHub];
+            break;
+        }
+        case mHubPro2:
+        {
+         if (objHub.InputCount == 4) {
+            if ([objHub.modelName isContainString:kDEVICEMODEL_MHUBPRO24440]) {
+                [objMhubPro24440.arrItems addObject:objHub];
+            }
+         }else if (objHub.InputCount == 8) {
+             if ([objHub.modelName isContainString:kDEVICEMODEL_MHUBPRO288100]) {
+                 [objMhubPro288100.arrItems addObject:objHub];
+             }
+         }
+        break;
+        }
+        default:
+            break;
+    }
+    [self reloadSearchedData];
+}
+
+-(void) mdnsManager:(MDNSManager *)manager didRemoveMHUB:(Hub *)objHub {
+    switch (objHub.Generation) {
+        case mHubPro: {
+            if (objHub.InputCount == 4) {
+                if (([objHub.modelName isContainString:kDEVICEMODEL_MHUB4K44PRO])) {
+                    [objMhub44Pro.arrItems removeObject:objHub];
+                } else if ([objHub.modelName isContainString:kDEVICEMODEL_MHUBPRO4440]) {
+                    [objMhubPro4440.arrItems removeObject:objHub];
+                }
+            } else if (objHub.InputCount == 8) {
+                if ([objHub.modelName isContainString:kDEVICEMODEL_MHUB4K88PRO]) {
+                    [objMhub88Pro.arrItems removeObject:objHub];
+                } else if ([objHub.modelName isContainString:kDEVICEMODEL_MHUBPRO8840]) {
+                    [objMhubPro8840.arrItems removeObject:objHub];
+                }
+            }
+            break;
+        }
+        case mHub4KV4: {
+            if (objHub.InputCount == 4) {
+                [objMhub431U.arrItems removeObject:objHub];
+            } else if (objHub.InputCount == 8) {
+                [objMhub862U.arrItems removeObject:objHub];
+            }
+            break;
+        }
+        case mHubMAX: {
+            [objMhubMAX44.arrItems removeObject:objHub];
+            break;
+        }
+        case mHubAudio: {
+            [objMhubAudio64.arrItems removeObject:objHub];
+            break;
+        }
+        case mHubPro2:{
+
+            if (objHub.InputCount == 4) {
+                if ([objHub.modelName isContainString:kDEVICEMODEL_MHUBPRO24440]) {
+                    [objMhubPro24440.arrItems removeObject:objHub];
+                }
+            }else if (objHub.InputCount == 8) {
+                if ([objHub.modelName isContainString:kDEVICEMODEL_MHUBPRO288100]) {
+                    [objMhubPro288100.arrItems removeObject:objHub];
+                }
+            }
+            break;
+        }
+        default:
+            break;
+    }
+    if (self.delegate) {
+        [self.delegate searchData:self didFindDataArray:arrSearchData];
+    }
+}
+
+-(void) mdnsManager:(MDNSManager *)manager Service:(NSNetService *)service didFindAddress:(NSString *)address {
+    NSLog(@"mHubAudio objHub 55 %@",address);
+    for (SearchData *objData in arrSearchData) {
+        for (Hub *objHub in objData.arrItems) {
+            if ([objHub.modelName isEqualToString:service.name] && [service addresses].count > 0) {
+                NSLog(@"mHubAudio objHub 22 %@",objHub.Address);
+                objHub.Address = address;
+            }
+        }
+    }
+    [self reloadSearchedData];
+}
+
+#pragma mark - SSDPManager Delegate
+-(void) ssdpManager:(SSDPManager *)manager didFindMHUB:(Hub *)objHub {
+    if (objHub.InputCount == 8) {
+        if ([objMhub862.arrItems count] > 0) {
+            for (Hub *item in objMhub862.arrItems) {
+                if ([objMhub862.arrItems containsObject:item]) {
+                    DDLogDebug(@"Already Exist 2");
+                } else {
+                    [objMhub862.arrItems addObject:objHub];
+                }
+            }
+        } else {
+            [objMhub862.arrItems addObject:objHub];
+        }
+    } else {
+        if ([objMhub431.arrItems count] > 0) {
+            for (Hub *item in objMhub431.arrItems) {
+                if ([objMhub431.arrItems containsObject:item]) {
+                    DDLogDebug(@"Already Exist 3");
+                } else {
+                    [objMhub431.arrItems addObject:objHub];
+                }
+            }
+        } else {
+            [objMhub431.arrItems addObject:objHub];
+        }
+
+
+
+    }
+    [self reloadSearchedData];
+}
+
+-(void) ssdpManager:(SSDPManager *)manager didRemoveMHUB:(Hub *)objHub {
+    if (objHub.InputCount == 8) {
+        [objMhub862.arrItems removeObject:objHub];
+    } else {
+        [objMhub431.arrItems removeObject:objHub];
+    }
+    if (self.delegate) {
+        [self.delegate searchData:self didFindDataArray:arrSearchData];
+    }
+}
+
+@end

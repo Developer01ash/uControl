@@ -1,0 +1,181 @@
+//
+//  ThemeColor.h
+//  mHubApp
+//
+//  Created by rave on 11/16/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+/*
+ Set ThemeColor Object for different themes in the Project i.e. Dark (Carbonite) , Light (Snow)
+
+ @param ThemeType themeType will provide you data of theme colors according to requirement.
+ */
+
+#import <Foundation/Foundation.h>
+
+typedef NS_ENUM(NSUInteger, ThemeType) {
+    Dark    = 0,
+    Light   = 1
+};
+
+// ** Color Constants ** //
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define colorClear      [UIColor clearColor]
+#define colorWhite      [UIColor whiteColor]
+#define colorGrayLight  [UIColor lightGrayColor]
+#define colorGrayDark   [UIColor darkGrayColor]
+#define colorBlack      [UIColor blackColor]
+#define colorRed        [UIColor redColor]
+#define colorCyan       [UIColor cyanColor]
+#define colorYellow     [UIColor yellowColor]
+#define colorBlue       [UIColor blueColor]
+
+#define colorWhite_254254254        [UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0]
+#define colorLightGray_230230230    [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0]
+#define colorLightGray_229229229    [UIColor colorWithRed:229.0f/255.0f green:229.0f/255.0f blue:229.0f/255.0f alpha:1.0]
+#define colorLightGray_208210211    [UIColor colorWithRed:208.0f/255.0f green:210.0f/255.0f blue:211.0f/255.0f alpha:1.0]
+#define colorLightGray_207208210    [UIColor colorWithRed:207.0f/255.0f green:208.0f/255.0f blue:210.0f/255.0f alpha:1.0]
+#define colorLightGray_207207207    [UIColor colorWithRed:207.0f/255.0f green:207.0f/255.0f blue:207.0f/255.0f alpha:1.0]
+#define colorLightGray_205205205    [UIColor colorWithRed:205.0f/255.0f green:205.0f/255.0f blue:205.0f/255.0f alpha:1.0]
+#define colorLightGray_191191191    [UIColor colorWithRed:191.0f/255.0f green:191.0f/255.0f blue:191.0f/255.0f alpha:1.0]
+#define colorLightGray_179179179    [UIColor colorWithRed:179.0f/255.0f green:179.0f/255.0f blue:179.0f/255.0f alpha:1.0]
+#define colorGray_828282            [UIColor colorWithRed:82.0f/255.0f green:82.0f/255.0f blue:82.0f/255.0f alpha:1.0]
+#define colorMiddleGray_868787            [UIColor colorWithRed:134.0f/255.0f green:135.0f/255.0f blue:135.0f/255.0f alpha:1.0]
+#define colorGray_777777            [UIColor colorWithRed:77.0f/255.0f green:77.0f/255.0f blue:77.0f/255.0f alpha:1.0]
+#define colorGray_767676            [UIColor colorWithRed:76.0f/255.0f green:76.0f/255.0f blue:76.0f/255.0f alpha:1.0]
+#define colorGray_757575            [UIColor colorWithRed:75.0f/255.0f green:75.0f/255.0f blue:75.0f/255.0f alpha:1.0]
+#define colorGray_747474            [UIColor colorWithRed:74.0f/255.0f green:74.0f/255.0f blue:74.0f/255.0f alpha:1.0]
+#define colorGray_646464            [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:1.0]
+#define colorDarkGray_525252        [UIColor colorWithRed:52.0f/255.0f green:52.0f/255.0f blue:52.0f/255.0f alpha:1.0]
+#define colorDarkGray_515151        [UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1.0]
+#define colorDarkGray_514040        [UIColor colorWithRed:51.0f/255.0f green:40.0f/255.0f blue:40.0f/255.0f alpha:1.0]
+#define colorDarkGray_484847        [UIColor colorWithRed:48.0f/255.0f green:48.0f/255.0f blue:47.0f/255.0f alpha:1.0]
+#define colorDarkGray_373535        [UIColor colorWithRed:37.0f/255.0f green:35.0f/255.0f blue:35.0f/255.0f alpha:1.0]
+#define colorDarkGray_353131        [UIColor colorWithRed:35.0f/255.0f green:31.0f/255.0f blue:31.0f/255.0f alpha:1.0]
+#define colorDarkGray_333131        [UIColor colorWithRed:33.0f/255.0f green:31.0f/255.0f blue:31.0f/255.0f alpha:1.0]
+#define colorDarkGray_282626        [UIColor colorWithRed:28.0f/255.0f green:26.0f/255.0f blue:26.0f/255.0f alpha:1.0]
+#define colorDarkGray_282424        [UIColor colorWithRed:28.0f/255.0f green:24.0f/255.0f blue:24.0f/255.0f alpha:1.0]
+#define colorDarkGray_272727        [UIColor colorWithRed:27.0f/255.0f green:27.0f/255.0f blue:27.0f/255.0f alpha:1.0]
+#define colorGunGray_272726        [UIColor colorWithRed:39.0f/255.0f green:39.0f/255.0f blue:38.0f/255.0f alpha:1.0]
+#define colorDarkGray_262626        [UIColor colorWithRed:26.0f/255.0f green:26.0f/255.0f blue:26.0f/255.0f alpha:1.0]
+#define colorDarkGray_202020        [UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0]
+#define colorDarkGray_191919        [UIColor colorWithRed:19.0f/255.0f green:19.0f/255.0f blue:19.0f/255.0f alpha:1.0]
+#define colorDarkGray_666666        [UIColor colorWithRed:102.0f/255.0f green:102.0f/255.0f blue:102.0f/255.0f alpha:1.0]
+#define colorBlack_999              [UIColor colorWithRed:9.0f/255.0f green:9.0f/255.0f blue:9.0f/255.0f alpha:1.0]
+#define colorProPink              [UIColor colorWithRed:237.0f/255.0f green:30.0f/255.0f blue:121.0f/255.0f alpha:1.0]
+#define colorSkyBlue              [UIColor colorWithRed:9.0f/255.0f green:9.0f/255.0f blue:9.0f/255.0f alpha:1.0]
+
+#define colorGreenCheck              [UIColor colorWithRed:64.0f/255.0f green:180.0f/255.0f blue:79.0f/255.0f alpha:1.0]
+
+#define hexString_ProPink @"ed1e79"
+#define hexString_SkyBlue @"76c8db"
+#define hexString_ProPinkUtility [Utility colorWithHexString:hexString_ProPink]
+#define hexString_SkyBlueUtility [Utility colorWithHexString:hexString_SkyBlue]
+
+
+
+
+#define kTHEMETYPE                      @"themeType"
+#define kISBUTTONBORDER                 @"isButtonBorder"
+#define kISBUTTONVIBRATION              @"isButtonVibration"
+#define kCOLORBACKGROUND                @"colorBackground"
+#define kCOLORBACKGROUNDSETUP           @"colorBackgroundSetUp"
+#define kCOLORNAVIGATIONBAR             @"colorNavigationBar"
+#define kCOLORHEADERTEXT                @"colorHeaderText"
+#define kCOLORNORMALTEXT                @"colorNormalText"
+#define kCOLORTABLECELLBORDER           @"colorTableCellBorder"
+#define kCOLORDOWNARROW                 @"colorDownArrow"
+#define kCOLORINPUTBACKGROUND           @"colorInputBackground"
+#define kCOLORINPUTSELECTEDBACKGROUND   @"colorInputSelectedBackground"
+#define kCOLORINPUTTEXT                 @"colorInputText"
+#define kCOLORINPUTSELECTEDTEXT         @"colorInputSelectedText"
+
+#define kCOLOROUTPUTBACKGROUND          @"colorOutputBackground"
+#define kCOLOROUTPUTBORDER              @"colorOutputBorder"
+#define kCOLOROUTPUTSELECTEDBORDER      @"colorOutputSelectedBorder"
+#define kCOLOROUTPUTSELECTEDBACKGROUND  @"colorOutputSelectedBackground"
+#define kCOLOROUTPUTTEXT                @"colorOutputText"
+#define kCOLOROUTPUTSELECTEDTEXT        @"colorOutputSelectedText"
+#define kCOLORSETTINGCONTROLBORDER      @"colorSettingControlBorder"
+
+#define kCOLORCONTROLDEFAULT            @"colorControlDefault"
+#define kCOLORCONTROLBORDER             @"colorControlBorder"
+#define kCOLORCONTROLTEXT               @"colorControlText"
+
+#define kCOLORCONTROLBACKGROUND         @"colorControlBackground"
+#define kCOLORCONTROLOUTPUTBACKGROUND   @"colorControlOutputBackground"
+#define kCOLORCONTROLOUTPUTVOLUMEBG     @"colorControlOutputVolumeBG"
+
+#define kCOLORCGROUPBACKGROUND          @"colorCGroupBackground"
+#define kCOLORCGROUPSELECTEDBACKGROUND  @"colorCGroupSelectedBackground"
+
+#define kCOLORLIMITEDINPUTBORDER                @"colorLimitedInputBorder"
+#define kCOLORLIMITEDINPUTBACKGROUND            @"colorLimitedInputBackground"
+#define kCOLORLIMITEDINPUTSELECTEDBORDER        @"colorLimitedInputSelectedBorder"
+#define kCOLORLIMITEDINPUTSELECTEDBACKGROUND    @"colorLimitedInputSelectedBackground"
+#define kCOLORLIMITEDINPUTTEXT                  @"colorLimitedInputText"
+#define kCOLORLIMITEDINPUTSELECTEDTEXT          @"colorLimitedInputSelectedText"
+
+#define kCOLORPOWERCONTROLBG            @"colorPowerControlBG"
+#define kCOLORPOWERCONTROLBORDER        @"colorPowerControlBorder"
+#define kCOLORPOWERCONTROLTEXT          @"colorPowerControlText"
+
+@interface ThemeColor : NSObject
+
+@property (nonatomic, assign) ThemeType themeType;
+@property (nonatomic, assign) BOOL isButtonBorder;
+@property (nonatomic, assign) BOOL isButtonVibration;
+
+@property (retain, nonatomic) UIColor *colorBackground;
+@property (retain, nonatomic) UIColor *colorBackgroundSetUp;
+@property (retain, nonatomic) UIColor *colorNavigationBar;
+@property (retain, nonatomic) UIColor *colorHeaderText;
+@property (retain, nonatomic) UIColor *colorNormalText;
+@property (retain, nonatomic) UIColor *colorDownArrow;
+@property (retain, nonatomic) UIColor *colorTableCellBorder;
+
+@property (retain, nonatomic) UIColor *colorInputBackground;
+@property (retain, nonatomic) UIColor *colorInputSelectedBackground;
+@property (retain, nonatomic) UIColor *colorInputText;
+@property (retain, nonatomic) UIColor *colorInputSelectedText;
+
+@property (retain, nonatomic) UIColor *colorOutputBorder;
+@property (retain, nonatomic) UIColor *colorOutputBackground;
+@property (retain, nonatomic) UIColor *colorOutputSelectedBorder;
+@property (retain, nonatomic) UIColor *colorOutputSelectedBackground;
+@property (retain, nonatomic) UIColor *colorOutputText;
+@property (retain, nonatomic) UIColor *colorOutputSelectedText;
+@property (retain, nonatomic) UIColor *colorSettingControlBorder;
+
+@property (retain, nonatomic) UIColor *colorControlDefault;
+@property (retain, nonatomic) UIColor *colorControlBorder;
+@property (retain, nonatomic) UIColor *colorControlText;
+
+@property (retain, nonatomic) UIColor *colorControlBackground;
+@property (retain, nonatomic) UIColor *colorControlOutputBackground;
+@property (retain, nonatomic) UIColor *colorControlOutputVolumeBG;
+
+@property (retain, nonatomic) UIColor *colorCGroupBackground;
+@property (retain, nonatomic) UIColor *colorCGroupSelectedBackground;
+
+@property (retain, nonatomic) UIColor *colorLimitedInputBorder;
+@property (retain, nonatomic) UIColor *colorLimitedInputBackground;
+@property (retain, nonatomic) UIColor *colorLimitedInputSelectedBorder;
+@property (retain, nonatomic) UIColor *colorLimitedInputSelectedBackground;
+@property (retain, nonatomic) UIColor *colorLimitedInputText;
+@property (retain, nonatomic) UIColor *colorLimitedInputSelectedText;
+
+@property (retain, nonatomic) UIColor *colorPowerControlBG;
+@property (retain, nonatomic) UIColor *colorPowerControlBorder;
+@property (retain, nonatomic) UIColor *colorPowerControlText;
+
+//+ (instancetype)sharedInstance;
+-(NSDictionary*) dictionaryRepresentation;
+-(id)initWithThemeColor:(ThemeColor*)objThemeColor;
++(ThemeColor*) themeColorData:(ThemeType)type;
++ (void)saveCustomObject:(ThemeColor *)object key:(NSString *)key;
++ (ThemeColor *)retrieveCustomObjectWithKey:(NSString *)key;
+
+@end

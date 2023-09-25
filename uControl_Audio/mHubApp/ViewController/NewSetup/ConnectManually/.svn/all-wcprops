@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/Mobile/!svn/ver/2663/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually
+END
+ManuallySetupVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallySetupVC.h
+END
+ManuallySelectModelVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallySelectModelVC.h
+END
+BenchmarkDetailsViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/Mobile/!svn/ver/2722/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/BenchmarkDetailsViewController.h
+END
+ManuallyAddSlaveModelVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallyAddSlaveModelVC.h
+END
+ManuallySetupVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallySetupVC.m
+END
+ManuallySelectModelVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallySelectModelVC.m
+END
+ManuallyEnterSlaveIPAddressVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/Mobile/!svn/ver/2573/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallyEnterSlaveIPAddressVC.h
+END
+BenchmarkDetailsViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/BenchmarkDetailsViewController.m
+END
+ManuallyAddSlaveModelVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallyAddSlaveModelVC.m
+END
+ManuallyEnterSlaveIPAddressVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/Mobile/!svn/ver/2663/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallyEnterSlaveIPAddressVC.m
+END
+ManuallyEnterIPAddressVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/Mobile/!svn/ver/2573/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallyEnterIPAddressVC.h
+END
+ManuallyIPAddressContainerVC.h
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallyIPAddressContainerVC.h
+END
+ManuallyEnterIPAddressVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallyEnterIPAddressVC.m
+END
+RestoreHubViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/Mobile/!svn/ver/2722/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/RestoreHubViewController.h
+END
+ManuallyIPAddressContainerVC.m
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/ManuallyIPAddressContainerVC.m
+END
+RestoreHubViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/ViewController/NewSetup/ConnectManually/RestoreHubViewController.m
+END

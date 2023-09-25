@@ -1,0 +1,24 @@
+{
+	"error": false,
+	"response": [{
+		"macro_id": "424",
+		"macro_name": "movie",
+		"uControl_name": "movie",
+		"alexa_name": "movie"
+	}, {
+		"macro_id": "423",
+		"macro_name": "cctv",
+		"uControl_name": "cctv",
+		"alexa_name": "cctv"
+	}, {
+		"macro_id": "422",
+		"macro_name": "kids tv",
+		"uControl_name": "kids tv",
+		"alexa_name": "kids_tv"
+	}, {
+		"macro_id": "421",
+		"macro_name": "news",
+		"uControl_name": "news",
+		"alexa_name": "news"
+	}]
+}

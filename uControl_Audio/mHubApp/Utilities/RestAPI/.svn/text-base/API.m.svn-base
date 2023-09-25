@@ -1,0 +1,454 @@
+//
+//  API.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 20/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import "API.h"
+
+@implementation API
+
+#pragma mark - BASE URL APIs
++(NSString *)getBaseURL:(NSString*)strAddress {
+    // DDLogDebug(@"<%s> : strAddress == %@", __FUNCTION__, strAddress);
+    if ([strAddress isEqualToString:STATICTESTIP_PRO]) {
+        return [NSString stringWithFormat: BASEURLIP, BASEURL_CLOUD_DEMO_PRO];
+    } else {
+        return [NSString stringWithFormat: BASEURLIP, strAddress];
+    }
+}
+
++(NSString *)getBaseURL_Rest:(BOOL)isRest {
+    //DDLogDebug(@"mHubManagerInstance.objSelectedHub.Address == %@", mHubManagerInstance.objSelectedHub.Address);
+    if ([mHubManagerInstance.objSelectedHub isDemoMode]) {
+        if (isRest) {
+            return [NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:BASEURLIP, BASEURL_CLOUD_DEMO_PRO], API_REST];
+        } else {
+            return [NSString stringWithFormat: BASEURLIP, BASEURL_CLOUD_DEMO_PRO];
+        }
+    } else {
+        NSString *strURL = @"";
+        if (isRest) {
+            strURL = [NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:BASEURLIP, mHubManagerInstance.objSelectedHub.Address], API_REST];
+            return strURL;
+        } else {
+            strURL = [NSString stringWithFormat: BASEURLIP, mHubManagerInstance.objSelectedHub.Address];
+            return strURL;
+        }
+    }
+}
+
++(NSString*)addServerURL:(NSString *)subURL {
+    NSMutableString *strReturn = [NSMutableString stringWithFormat:@"%@", BASEURL_CLOUD_DEMO_PRO];
+    [strReturn appendString:subURL];
+    return strReturn;
+}
+
+#pragma mark - MHUB CONFIG API V1
++(NSURL*) mHUBConfigXMLURL:(NSString*)strAddress {
+    if ([mHubManagerInstance.objSelectedHub isDemoMode]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:FILE_MHUBCONFIG, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:FILE_MHUBCONFIG, strAddress]];
+    }
+}
+
+#pragma mark - MHUB USER PROFILE API V1
++(NSURL*) mHUBUserProfileXMLURL:(NSString*)strAddress {
+    if ([mHubManagerInstance.objSelectedHub isDemoMode]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:FILE_MHUBUSERPROFILE, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:FILE_MHUBUSERPROFILE, strAddress]];
+    }
+}
+
+#pragma mark - MHUB State JSON API V1
++(NSURL*) mHubAudioStateXMLURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:FILE_MHUBSTATE, strAddress]];
+}
+
+
+#pragma mark - MHUB FORCE UPDATE
++(NSString*) Mhub_AdvanceForceUpdate:(NSString*)strAddress mosVersion:(float )mosVersionNo {
+    if(mosVersionNo < 8)
+    {
+        return [NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], API_MHUB_UPDATER_7];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], API_MHUB_UPDATER];
+    }
+    
+    
+}
+
+#pragma mark - MHUB DAsh Upgrade
++(NSString*) Mhub_DashUpgrade:(NSString*)strAddress mosVersion:(float )mosVersionNo {
+    
+    
+    
+    if(mosVersionNo < 8)
+    {
+         return [NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_DASHUPGRADE_XML];
+    }
+    else
+    {
+         return [NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_DASHUPGRADE_JSON];
+    }
+    
+}
+
+
+#pragma mark - MHUB DETAIL APIs
++(NSURL*) getmHubDetailsURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[API getBaseURL_Rest:true], API_GETMHUBDETAILS]];
+}
+
++(NSURL*) getmHubDetailsURL:(NSString*)strAddress {
+    NSString *strURL = @"";
+    if ([mHubManagerInstance.objSelectedHub isDemoMode]) {
+        strURL = [NSString stringWithFormat:@"%@%@%@", [NSString stringWithFormat:BASEURLIP, BASEURL_CLOUD_DEMO_PRO], API_REST, API_GETMHUBDETAILS];
+    } else {
+        strURL = [NSString stringWithFormat:@"%@%@%@", [NSString stringWithFormat:BASEURLIP, strAddress], API_REST, API_GETMHUBDETAILS];
+    }
+    return [NSURL URLWithString:strURL];
+}
+#pragma mark - MHUB Check Identity
++(NSURL*) mHUBCheckAudioDeviceIdentity:(NSString*)strAddress {
+    //return [NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], API_CHECKMHUBIDENTITY];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], API_CHECKMHUBIDENTITY]];
+}
+
+
+#pragma mark - MHUB DASH APIs
++(NSURL*) mHUBInstallationURL {
+    if ([mHubManagerInstance.objSelectedHub isDemoMode]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:BASEURLIP, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:BASEURLIP, mHubManagerInstance.objSelectedHub.Address]];
+    }
+}
+
+
+
++(NSURL*) dashUControlAccessURL {
+    if ([mHubManagerInstance.objSelectedHub isDemoMode]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:PAGE_DASHUCONTROLIP, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:PAGE_DASHUCONTROLIP, mHubManagerInstance.objSelectedHub.Address]];
+    }
+}
+
+
++(NSURL*) dashSequenceAccessURL {
+    if ([mHubManagerInstance.objSelectedHub isDemoMode]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:PAGE_DASHSEQUENCEIP, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:PAGE_DASHSEQUENCEIP, mHubManagerInstance.objSelectedHub.Address]];
+    }
+}
+
+#pragma mark - MHUB SWITCHING APIs
++(NSURL*) getSwitchStatusURL:(NSInteger)intOutputIndex {
+    NSMutableString *strURL = [NSMutableString stringWithFormat:@"%@",[API getBaseURL_Rest:false]];
+    [strURL appendFormat:@"%@", [NSString stringWithFormat:API_IRENGINE_CGIBIN_CODE, [Utility stringToHex:[NSString stringWithFormat:@"GetOUT%ld!", (long)intOutputIndex]], [[NSDate date] timeIntervalSince1970]]];
+    return [NSURL URLWithString:strURL];
+}
+
++(NSURL*) getIREngineStatusURL:(NSInteger)intSourceIndex {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%ld",[API getBaseURL_Rest:true], API_IRENGINESTATUS, (long)intSourceIndex]]; // {source_id}
+}
+
++(NSURL*) switchInURL_OutputIndex:(NSInteger)intOutputIndex InputIndex:(NSInteger)intInputIndex {
+    NSMutableString *strURL = [NSMutableString stringWithFormat:@"%@",[API getBaseURL_Rest:false]];
+    [strURL appendFormat:@"%@", [NSString stringWithFormat:API_IRENGINE_CGIBIN_CODE, [Utility stringToHex:[NSString stringWithFormat:@"IN%ldOUT%ld!", (long)intInputIndex, (long)intOutputIndex]], [[NSDate date] timeIntervalSince1970]]];
+    return [NSURL URLWithString:strURL];
+}
+
++(NSURL*) irEngineURL_CommandId:(NSInteger)intCommandId PortId:(NSInteger)intPortId {
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%ld/%ld",[API getBaseURL_Rest:true], API_IRENGINE, (long)intCommandId, (long)intPortId]]; // {command_id,port_id}
+}
+
+#pragma mark - MHUB CGI-BIN APIs
++(NSURL*) irEngineURL_Code:(NSString *)strCode PortId:(NSInteger)intPortId {
+    NSMutableString *strURL = [NSMutableString stringWithFormat:@"%@",[API getBaseURL_Rest:false]];
+#ifdef kFilenameTempInputIRPack
+    NSString *strPort = [Utility stringToHex:[NSString stringWithFormat:@"IR%ldCCF", (long)intPortId]] ;
+    [strURL appendFormat:@"%@", [NSString stringWithFormat:API_IRENGINE_CGIBIN_CODE, [NSString stringWithFormat:@"%@,%@", strPort, strCode], [[NSDate date] timeIntervalSince1970]]];
+#else
+    [strURL appendFormat:@"%@", [NSString stringWithFormat:API_IRENGINE_CGIBIN_CODE, strCode, [[NSDate date] timeIntervalSince1970]]];
+#endif
+
+    return [NSURL URLWithString:strURL];
+}
+
++(NSURL*) irEngineURL_Query {    
+    NSMutableString *strURL = [NSMutableString stringWithFormat:@"%@",[API getBaseURL_Rest:false]];
+    
+    [strURL appendFormat:@"%@", [NSString stringWithFormat:API_IRENGINE_CGIBIN_QUERY,[[NSDate date] timeIntervalSince1970]]];
+    
+    return [NSURL URLWithString:strURL];
+}
+
+#pragma mark - MHUB Sequence APIs
++(NSURL*) getSequenceListURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[API getBaseURL_Rest:true], API_GETSEQUENCELIST]];
+}
+
++(NSURL*) playMacro:(NSString*)strAlexaName {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?MacroName=%@",[API getBaseURL_Rest:true], API_PLAYMACRO, strAlexaName]]; // {alexa_name}
+}
+
++(NSURL*) mHUBMacrosXMLURL:(NSString*)strAddress {
+    if ([mHubManagerInstance.objSelectedHub isDemoMode]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:FILE_MHUBMACROS, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:FILE_MHUBMACROS, strAddress]];
+    }
+}
+
+#pragma mark - MHUBV3 Cloud APIs
++(NSString*) cloudBackupURL {
+    return [NSString stringWithFormat:@"%@%@", BASEURLCLOUD, API_CLOUD_BACKUP];
+}
+
++(NSString*) cloudFetchBackupURL {
+    return [NSString stringWithFormat:@"%@%@", BASEURLCLOUD, API_CLOUD_FETCHBACKUP];
+}
+
++(NSString*) cloudRegistrationURL {
+    return [NSString stringWithFormat:@"%@%@", BASEURLCLOUD, API_CLOUD_REGISTRATION];
+}
+
++(NSString*) cloudLoginURL {
+    return [NSString stringWithFormat:@"%@%@", BASEURLCLOUD, API_CLOUD_LOGIN];
+}
+
+#pragma mark - MHUB GROUP AUDIO
++(NSString*) setGroupURL {
+    return [NSString stringWithFormat:@"%@%@",[API getBaseURL_Rest:true], API_SETGROUP];
+}
+
++(NSURL*) setGroupDeleteURL:(NSInteger)intGroupId {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?group_id=%ld",[API getBaseURL_Rest:true], API_DELETEGROUP, (long)intGroupId]];
+}
+
++(NSURL*) getGroupListURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",[API getBaseURL_Rest:true], API_GETGROUPS]];
+}
+
+#pragma mark - MHUB API V2
+
++(NSURL*) setupHelpURL {
+    return [NSURL URLWithString:API_SETUPHELP];
+}
+
+//MARK: JSON File URLs
+//MARK:
++(NSURL*) fileMHUBConfigJSONURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_MHUBCONFIGJSON]];
+}
++(NSURL*) fileMHUBUpdateXMLDataFile:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_UPDATEDATAFILE]];
+}
+
+//MARK:
++(NSURL*) fileMHUBBENCHMARKREADER:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@", BASEURLHUBBENCHMARK]];
+}
+
+//MARK:
++(NSURL*) fileMHUBUserProfileJSONURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_MHUBUSERPROFILEJSON]];
+}
+
+//MARK:
++(NSURL*) filePairJSONURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_PAIRJSON]];
+}
+
+//MARK:
++(NSURL*) fileMasterJSONURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_MASTERJSON]];
+}
+
+//MARK:
++(NSURL*) fileIOJSONURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_INPUTOUTPUTJSON]];
+}
+
+//MARK:
++(NSURL*) fileStateJSONURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_STATEJSON]];
+}
+
+//MARK:
++(NSURL*) fileGroupJSONURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], FILE_GROUPJSON]];
+}
+
+//MARK:
++(NSURL*) fileIRPackXMLURL:(NSString*)strAddress PortId:(NSInteger)intPortNo {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], [NSString stringWithFormat:FILE_IRPACK, (long)intPortNo]]];
+}
+
+#pragma mark - MHUB DASH API V2
++(NSURL*) MHUBOSIndexPageURL:(NSString*)strAddress {
+    if ([strAddress isEqualToString:STATICTESTIP_PRO]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:BASEURLIP, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:BASEURLIP, strAddress]];
+    }
+}
+
++(NSURL*) MHUBOSUpdatePageURL:(NSString*)strAddress {
+    if ([strAddress isEqualToString:STATICTESTIP_PRO]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:BASEURLIP, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:BASEURLMOSUPDATE, strAddress]];
+    }
+}
+
++(NSURL*) MHUBOSUControlPageURL:(NSString*)strAddress {
+    if ([strAddress isEqualToString:STATICTESTIP_PRO]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:PAGE_DASHUCONTROLIP, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:PAGE_DASHUCONTROLIP, strAddress]];
+    }
+}
+
++(NSURL*) MHUBOSSequencePageURL:(NSString*)strAddress {
+    if ([strAddress isEqualToString:STATICTESTIP_PRO]) {
+        return [NSURL URLWithString:[NSString stringWithFormat:PAGE_DASHSEQUENCEIP, BASEURL_CLOUD_DEMO_PRO]];
+    } else {
+        return [NSURL URLWithString:[NSString stringWithFormat:PAGE_DASHSEQUENCEIP, strAddress]];
+    }
+}
+
+#pragma mark - MHUB API V2
+//MARK: GET APIs
+
++(NSURL*) getSystemInformationStandaloneURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], APIV2_GETSYSTEM_INFORMATION_STANDALONE]];
+}
+
++(NSURL*) getSystemInformationStackedURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], APIV2_GETSYSTEM_INFORMATION_STACKED]];
+}
+
++(NSURL*) getMHUBZonesURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], APIV2_GETMHUB_ZONES]];
+}
+
++(NSURL*) getMHUBGroupsURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], APIV2_GETMHUB_GROUPS]];
+}
+
++(NSURL*) getMHUBStatusURL:(NSString*)strAddress {
+    
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], APIV2_GETMHUB_STATUS]];
+}
+
++(NSURL*) getMHUBStatusURL_STANDALONE:(NSString*)strAddress {
+    
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], APIV2_GETMHUB_STATUS_STANDALONE]];
+}
+
++(NSURL*) getMHUBZoneStatusURL:(NSString*)strAddress ZoneId:(NSString*)strZoneId {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", [API getBaseURL:strAddress], APIV2_GETMHUB_ZONESTATUS, strZoneId]]; // [zo]     where [zo] = Zone ID
+}
++(NSURL*) getMHUBZoneStatusURL_STANDALONE:(NSString*)strAddress ZoneId:(NSString*)strZoneId {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", [API getBaseURL:strAddress], APIV2_GETMHUB_ZONESTATUS_STANDALONE, strZoneId]]; // [zo]     where [zo] = Zone ID
+}
+
++(NSURL*) getUControlPackSummaryURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], APIV2_GETUCONTROLPACK_SUMMARY]];
+}
+
++(NSURL*) getUControlPackURL:(NSString*)strAddress PortId:(NSInteger)intPortNo {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld", [API getBaseURL:strAddress], APIV2_GETUCONTROLPACK, (long)intPortNo]]; // [x]      where [x] = IR port
+}
+
++(NSURL*) getSequencesURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [API getBaseURL:strAddress], APIV2_GETSEQUENCES]];
+}
+
+
+//MARK: POST APIV2 OPERATION
+//MARK: POST API V2
++(NSURL*) switchInURL:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex InputIndex:(NSInteger)intInputIndex {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%c/%ld", [API getBaseURL:strAddress], APIV2_SWITCHING, [Utility integerToCharacter:intOutputIndex], (long)intInputIndex]]; // [ox]/[iy]/       where [ox] = output (a,b,c…..), [iy] = input (1,2,3…..)
+}
+
++(NSURL*) switchInAudioZoneURL:(NSString*)strAddress ZoneId:(NSString*)strZoneId InputIndex:(NSInteger)intInputIndex {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@/%ld", [API getBaseURL:strAddress], APIV2_ZONE_SWITCHING_AUDIO, strZoneId, (long)intInputIndex]]; // [zid]/[iy]/      where [zid] = zone id (z1, z2, z3…..), [iy] = input (1,2,3…..)
+}
+
++(NSURL*) controlVolumeURL:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex Volume:(NSInteger)intVolume {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%c/%ld", [API getBaseURL:strAddress], APIV2_CONTROLVOLUME, [Utility integerToCharacter:intOutputIndex], (long)intVolume]]; // [ox]/[vy]/       where [ox] = output (a,b,c…..), [iy] = volume (1-100)
+}
+
++(NSURL*) controlVolumeAudioZoneURL:(NSString*)strAddress ZoneId:(NSString*)strZoneId Volume:(NSInteger)intVolume {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@/%ld", [API getBaseURL:strAddress], APIV2_ZONE_CONTROLVOLUME_AUDIO, strZoneId, (long)intVolume]]; // [zid]/[x]        where [zid] = zone (z1, z2, z3 ….), [x] = Volume (0-100)
+}
+
++(NSURL*) controlMuteURL:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex Mute:(BOOL)isMuted {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%c/%@", [API getBaseURL:strAddress], APIV2_CONTROLMUTE, [Utility integerToCharacter:intOutputIndex], isMuted ? @"true" : @"false"]]; // [ox]/[mx]/       where [ox] = output (a,b,c…..), [mx] = mute state (true=muted(no audio), false=unmuted(audio))
+}
+
++(NSURL*) controlMuteAudioZoneURL:(NSString*)strAddress ZoneId:(NSString*)strZoneId Mute:(BOOL)isMuted {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@/%@", [API getBaseURL:strAddress], APIV2_ZONE_CONTROLMUTE_AUDIO, strZoneId, isMuted ? @"true" : @"false"]]; // [zid]/[mx]/      where [zid] = zone (z1, z2 ,z3…..), [mx] = mute state (true=muted(no audio), false=unmuted(audio))
+}
+
+//MARK: Execute APIs
++(NSURL*) executeSequenceURL:(NSString*)strAddress SequenceId:(NSString*)strSequenceId {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", [API getBaseURL:strAddress], APIV2_EXECUTESEQUENCE, strSequenceId]]; // [sid]/           where [sid] = Sequence ID
+}
+
++(NSURL*) executeCommandURL:(NSString*)strAddress PortId:(NSInteger)intPortId CommandId:(NSInteger)intCommandId {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld/%ld", [API getBaseURL:strAddress], APIV2_EXECUTECOMMAND, (long)intPortId, (long)intCommandId]]; // [io]/[cy]/       where [io] = IR port ID (1,2,3…..), [cy] = IR command number
+}
+
+//MARK: MHUB GROUP
++(NSURL*) groupCreateURL:(NSString*)strAddress GroupName:(NSString*)strGroupName {
+    NSString *strURL = [NSString stringWithFormat:@"%@%@%@", [API getBaseURL:strAddress], APIV2_GROUP_CREATE, strGroupName]; // [groupLabel]/    where [groupLabel] = label for group (string)
+    NSString* urlTextEscaped = [strURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString: urlTextEscaped];
+    return url;
+}
+
++(NSURL*) groupDeleteURL:(NSString*)strAddress GroupId:(NSString*)strGroupId {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", [API getBaseURL:strAddress], APIV2_GROUP_DELETE, strGroupId]]; // [gid]/           where [gid] = ID for group
+}
+
++(NSString*) groupOperationURL:(NSString*)strAddress GroupId:(NSString*)strGroupId Operation:(GroupOperation)operation {
+    NSString *strOperation = @"";
+    switch (operation) {
+        case GRPO_Add:      strOperation = @"add";      break;
+        case GRPO_Delete:   strOperation = @"delete";   break;
+        default:    break;
+    }
+    return [NSString stringWithFormat:@"%@%@%@/%@", [API getBaseURL:strAddress], APIV2_GROUP_ADDDELETE_ZONES, strGroupId, strOperation]; // [gid]/[op]/      where [gid] = ID for group, [op] = ‘add’ or ‘delete’
+}
+
++(NSURL*) groupAdjustVolumeURL:(NSString*)strAddress GroupId:(NSString*)strGroupId Volume:(NSInteger)intVolume {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@/%ld", [API getBaseURL:strAddress], APIV2_GROUP_ADJUSTVOLUME, strGroupId, (long)intVolume]]; // [gid]/[vs]/      where [gid] = ID for group, [vs] = volume (1-100)
+}
+
++(NSURL*) groupMuteValueURL:(NSString*)strAddress GroupId:(NSString*)strGroupId Mute:(BOOL)isMuted {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@/%@", [API getBaseURL:strAddress], APIV2_GROUP_MUTEVOLUME, strGroupId, isMuted ? @"true" : @"false"]]; // [gid]/[ox]/      where [gid] = ID for group, [ox] = mute state (true=muted(no audio), false=unmuted(audio))
+}
+
+#pragma mark - MHUB Reset API
++(NSURL*) resetMhubSettingURL:(NSString*)strAddress {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", [API getBaseURL:strAddress], API_REST, APIV2_RESET_MHUB]];
+}
+
+#pragma mark - SET PAIR JSON
++(NSString*) setPairJSONURL:(NSString*)strAddress {
+    return [NSString stringWithFormat:@"%@%@%@", [API getBaseURL:strAddress], API_REST, APIV2_SET_PAIRJSON];
+}
+
+@end

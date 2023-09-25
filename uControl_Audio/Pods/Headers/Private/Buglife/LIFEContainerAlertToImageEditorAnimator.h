@@ -1,0 +1,1 @@
+../../../Buglife/Source/Views/Container Window/LIFEContainerAlertToImageEditorAnimator.h

@@ -1,0 +1,2 @@
+﻿{"slave":[{"unit_id":"S1","serial_number":"MHUBAUDIOSAMPLE000000006","ip_address":"192.168.1.12","stack_status":0},{"unit_id":"S2","serial_number":"MHUBAUDIOSTUSTESTRACK001","ip_address":"192.168.1.16","stack_status":0}],"master":{"unit_id":"M1","serial_number":"HDA100590402200106190001","ip_address":"192.168.1.18","is_video":true,"type":"hybrid"}}
+

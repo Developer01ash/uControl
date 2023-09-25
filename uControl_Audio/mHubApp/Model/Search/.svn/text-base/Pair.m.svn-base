@@ -1,0 +1,339 @@
+//
+//  Pair.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 06/04/18.
+//  Copyright © 2018 Rave Infosys. All rights reserved.
+//
+
+/*
+ PairDetail Object consist of pairing properties like UnitId, IP Address and SerialNo.
+
+ Pair is another class available in this file which consist of Master and Array of Slave devices whose object type is PairDetail.
+ */
+
+#import "Pair.h"
+
+@implementation PairDetail
+
+#pragma mark - PairDetail Intializer
+
+-(id)init {
+    self = [super init];
+    self.unit_id        = @"";
+    self.serial_number  = UNKNOWN_SERIALNO;
+    self.ip_address     = UNKNOWN_IP;
+    self.is_video       = false;
+    return self;
+}
+
+-(id)initWithPair:(PairDetail *)pairData {
+    self = [super init];
+    self.unit_id        = pairData.unit_id;
+    self.serial_number  = pairData.serial_number;
+    self.ip_address     = [pairData.ip_address isNotEmpty] ? pairData.ip_address : UNKNOWN_IP;
+    self.is_video       = pairData.is_video;
+    return self;
+}
+
+#pragma mark - GET OBJECT METHODS
+
++(PairDetail*) getObjectFromDictionary:(NSDictionary*)dictResp {
+    PairDetail *objReturn = [[PairDetail alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.unit_id       = [Utility checkNullForKey:kUNIT_ID Dictionary:dictResp];
+            objReturn.serial_number = [Utility checkNullForKey:kSERIAL_NUMBER Dictionary:dictResp];
+            objReturn.ip_address    = [Utility checkNullForKey:kIP_ADDRESS Dictionary:dictResp];
+            objReturn.is_video      = [[Utility checkNullForKey:kIS_VIDEO Dictionary:dictResp] boolValue];
+        }
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(PairDetail*) getObjectFromHubObject:(Hub*)objHub {
+    PairDetail *objReturn = [[PairDetail alloc] init];
+    @try {
+        if ([objHub isNotEmpty] && [objHub isKindOfClass:[Hub class]]) {
+            objReturn.unit_id       = objHub.UnitId;
+            objReturn.serial_number = objHub.SerialNo;
+            objReturn.ip_address    = objHub.Address;
+            objReturn.is_video      = [objHub isVideoWithMOS];
+        }
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
+#pragma mark - GET OBJECT ARRAY
++(NSMutableArray*) getObjectArray:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                PairDetail *objDevice = [PairDetail getObjectFromDictionary:dictResp];
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getObjectArrayFromHub:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                Hub *objHub = [arrResp objectAtIndex:i];
+                PairDetail *objDevice = [PairDetail getObjectFromHubObject:objHub];
+                if (![objDevice.unit_id isNotEmpty]) {
+                    objDevice.unit_id = [NSString stringWithFormat:kUNITID_SLAVE, i+1];
+                }
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - DICTIONARY FORMAT
+-(NSDictionary*) dictionaryRepresentation {
+    @try {
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:self.unit_id forKey:kUNIT_ID];
+        [dict setValue:self.serial_number forKey:kSERIAL_NUMBER];
+        [dict setValue:self.ip_address forKey:kIP_ADDRESS];
+        [dict setValue:[NSNumber numberWithBool:self.is_video] forKey:kIS_VIDEO];
+        return dict;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(NSDictionary*) dictionarySlaveRepresentation {
+    @try {
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:self.unit_id forKey:kUNIT_ID];
+        [dict setValue:self.serial_number forKey:kSERIAL_NUMBER];
+        [dict setValue:self.ip_address forKey:kIP_ADDRESS];
+        return dict;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*)getDictionaryArray:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                PairDetail *objDevice = [arrResp objectAtIndex:i];
+                NSDictionary *dictResp = [objDevice dictionaryRepresentation];
+                [arrReturn addObject:dictResp];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*)getDictionarySlaveArray:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                PairDetail *objDevice = [arrResp objectAtIndex:i];
+                NSDictionary *dictResp = [objDevice dictionarySlaveRepresentation];
+                [arrReturn addObject:dictResp];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - ENCODER DECODER METHODS
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    @try {
+        //Encode properties, other class variables, etc
+        [encoder encodeObject:self.unit_id forKey:kUNIT_ID];
+        [encoder encodeObject:self.serial_number forKey:kSERIAL_NUMBER];
+        [encoder encodeObject:self.ip_address forKey:kIP_ADDRESS];
+        [encoder encodeBool:self.is_video forKey:kIS_VIDEO];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    @try {
+        if(self = [super init]) {
+            //decode properties, other class vars
+            self.unit_id        = [decoder decodeObjectForKey:kUNIT_ID];
+            self.serial_number  = [decoder decodeObjectForKey:kSERIAL_NUMBER];
+            self.ip_address     = [decoder decodeObjectForKey:kIP_ADDRESS];
+            self.is_video       = [decoder decodeBoolForKey:kIS_VIDEO];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+@end
+
+@implementation Pair
+
+#pragma mark - PAIR INTIALIZER
+
+-(id)init {
+    self = [super init];
+    self.master     = [[PairDetail alloc] init];
+    self.arrSlave   = [[NSMutableArray alloc] init];
+    return self;
+}
+
+-(id)initWithPair:(Pair *)pairData {
+    self = [super init];
+    self.master     = pairData.master;
+    self.arrSlave   = pairData.arrSlave;
+    return self;
+}
+
+#pragma mark - GET OBJECT METHODS
+
++(Pair*) getObjectFromDictionary:(NSDictionary*)dictResp {
+    Pair *objReturn = [[Pair alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.master = [PairDetail getObjectFromDictionary:[Utility checkNullForKey:kPAIRMASTER Dictionary:dictResp]];
+            objReturn.arrSlave = [PairDetail getObjectArray:[Utility checkNullForKey:kPAIRSLAVE Dictionary:dictResp]];
+        }
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
+#pragma mark - DICTIONARY FORMAT
+-(NSDictionary*) dictionaryRepresentation {
+    @try {
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:[self.master dictionaryRepresentation] forKey:kPAIRMASTER];
+        [dict setValue:[PairDetail getDictionaryArray:self.arrSlave] forKey:kPAIRSLAVE];
+        return dict;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(NSDictionary*) dictionaryJSONRepresentation {
+    @try {
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:[self.master dictionaryRepresentation] forKey:kPAIRMASTER];
+        [dict setValue:[PairDetail getDictionarySlaveArray:self.arrSlave] forKey:kPAIRSLAVE];
+        return dict;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - CHECK FOR AVAILABLE DEVICE
++(void) deviceAvailableInPair:(Pair*)objPairingDetail SerialNo:(NSString*)strSerialNo completion:(void (^)(BOOL isMaster, BOOL isSlave))handler {
+    @try {
+        BOOL isMasterAvailable = false;
+        BOOL isSlaveAvailable = false;
+        if ([objPairingDetail.master.serial_number isEqualToString:strSerialNo]) {
+            isMasterAvailable = true;
+        } else {
+            for(PairDetail *objDetail in objPairingDetail.arrSlave) {
+                if ([objDetail.serial_number isEqualToString: strSerialNo]) {
+                    isSlaveAvailable = true;
+                    break;
+                }
+            }
+        }
+        handler(isMasterAvailable, isSlaveAvailable);
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(BOOL) isPairEmpty {
+    @try {
+        BOOL isEmptyReturn = false;
+
+        if ([self.master.ip_address isIPAddressEmpty]) {
+            isEmptyReturn = true;
+        } else {
+            for(PairDetail *objDetail in self.arrSlave) {
+                if ([objDetail.ip_address isIPAddressEmpty]) {
+                    isEmptyReturn = true;
+                    break;
+                }
+            }
+        }
+        return isEmptyReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+
+#pragma mark - GET PAIR OBJECT FROM MHUB OBJECT
++(Pair*) getPairObjectFromMHUBObject:(Hub*)objMasterHub SlaveHub:(NSMutableArray*)arrSlaveMHUB {
+    Pair *objReturn = [[Pair alloc] init];
+    @try {
+        if ([objMasterHub isNotEmpty]) {
+            objReturn.master = [PairDetail getObjectFromHubObject:objMasterHub];
+            if (![objReturn.master.unit_id isNotEmpty]) {
+                objReturn.master.unit_id = kUNITID_MASTER;
+            }
+        }
+        if ([arrSlaveMHUB isNotEmpty] && arrSlaveMHUB.count > 0) {
+            objReturn.arrSlave = [[NSMutableArray alloc] initWithArray:[PairDetail getObjectArrayFromHub:arrSlaveMHUB]];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
+#pragma mark - ENCODER DECODER METHODS
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    @try {
+        //Encode properties, other class variables, etc
+        [encoder encodeObject:self.master forKey:kPAIRMASTER];
+        [encoder encodeObject:self.arrSlave forKey:kPAIRSLAVE];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    @try {
+        if(self = [super init]) {
+            //decode properties, other class vars
+            self.master = [decoder decodeObjectForKey:kPAIRMASTER];
+            self.arrSlave = [decoder decodeObjectForKey:kPAIRSLAVE];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+
+@end

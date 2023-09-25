@@ -1,0 +1,504 @@
+//
+//  API.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 20/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "Command.h"
+// Variable to check IR-Pack locally in API V1.
+//#define kFilenameTempInputIRPack @"ir-engine-backwards"
+
+// ** Webservice Constants ** //
+
+//MARK: Base URL of Cloud Rest APIs
+#define STATICTESTIP_PRO            @"10.0.0.0"
+#define BASEURL_CLOUD_DEMO_PRO      @"cloud.hdanywhere.com/mos/demo"
+
+#define STATICTESTIP_AUDIO          @"10.0.0.1"
+#define BASEURL_CLOUD_DEMO_AUDIO    @"cloud.hdanywhere.com/mos/demo"
+
+//MARK: Live mHub URL dynamic according to IPAddress.
+#define BASEURLIP                   @"http://%@/"
+
+//MARK: API V1 URLs
+#define API_REST                    @"rest/"
+#define PAGE_DASHUCONTROLIP         @"http://%@/control.php"
+#define PAGE_DASHSEQUENCEIP         @"http://%@/macro.php"
+#define FILE_MHUBCONFIG             @"http://%@/config/mhubconfig.xml"
+#define FILE_MHUBUSERPROFILE        @"http://%@/config/mhubuserprofile.xml"
+#define FILE_MHUBMACROS             @"http://%@/config/macros.xml"
+#define FILE_MHUBSTATE              @"http://%@/config/state.xml"
+
+#define API_CHECKMHUBIDENTITY       @"api/identify"
+#define URL_EULA                    @"https://hdanywhere.com/legal/eula"
+#define URL_PRIVACY                 @"https://hdanywhere.com/legal/privacy"
+#define URL_CHANGELOG               @"http://cloud.hdanywhere.com/mhub/changelog/changelog.html"
+
+
+
+//MARK: GET APIs
+#define API_GETMHUBDETAILS          @"index.php/getmHubDetails"
+#define API_GETSWITCHSTATUS         @"av.php/getSwitchStatus" // {output_id}
+#define API_IRENGINESTATUS          @"ir.php/irengineStatus" // {source_id}
+#define API_SWITCH                  @"av.php/switchIn" // {output_id,input_id}
+#define API_IRENGINE                @"ir.php/irengine" // {command_id,port_id}
+#define API_IRENGINE_CGIBIN_CODE    @"cgi-bin/submit?cmd=hex(%@)&sid=%f" // {code,timestamp}
+#define API_IRENGINE_CGIBIN_QUERY   @"cgi-bin/query?sid=%f"
+#define API_GETSEQUENCELIST         @"mhub.php/getSequenceList"
+#define API_PLAYMACRO               @"mhub.php/playMacro" // {alexa_name}
+
+#define API_SETGROUP                @"mhub.php/setGroup"
+#define API_DELETEGROUP             @"mhub.php/deleteGroups"
+#define API_GETGROUPS               @"mhub.php/getGroups"
+
+//MARK: MOS Update URL in case of MOS version less then 8
+#define BASEURLMOSUPDATE                @"http://cloud.hdanywhere.com/mhub/update/%@"
+#define API_MHUB_UPDATER          @"api/mhub_dash_updater.cgi"
+#define API_MHUB_UPDATER_7          @"cgi-bin/mhub_dash_updater.cgi"
+#define BASEURLHUBBENCHMARK                @"http://cloud.hdanywhere.com/updater/mhub/benchmark/benchmark.json"
+
+//MARK: WiFi Setup
+#define API_GET_WIFIMODE  @"api/wireless/getwifimode"
+#define API_SET_APMODE    @"api/wireless/setapmode"
+#define API_NETWORK_SCAN  @"api/wireless/networkscan"
+#define API_SET_STA_MODE  @"api/wireless/setstamode"
+//http://192.168.100.1/api/wireless/setstamode/<ESSID>/<password>/<encryption>
+
+
+//MARK: Live URL for Cloud backup of mHubV3 version
+#define BASEURLCLOUD                @"http://cloud.hdanywhere.com/"
+#define API_CLOUD_BACKUP            @"mhub/mhub_v3/backup"
+#define API_CLOUD_REGISTRATION      @"mhub/mhub_v3/register"
+#define API_CLOUD_LOGIN             @"mhub/mhub_v3/login"
+#define API_CLOUD_FETCHBACKUP       @"mhub/mhub_v3/fetchbackup"
+
+//MARK: API V2 URLs
+//MARK: Support URLs
+#define API_SETUPHELP               @"http://support.hdanywhere.com/ucontrol/"
+/*
+ 
+ 
+ */
+//MARK: JSON FILE APIs
+#define FILE_MHUBCONFIGJSON         @"config/mhubconfig.json"
+#define FILE_MHUBUSERPROFILEJSON    @"config/mhubuserprofile.json"
+#define FILE_PAIRJSON               @"config/pair.json"
+#define FILE_MASTERJSON             @"config/master.json"
+#define FILE_STATEJSON              @"config/state.json"
+#define FILE_INPUTOUTPUTJSON        @"config/io.json"
+#define FILE_GROUPJSON              @"config/groups.json"
+#define FILE_ROUTINGJSON            @"config/routing.json"
+#define FILE_BENCHMARKJSON            @"config/benchmark.json"
+#define FILE_DASHUPGRADE_JSON            @"config/dash_upgrade.json"
+#define FILE_DASHUPGRADE_CGI            @"api/dash_upgrade_status.cgi"
+
+#define FILE_DASHUPGRADE_XML            @"config/dash_upgrade.xml"
+#define FILE_IRPACK                 @"config/irpack%ld.xml"
+#define FILE_UPDATEDATAFILE         @"rest/index.php/updateDataFile"
+#define FILE_CONNECTIVITY_JSON            @"config/connectivity.json"
+
+//MARK: GET APIV2 DATA
+#define APIV2_GETSYSTEM_INFORMATION_STANDALONE  @"api/data/100"
+#define APIV2_GETSYSTEM_INFORMATION_STACKED     @"api/data/101"
+#define APIV2_GETMHUB_ZONES                     @"api/data/102"
+#define APIV2_GETMHUB_GROUPS                    @"api/data/103"
+#define APIV2_GETMHUB_STATUS                    @"api/data/203"
+#define APIV2_GETMHUB_ZONESTATUS                @"api/data/203/"    // [zo]     where [zo] = Zone ID
+#define APIV2_GETMHUB_STATUS_STANDALONE         @"api/data/200"
+#define APIV2_GETMHUB_ZONESTATUS_STANDALONE     @"api/data/200/"    // [zo]     where [zo] = Zone ID
+
+#define APIV2_GETUCONTROLPACK_SUMMARY           @"api/data/201"
+#define APIV2_GETUCONTROLPACK                   @"api/data/201/"    // [x]      where [x] = IR port
+#define APIV2_GETSEQUENCES                      @"api/data/202"
+#define APIV2_GETCECPACK                       @"api/data/204"
+#define APIV2_GETGLOBALIRPACK205                @"api/data/205"
+#define APIV2_GETCECJSON                       @"config/cec.json"
+
+
+//MARK: POST APIV2 OPERATION
+#define APIV2_SWITCHING                 @"api/control/switch/"              // [ox]/[iy]/       where [ox] = output (a,b,c…..), [iy] = input (1,2,3…..)
+#define APIV2_ZONE_SWITCHING_AUDIO      @"api/control/switch/zone/"         // [zid]/[iy]/      where [zid] = zone id (z1, z2, z3…..), [iy] = input (1,2,3…..)
+#define APIV2_ARC_SWITCHING_AUDIO      @"api/control/arc/%@/0/"         //true or false
+#define APIV2_CONTROLVOLUME             @"api/control/volume/"              // [ox]/[vy]/       where [ox] = output (a,b,c…..), [iy] = volume (1-100)
+#define APIV2_ZONE_CONTROLVOLUME_AUDIO  @"api/control/volume/zone/"         // [zid]/[x]        where [zid] = zone (z1, z2, z3 ….), [x] = Volume (0-100)
+
+#define APIV2_CONTROLMUTE               @"api/control/mute/"                // [ox]/[mx]/       where [ox] = output (a,b,c…..), [mx] = mute state (true=muted(no audio), false=unmuted(audio))
+#define APIV2_ZONE_CONTROLMUTE_AUDIO    @"api/control/mute/zone/"           // [zid]/[mx]/      where [zid] = zone (z1, z2 ,z3…..), [mx] = mute state (true=muted(no audio), false=unmuted(audio))
+
+#define APIV2_GROUP_CREATE              @"api/control/group/create/"        // [groupLabel]/    where [groupLabel] = label for group (string)
+#define APIV2_GROUP_DELETE              @"api/control/group/delete/"        // [gid]/           where [gid] = ID for group
+#define APIV2_GROUP_ADDDELETE_ZONES     @"api/control/group/"               // [gid]/[op]/      where [gid] = ID for group, [op] = ‘add’ or ‘delete’
+#define APIV2_GROUP_ADJUSTVOLUME        @"api/control/group/volume/set/"    // [gid]/[vs]/      where [gid] = ID for group, [vs] = volume (1-100)
+#define APIV2_GROUP_MUTEVOLUME          @"api/control/mutegroup/"           // [gid]/[ox]/      where [gid] = ID for group, [ox] = mute state (true=muted(no audio), false=unmuted(audio))
+#define APIV2_EXECUTESEQUENCE           @"api/control/sequence/"           // [sid]/           where [sid] = Sequence ID
+#define APIV2_EXECUTEFUNCTION           @"api/control/function/"           // [fid]/           where [sid] = function ID
+#define APIV2_EXECUTECOMMAND            @"api/command/ir/"                 // [io]/[cy]/       where [io] = IR port ID (1,2,3…..), [cy] = IR command number
+#define APIV2_EXECUTECOMMAND_HOLD            @"api/command/ir/"                 // [io]/[cy]/       where [io] = IR port ID (1,2,3…..), [cy] = IR command number / Hold
+#define APIV2_EXECUTECOMMAND_RELEASE            @"api/command/ir/"                 // [io]/[cy]/       where [io] = IR port ID (1,2,3…..), [cy] = IR command number / release
+#define APIV2_EXECUTECOMMAND_CEC            @"api/command/cec/"                 // [io]/[cy]/       where [io] = IR port ID (1,2,3…..), [cy] = IR command number
+
+#define APIV2_SEND_IRHEXCODE            @"api/command/irpass/[io]/"         // [gid]/[op]/      where [io] = IR port ID (1,2,3…..)
+
+#define APIV2_GETPOWER_STATE     @"http://%@/api/data/0/"
+#define APIV2_SETPOWER_STATE     @"http://%@/api/power/%@/"
+
+#define APIV2_RESET_MHUB                @"index.php/resetMhubSetting"
+#define APIV2_SET_PAIRJSON              @"index.php/setPairJson"
+
+
+//MARK: Object Keys
+#define kOUTPUTCOUNT        @"RoomCount"
+#define kINPUTCOUNT         @"InputCount"
+
+#define kHUBINPUTDATA       @"HubInputData"
+#define kHUBINPUTDATAAUDIOSTANDALONE       @"HubInputDataAudioStandalone"
+
+#define kHUBOUTPUTDATA      @"HubRoomData"
+#define kHUBSEQUENCELIST    @"HubSequenceList"
+#define kHUBAVRLIST         @"HubAVRList"
+#define kHUBAUDIOLIST       @"HubAudioList"
+#define kHUBZONEDATA        @"HubZoneData"
+#define kHUBGROUPDATA       @"HubGroupData"
+#define kHUBCONTROLSDATA    @"HubControlsData"
+
+#define kNAME               @"Name"
+#define kMAC                @"Mac"
+#define kADDRESS            @"Address"
+#define kGENERATION         @"Generation"
+#define kMODELNAME          @"modelName"
+#define kBOOTFLAG           @"BootFlag"
+#define kSERIALNO           @"SerialNo"
+#define kUSERINFO           @"UserInfo"
+#define kAPIVERSION         @"apiVersion"
+#define kAVR_IRPACK         @"avr_irpack"
+#define kISPAIRED           @"isPaired"
+#define kPAIRING_DETAILS    @"PairingDetails"
+#define kISAUTOSWITCHMODE   @"isAutoSwitchMode"
+#define kWEBSOCKETFLAG      @"webSocketFlag"
+
+
+
+#define kCREATEDNAME        @"CreatedName"
+#define kINDEX              @"Index"
+#define kPORTNO             @"PortNo"
+#define kIRCOMMANDPACKET    @"irCommandPacket"
+#define kCOMMANDOBJECT      @"objCommandType"
+#define kCONTINUITYARRAY    @"arrContinuity"
+#define kSOURCETYPE         @"sourceType"
+#define kIMGCONTROLGROUP    @"imgControlGroup"
+#define kIMGBACKGROUND      @"image-background-%ld"
+#define kIMGCONTROLGROUPBG  @"imgControlGroupBG"
+#define kIMGBACKGROUNDZONE  @"image_zone_background_%@"
+#define kISIRPACKAVAILABLE  @"isIRPackAvailable"
+#define kIRNAME             @"name"
+#define kIRPACK             @"irpack"
+#define kMACROID_V1         @"macro_id"
+#define kMACRONAME_V1       @"macro_name"
+//#define kMACRODESCRIPTION   @"macro_description"
+#define kUCONTROLNAME_V1    @"uControl_name"
+#define kALEXANAME_V1       @"alexa_name"
+//#define kISDELETED          @"isDeleted"
+#define kMACROID            @"id"
+#define kMACRONAME          @"name"
+#define kUCONTROLNAME       @"uControl"
+#define kALEXANAME          @"trigger"
+#define kMACRODESCRIPTION   @"description"
+#define kISDELETED          @"isDeleted"
+#define kISIRPACK           @"isIRPack"
+#define kISSHOW           @"isShow"
+#define kINPUTTYPE_VIDEOorAUDIO           @"inputType_videoORAudio"
+
+
+#define kSELECTEDCONTROLDEVICETYPE  @"SelectedControlDeviceType"
+#define kBOTTOMCONTROLDEVICE        @"BottomControlDevice"
+
+#define kMACROIDXML         @"macro_"
+#define kMACRONAMEXML       @"macroName"
+#define kUCONTROLNAMEXML    @"uControlName"
+#define kALEXANAMEXML       @"alexaName"
+
+#define kGROUPEDZONEIMAGE   @"imgGroupedZone"
+#define kGROUPEDOUTPUTIMAGE @"imgGroupedOutput"
+#define kISGROUPED          @"isGrouped"
+#define kINPUTINDEX         @"InputIndex"
+
+#define kGROUPID            @"group_id"
+#define kGROUPNAME          @"group_name"
+#define kGROUPEDOUTPUTARRAY @"group_output"
+
+#define kGROUPLABEL         @"group_label"
+#define kGROUPZONES         @"zones"
+#define kGROUPVOLUME        @"group_volume"
+#define kGROUPMUTE          @"group_mute"
+#define kGROUPS             @"groups"
+#define kGROUP_CREATED      @"group_created"
+#define kGROUP_DELETED      @"group_deleted"
+#define kGROUP              @"group"
+#define kADDED              @"added"
+#define kREMOVED            @"removed"
+#define kCECPACK            @"cecpack"
+#define kLIBCEC            @"libcec"
+#define kFUNCTION          @"function"
+#define kETIME          @"etime"
+#define kFUNCTIONS          @"functions"
+
+
+
+#define kFRIENDLYNAME       @"friendlyName"
+#define kSERIALNUMBER       @"serialNumber"
+#define kPRESENTATIONURL    @"presentationURL"
+
+// New API keys
+#define kOFFICIALNAME       @"officialName"
+#define kPRODUCTCODE        @"productCode"
+#define kGENERATIONFLAG     @"generationFlag"
+
+
+#define kAPI                @"api"
+#define kDASH               @"dash"
+#define kMACADDRESS         @"macAdd"
+#define kFIRSTBOOTXML       @"firstBoot"
+#define kMHUBJSON           @"mhub"
+#define kOS                 @"os"
+#define kFIRSTBOOTJSON      @"firstboot"
+#define kSERIAL             @"serial"
+#define kCONFIG             @"config"
+#define kIO_LABELS          @"io_labels"
+#define kINPUTS             @"inputs"
+#define kOUTPUTS            @"outputs"
+#define kZONES              @"zones"
+#define kSTACK_UNIT_INFO    @"stack_unit_info"
+
+
+
+#define kPAIRMASTER         @"master"
+#define kPAIRSLAVE          @"slave"
+//#define kPAIRID             @"id"
+//#define kPAIRSERIAL         @"serial"
+//#define kPAIRIP             @"ip"
+#define kIS_VIDEO           @"is_video"
+
+#define kMHUB_OFFICIAL_NAME @"mhub_official_name"
+#define kMHUB_NAME          @"mhub_name"
+#define kSERIAL_NUMBER      @"serial_number"
+#define kUNIT_ID            @"unit_id"
+#define kFIRST_BOOT         @"first_boot"
+#define kIP_ADDRESS         @"ip_address"
+#define kMHUBOS_VERSION     @"mhub-os_version"
+#define kWS                 @"ws"
+#define kMHUB_NAME_INSTACK @"hubName_InStack"
+
+#define kIO_DATA            @"io_data"
+#define kINPUT_VIDEO        @"input_video"
+#define kOUTPUT_VIDEO       @"output_video"
+#define kINPUT_AUDIO        @"input_audio"
+#define kOUTPUT_AUDIO       @"output_audio"
+#define kPORTS              @"ports"
+#define kSTART_ID           @"start_id"
+#define kLABELS             @"labels"
+#define kLABELID            @"id"
+#define kLABEL              @"label"
+#define kSHOW               @"show"
+#define kIRMAP               @"irmap"
+
+#define kOFFICIAL_NAME      @"official_name"
+#define kPRODUCT_CODE       @"product_code"
+
+#define kSTACKED_IO         @"stacked_io"
+#define kSTACK_INPUT_VIDEO  @"stack_input_video"
+#define kSTACK_OUTPUT_VIDEO @"stack_output_video"
+#define kSTACK_INPUT_AUDIO  @"stack_input_audio"
+#define kSTACK_OUTPUT_AUDIO @"stack_output_audio"
+#define kMAPPING            @"mapping"
+#define kMODE               @"mode"
+
+#define kAUTO               @"auto"
+#define kTYPE               @"type"
+#define kPRODUCT_CODE               @"product_code"
+#define kOUTPUTTYPE_VIDEOorAUDIO               @"outputType_VideoOrAudio"
+#define kOUTPUT               @"output"
+#define kINPUT               @"input"
+#define kLABEL_EDITABLE      @"label_editable"
+#define kLABEL_DRAW      @"draw"
+#define kSTART_LABEL_PREFIX  @"start_label_prefix"
+#define kSTART_LABEL_SUFFIX  @"start_label_suffix"
+#define kHYBRID               @"hybrid"
+#define kVIDEO               @"video"
+#define kLABEL_UPGRADE     @"upgrade"
+#define kLABEL_connectivity     @"connectivity"
+#define kLABEL_ONLINE     @"online"
+#define kDEVICE_TYPE @"device_type"
+
+
+
+
+//#define kFIRMWARE           @"firmware"
+ 
+#define kZONE_ID            @"zone_id"
+#define kZONE_LABEL         @"zone_label"
+#define kZONE_STATE         @"state"
+#define kOUTPUT_ID          @"output_id"
+#define kVOLUME             @"volume"
+#define kMUTE               @"mute"
+#define kINPUT_ID           @"input_id"
+#define kAuto_Switch_Mode    @"auto_switch_mode"
+#define kOutputTypeInSelectedZone    @"OutputTypeInSelectedZone"
+#define kAVR            @"avr"
+
+
+#define kZONE               @"zone"
+#define kAUDIO_INPUT        @"audio_input"
+#define kVIDEO_INPUT        @"video_input"
+#define kDISP_AUDIO_INPUT  @"disp_audio_input"
+
+#define kIRPACKSTATUSINPUT  @"input"
+#define kIRPACKSTATUSOUTPUT @"output"
+#define kIRPACKSTATUSAVR    @"avr"
+#define kIRPACKSTATUSAVRDATA @"avr_data"
+#define kZPGLOBAL              @"global"
+
+
+
+#define kSEQUENCES          @"sequences"
+#define kVOICELABEL         @"voice_label"
+
+#define kSTACK              @"stack"
+#define kSTACK_STATUS       @"stack_status"
+#define kSTACK_RANK         @"stack_rank"
+#define kSTACK_MASTER       @"stack_master"
+
+#define kSLIDERAVERAGE      @"SliderAverage"
+#define kHARDWAREVOLUMENEW  @"HarderwareVolumeValueNew"
+#define kHARDWAREVOLUMEOLD  @"HarderwareVolumeValueOld"
+
+#define kRelease @"release"
+#define kHold @"hold"
+
+typedef enum {
+    GRPO_Add = 1,
+    GRPO_Delete,
+    GRPO_Volume,
+    GRPO_Mute
+} GroupOperation;
+
+typedef enum {
+    APIV1   = 1,
+    APIV2   = 2
+} APIVersion;
+
+
+typedef enum {
+    XML     = 1,
+    JSON    = 2
+} FileType;
+
+@interface API : NSObject
+
++(NSString*)addServerURL:(NSString *)subURL;
+
+//MARK: API V1 URLs
++(NSURL*) mHUBConfigXMLURL:(NSString*)strAddress;
++(NSURL*) mHUBUserProfileXMLURL:(NSString*)strAddress;
++(NSURL*) mHubAudioStateXMLURL:(NSString*)strAddress;
+
++(NSURL*) getmHubDetailsURL:(NSString*)strAddress;
++(NSURL*) mHUBInstallationURL;
++(NSURL*) dashUControlAccessURL;
++(NSURL*) dashSequenceAccessURL;
+
++(NSURL*) getSwitchStatusURL:(NSInteger)intOutputIndex;
++(NSURL*) getIREngineStatusURL:(NSInteger)intSourceIndex;
++(NSURL*) switchInURL_OutputIndex:(NSInteger)intOutputIndex InputIndex:(NSInteger)intInputIndex;
+
++(NSURL*) irEngineURL_CommandId:(NSInteger)intCommandId PortId:(NSInteger)intPortId;
++(NSURL*) irEngineURL_Code:(NSString *)strCode PortId:(NSInteger)intPortId;
++(NSURL*) irEngineURL_Query;
+
++(NSString*) cloudBackupURL;
++(NSString*) cloudFetchBackupURL;
++(NSString*) cloudRegistrationURL;
++(NSString*) cloudLoginURL;
+
++(NSURL*) getSequenceListURL;
++(NSURL*) playMacro:(NSString*)strAlexaName;
++(NSURL*) mHUBMacrosXMLURL:(NSString*)strAddress;
+
++(NSString*) setGroupURL;
++(NSURL*) setGroupDeleteURL:(NSInteger)intGroupId;
++(NSURL*) getGroupListURL;
+
+//MARK: API V2 URLs
++(NSURL*) setupHelpURL;
+
++(NSURL*) fileMHUBConfigJSONURL:(NSString*)strAddress;
++(NSURL*) fileMHUBUserProfileJSONURL:(NSString*)strAddress;
++(NSURL*) filePairJSONURL:(NSString*)strAddress;
++(NSURL*) fileMasterJSONURL:(NSString*)strAddress;
++(NSURL*) fileIOJSONURL:(NSString*)strAddress;
++(NSURL*) fileStateJSONURL:(NSString*)strAddress;
++(NSURL*) fileGroupJSONURL:(NSString*)strAddress;
++(NSURL*) fileIRPackXMLURL:(NSString*)strAddress PortId:(NSInteger)intPortNo;
++(NSURL*) MHUBOSIndexPageURL:(NSString*)strAddress;
++(NSURL*) MHUBOSUpdatePageURL:(NSString*)strAddress;
++(NSString*) Mhub_AdvanceForceUpdate:(NSString*)strAddress mosVersion:(float )mosVersionNo;
++(NSURL*) fileMHUBBENCHMARKREADER:(NSString*)strAddress;
++(NSURL*) MHUBOSUControlPageURL:(NSString*)strAddress;
++(NSURL*) MHUBOSSequencePageURL:(NSString*)strAddress;
+
++(NSURL*) getSystemInformationStandaloneURL:(NSString*)strAddress;
++(NSURL*) getSystemInformationStackedURL:(NSString*)strAddress;
++(NSURL*) getMHUBZonesURL:(NSString*)strAddress;
++(NSURL*) getMHUBGroupsURL:(NSString*)strAddress;
++(NSURL*) getMHUBStatusURL:(NSString*)strAddress;
++(NSURL*) getMHUBZoneStatusURL:(NSString*)strAddress ZoneId:(NSString*)strZoneId;
++(NSURL*) getUControlPackSummaryURL:(NSString*)strAddress;
++(NSURL*) getUControlPackURL:(NSString*)strAddress PortId:(NSInteger)intPortNo;
++(NSURL*) getSequencesURL:(NSString*)strAddress;
+
++(NSURL*) switchInURL:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex InputIndex:(NSInteger)intInputIndex;
++(NSURL*) switchInAudioZoneURL:(NSString*)strAddress ZoneId:(NSString*)strZoneId InputIndex:(NSInteger)intInputIndex;
+
++(NSURL*) controlVolumeURL:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex Volume:(NSInteger)intVolume;
++(NSURL*) controlVolumeAudioZoneURL:(NSString*)strAddress ZoneId:(NSString*)strZoneId Volume:(NSInteger)intVolume;
+
++(NSURL*) controlMuteURL:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex Mute:(BOOL)isMuted;
++(NSURL*) controlMuteAudioZoneURL:(NSString*)strAddress ZoneId:(NSString*)strZoneId Mute:(BOOL)isMuted;
+
++(NSURL*) executeSequenceURL:(NSString*)strAddress SequenceId:(NSString*)strSequenceId;
++(NSURL*) executeCommandURL:(NSString*)strAddress PortId:(NSInteger)intPortId CommandId:(NSInteger)intCommandId TouchType:(TouchActivity)objTouchType;
++(NSURL*) executeCommandURL_AcceptString:(NSString*)strAddress PortId:(NSString *)intPortId CommandId:(NSInteger)intCommandId ;
++(NSURL*) mHUBCheckAudioDeviceIdentity:(NSString*)strAddress ;
+
++(NSURL*) groupCreateURL:(NSString*)strAddress GroupName:(NSString*)strGroupName;
++(NSURL*) groupDeleteURL:(NSString*)strAddress GroupId:(NSString*)strGroupId;
++(NSString*) groupOperationURL:(NSString*)strAddress GroupId:(NSString*)strGroupId Operation:(GroupOperation)operation;
++(NSURL*) groupAdjustVolumeURL:(NSString*)strAddress GroupId:(NSString*)strGroupId Volume:(NSInteger)intVolume;
++(NSURL*) groupMuteValueURL:(NSString*)strAddress GroupId:(NSString*)strGroupId Mute:(BOOL)isMuted;
++(NSString*) Mhub_DashUpgrade:(NSString*)strAddress mosVersion:(float )mosVersionNo;
++(NSURL*) resetMhubSettingURL:(NSString*)strAddress;
++(NSString*) setPairJSONURL:(NSString*)strAddress;
+//+(NSURL*) switchInURL_Address:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex InputIndex:(NSInteger)intInputIndex;
+//+(NSURL*) controlVolumeURL_Address:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex Volume:(NSInteger)intVolume;
+//+(NSURL*) controlMuteURL_Address:(NSString*)strAddress OutputIndex:(NSInteger)intOutputIndex Mute:(BOOL)isMuted;
++(NSURL*) getMHUBStatusURL_STANDALONE:(NSString*)strAddress;
++(NSURL*) getMHUBZoneStatusURL_STANDALONE:(NSString*)strAddress ZoneId:(NSString*)strZoneId;
++(NSURL*) fileMHUBUpdateXMLDataFile:(NSString*)strAddress;
+
++(NSString*) getWifiMode:(NSString*)strAddress;
++(NSString*) setAPMode:(NSString*)strAddress;
++(NSString*) networkScan:(NSString*)strAddress;
++(NSString*) setSTAModeURL:(NSString*)strAddress;
++(NSURL*) getZPCECPACKURL:(NSString*)strAddress;
++(NSURL*) getCECJSONPACKURL:(NSString*)strAddress;
++(NSURL*) switchInAudio411ARCURL:(NSString*)strAddress outputFlag:(NSString*)outputIndex InputFlag:(NSString*)inputIndex;
++(NSURL*) getMHUBPowerState:(NSString*)strAddress;
++(NSURL*) setMHUBPowerState:(NSString*)strAddress flag:(NSString *)powerState;
++(NSURL*) getGlobalAVRIRDetails205:(NSString*)strAddress;
++(NSString*) Mhub_ConnectivityJSON:(NSString*)strAddress;
++(NSString*) Mhub_DashUpgrade_JSON:(NSString*)strAddress;
++(NSURL*) executeSuperSequenceURL:(NSString*)strAddress SequenceId:(NSString*)strSequenceId superSeqFlag:(BOOL)isFlag ;
++(NSURL*) executeFunctionURL:(NSString*)strAddress functionId:(NSString*)strFunctionId Flag:(BOOL)isFlag;
+@end

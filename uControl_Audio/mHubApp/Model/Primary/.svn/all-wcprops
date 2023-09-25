@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/Mobile/!svn/ver/2665/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary
+END
+Zone.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/Zone.h
+END
+Group.h
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/Group.h
+END
+AVRDevice.m
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/AVRDevice.m
+END
+Sequence.m
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/Sequence.m
+END
+Hub.h
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/Hub.h
+END
+InputDevice.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/InputDevice.h
+END
+OutputDevice.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/OutputDevice.h
+END
+Zone.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/Zone.m
+END
+Group.m
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/Group.m
+END
+Hub.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/Hub.m
+END
+InputDevice.m
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/InputDevice.m
+END
+OutputDevice.m
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/OutputDevice.m
+END
+AVRDevice.h
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/AVRDevice.h
+END
+Sequence.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/Mobile/!svn/ver/2829/HDConnectivity/HDAControlApp-iOS/uControl_Audio/mHubApp/Model/Primary/Sequence.h
+END

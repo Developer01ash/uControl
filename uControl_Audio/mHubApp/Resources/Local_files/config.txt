@@ -1,0 +1,23 @@
+﻿{
+"mhub":{
+	"official_name": "MHUB PRO 2.0 (8x8) 100",
+	"product_code": "MHUBPRO288100",
+	"lcd_default_message": "HDANYWHERE MHUB PRO 2 100",
+	"device_type": "MATRIX",
+	"device_technology": "HDMI over HDBaseT",
+	"serial_number": "HDA100590402200106190001"
+		},
+"software":{
+	"mhub-os_version": "8.21",
+	"mhub-os_beta_version": "",
+	"mhub_firmware":"",
+	"mhub-os_firmware": "8.21",
+	"babelfish": "2.0",
+	"api": "2.1",
+	"hdbaset_Rx": "",
+	"hdbaset_Tx": ""
+	},
+"hda_cloud_url":"http://cloud.hdanywhere.com/",
+"hda_support_url":"http://support.hdanywhere.com/",
+"driver_url":"http://support.hdanywhere.com/hda-control-drivers/"
+}

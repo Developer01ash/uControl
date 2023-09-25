@@ -1,0 +1,238 @@
+//
+//  SetupTypeVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 09/03/18.
+//  Copyright © 2018 Rave Infosys. All rights reserved.
+//
+
+#import "SetupTypeVC.h"
+#import "ConnectionOptionVC.h"
+#import "NewSetupVC.h"
+#import "SetupConfirmationVC.h"
+
+@interface SetupTypeVC ()
+
+@end
+
+@implementation SetupTypeVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.backBarButtonItem = customBackBarButton;
+    self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_MULTIPLE_MHUB_FOUND_HEADER];
+
+    switch (self.setupType) {
+        case HDA_SetupVideo: {
+            [self pushViewController:HDA_SetupVideo Animated:false];
+            break;
+        }
+        case HDA_SetupAudio: {
+            [self pushViewController:HDA_SetupAudio Animated:false];
+            break;
+        }
+        case HDA_SetupVideoAudio: {
+            if ([AppDelegate appDelegate].systemType == HDA_ConnectManually) {
+                self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_MULTIPLE_MHUB_SETUP_HEADER];
+            } else {
+                self.navigationItem.titleView = [CustomNavigationBar customNavigationLabel:HUB_MULTIPLE_MHUB_FOUND_HEADER];
+            }
+            [self.lblHeaderMessage setHidden:false];
+            [self.viewSetupTypeBG setHidden:false];
+            break;
+        }
+        default:
+            break;
+    }
+    [self.pageControl setHidden:YES];
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    @try {
+        [super viewWillAppear:animated];
+        self.view.backgroundColor = [AppDelegate appDelegate].themeColoursSetup.colorBackground;
+        [self.lblHeaderMessage setTextColor:[AppDelegate appDelegate].themeColoursSetup.colorNormalText];
+        [self.lblHeaderMessage setText:HUB_MULTIPLE_MHUB_FOUND_MESSAGE];
+        [self.btnSetupTypeVideo setBackgroundColor:[AppDelegate appDelegate].themeColoursSetup.colorNavigationBar];
+        [self.btnSetupTypeAudio setBackgroundColor:[AppDelegate appDelegate].themeColoursSetup.colorNavigationBar];
+        [self.btnSetupTypeVideoAudio setBackgroundColor:[AppDelegate appDelegate].themeColoursSetup.colorNavigationBar];
+
+
+        switch ([AppDelegate appDelegate].themeColoursSetup.themeType) {
+            case Dark: {
+                if (IS_IPAD) {
+                    [self.btnSetupTypeVideo setImage:kImageIconSetupVideoCarbonite forState:UIControlStateNormal];
+                    [self.btnSetupTypeAudio setImage:kImageIconSetupAudioCarbonite forState:UIControlStateNormal];
+                    [self.btnSetupTypeVideoAudio setImage:kImageIconSetupVideoAudioCarbonite forState:UIControlStateNormal];
+                } else {
+                    [self.btnSetupTypeVideo setImage:kImageIconSetupVideoSmallCarbonite forState:UIControlStateNormal];
+                    [self.btnSetupTypeAudio setImage:kImageIconSetupAudioSmallCarbonite forState:UIControlStateNormal];
+                    [self.btnSetupTypeVideoAudio setImage:kImageIconSetupVideoAudioSmallCarbonite forState:UIControlStateNormal];
+                }
+                break;
+            }
+            case Light: {
+                if (IS_IPAD) {
+                    [self.btnSetupTypeVideo setImage:kImageIconSetupVideoSnow forState:UIControlStateNormal];
+                    [self.btnSetupTypeAudio setImage:kImageIconSetupAudioSnow forState:UIControlStateNormal];
+                    [self.btnSetupTypeVideoAudio setImage:kImageIconSetupVideoAudioSnow forState:UIControlStateNormal];
+                } else {
+                    [self.btnSetupTypeVideo setImage:kImageIconSetupVideoSmallSnow forState:UIControlStateNormal];
+                    [self.btnSetupTypeAudio setImage:kImageIconSetupAudioSmallSnow forState:UIControlStateNormal];
+                    [self.btnSetupTypeVideoAudio setImage:kImageIconSetupVideoAudioSmallSnow forState:UIControlStateNormal];
+                }
+                break;
+            }
+            default:
+                break;
+        }
+
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            [self.lblHeaderMessage setFont:textFontRegular12];
+            [self.lblSetupTypeVideo setFont:textFontRegular12];
+            [self.lblSetupTypeAudio setFont:textFontRegular12];
+            [self.lblSetupTypeVideoAudio setFont:textFontRegular12];
+        } else {
+            [self.lblHeaderMessage setFont:textFontRegular18];
+            [self.lblSetupTypeVideo setFont:textFontRegular18];
+            [self.lblSetupTypeAudio setFont:textFontRegular18];
+            [self.lblSetupTypeVideoAudio setFont:textFontRegular18];
+        }
+
+        [[AppDelegate appDelegate] setShouldRotate:NO];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void)viewWillLayoutSubviews {
+    @try {
+        [super viewWillLayoutSubviews];
+        [self.btnSetupTypeVideo addRoundedCorner_CornerRadius:self.btnSetupTypeVideo.frame.size.height/2];
+        [self.btnSetupTypeAudio addRoundedCorner_CornerRadius:self.btnSetupTypeAudio.frame.size.height/2];
+        [self.btnSetupTypeVideoAudio addRoundedCorner_CornerRadius:self.btnSetupTypeVideoAudio.frame.size.height/2];
+        [self.view layoutIfNeeded];
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void)viewDidLayoutSubviews {
+    @try {
+        [super viewDidLayoutSubviews];
+        [self.btnSetupTypeVideo addRoundedCorner_CornerRadius:self.btnSetupTypeVideo.frame.size.height/2];
+        [self.btnSetupTypeAudio addRoundedCorner_CornerRadius:self.btnSetupTypeAudio.frame.size.height/2];
+        [self.btnSetupTypeVideoAudio addRoundedCorner_CornerRadius:self.btnSetupTypeVideoAudio.frame.size.height/2];
+        [self.view layoutIfNeeded];
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [AppDelegate appDelegate].isSearchNetworkPopVC = true;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark - Button Click
+- (IBAction)btnSetupTypeVideo_Clicked:(CustomButton *)sender {
+    @try {
+        [self pushViewController:HDA_SetupVideo Animated:true];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (IBAction)btnSetupTypeAudio_Clicked:(CustomButton *)sender {
+    @try {
+        [self pushViewController:HDA_SetupAudio Animated:true];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (IBAction)btnSetupTypeVideoAudio_Clicked:(CustomButton *)sender {
+    @try {
+        //[self showToastMessageForComingSoon];
+        //Hide the stack button functionality.
+        [self pushViewController:HDA_SetupVideoAudio Animated:true];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+-(void)showToastMessageForComingSoon
+{
+    CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
+    style.messageFont = textFontRegular13;
+    style.messageColor = colorWhite;
+    style.messageAlignment = NSTextAlignmentCenter;
+    style.backgroundColor = colorDarkGray_484847;
+    [self.view.window makeToast:@"Coming Soon"
+                       duration:3.0
+                       position:CSToastPositionBottom
+                          style:style];
+}
+
+-(void)pushViewController:(HDASetupType)setupType Animated:(BOOL) isAnimated {
+    @try {
+        NSMutableArray *arrFilterData = [[NSMutableArray alloc] init];
+        switch (setupType) {
+            case HDA_SetupVideo: {
+                for (SearchData *objData in self.arrSearchData) {
+                    // DDLogDebug(@"<%s>: %@ == %ld", __FUNCTION__, objData.strTitle, (long)objData.arrItems.count);
+                    if (objData.modelType != HDA_MHUBAUDIO64) {
+                        [arrFilterData addObject:objData];
+                    }
+                }
+                break;
+            }
+            case HDA_SetupAudio: {
+                for (SearchData *objData in self.arrSearchData) {
+                    // DDLogDebug(@"<%s>: %@ == %ld", __FUNCTION__, objData.strTitle, (long)objData.arrItems.count);
+                    if (objData.modelType == HDA_MHUBAUDIO64) {
+                        [arrFilterData addObject:objData];
+                    }
+                }
+                break;
+            }
+            case HDA_SetupVideoAudio: {
+                for (SearchData *objData in self.arrSearchData) {
+                    // DDLogDebug(@"<%s>: %@ == %ld", __FUNCTION__, objData.strTitle, (long)objData.arrItems.count);
+                    if (objData.modelType != HDA_MHUB4K431 && objData.modelType != HDA_MHUB4K862) {
+                        [arrFilterData addObject:objData];
+                    }
+                }
+                break;
+            }
+            default:
+                break;
+        }
+        ConnectionOptionVC *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"ConnectionOptionVC"];
+        objVC.setupType = setupType;
+        objVC.arrSearchData = arrFilterData;
+        [self.navigationController pushViewController:objVC animated:isAnimated];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (IBAction)pageControl_ValueChanged:(CustomPageControl *)sender {
+    
+}
+
+@end

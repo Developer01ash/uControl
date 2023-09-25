@@ -1,0 +1,1053 @@
+//
+//  SettingsVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 28/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import "SettingsVC.h"
+#import "ManuallySetupVC.h"
+
+@import SafariServices;
+#import "CellSetting.h"
+#import "AddLabelsVC.h"
+#import "SubSettingsVC.h"
+#import "DisplaySettingsVC.h"
+#import "BackupCloudVC.h"
+#import "UserData.h"
+#import "CloudDeviceListVC.h"
+#import "CloudData.h"
+#import "GroupAudioVC.h"
+#import "AdvanceHubUpdateVC.h"
+#import "HubDevicesListViewController.h"
+
+@interface SettingsVC () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, UIGestureRecognizerDelegate> {
+    NSIndexPath *selectedTheme;
+    __weak UIView *_staticView;
+    SFSafariViewController *safariVC;
+
+
+}
+@property (weak, nonatomic) IBOutlet UITableView *tblSettings;
+@property (weak, nonatomic) IBOutlet UILabel *lblAppVersion;
+@property (strong, nonatomic) IBOutlet UIView *footerVw;
+@property (strong, nonatomic) IBOutlet UIView *viewBorder;
+@property (strong, nonatomic) IBOutlet UIView *viewBorderMhubProfile;
+
+@property (strong, nonatomic) IBOutlet UIButton *btn_footer;
+@property (strong, nonatomic) IBOutlet UIButton *btn_back;
+@property (strong, nonatomic) IBOutlet UIButton *btn_backArrow;
+@property (strong, nonatomic) IBOutlet UIImageView *downArrowImage;
+
+
+@property (strong, nonatomic) NSMutableArray *arrSettings;
+@property (strong, nonatomic) NSMutableArray *arrSettings_uControl;
+
+
+
+@property (strong, nonatomic) IBOutlet UIButton *btn_resync;
+@property (weak, nonatomic) IBOutlet UITableView *tbl_systemSettings;
+@property (weak, nonatomic) IBOutlet UILabel *lbl_hubName_IP;
+@property (weak, nonatomic) IBOutlet UILabel *lbl_downStairsVideo;
+@property (weak, nonatomic) IBOutlet UILabel *lbl_devices;
+
+
+
+
+@end
+
+@implementation SettingsVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.hidesBackButton = true;
+    // Do any additional setup after loading the view.
+  //  self.navigationItem.titleView = [CustomNavigationBar customNavigationLabelSettings:@"SETTINGS"];
+   
+    //[self addFooterToTableView];
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
+    @try {
+        
+  
+    self.arrSettings = [[NSMutableArray alloc] initWithArray:[SectionSetting getMHUBSettingsArray_2]];
+    self.arrSettings_uControl = [[NSMutableArray alloc] initWithArray:[SectionSetting getMHUBSettingsArray_3]];
+        
+    UIImage *image = [kImageIconDownArrow imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+    [self.downArrowImage setTintColor:[AppDelegate appDelegate].themeColours.colorDownArrow];
+    [self.downArrowImage setImage:image];
+        
+        
+    UIImage * landscapeImage = kImageIconNextArrow;
+    UIImage * portraitImage = [[UIImage alloc] initWithCGImage: landscapeImage.CGImage
+                                                             scale: 1.0
+                                                       orientation: UIImageOrientationDown];
+    
+  
+    [self.btn_backArrow setImage:portraitImage forState:UIControlStateNormal];
+        [self.btn_backArrow setTintColor:[AppDelegate appDelegate].themeColours.colorNormalText];
+        [self.btn_backArrow.imageView setTintColor:[AppDelegate appDelegate].themeColours.colorNormalText];
+        
+        
+    
+        
+    ThemeColor *objColor = [[ThemeColor alloc] initWithThemeColor:[AppDelegate appDelegate].themeColoursSetup];;
+    //self.view.backgroundColor = objColor.colorBackground;
+//    [self.navigationController.navigationBar setBackgroundColor:objColor.colorNavigationBar];
+//    [self.navigationController.navigationBar setBarTintColor:objColor.colorNavigationBar];
+//    [self.navigationController.navigationBar setTintColor:colorWhite_254254254];
+
+    [[AppDelegate appDelegate] setShouldRotate:NO];
+    [self.tblSettings reloadData];
+
+    // Version Label setting
+    [self.lblAppVersion setTextColor:[AppDelegate appDelegate].themeColours.colorNormalText];
+        [self.lbl_devices setTextColor:[AppDelegate appDelegate].themeColours.colorNormalText];
+        [self.lbl_downStairsVideo setText:mHubManagerInstance.objSelectedHub.modelName];
+    [self.lbl_downStairsVideo setTextColor:[AppDelegate appDelegate].themeColours.colorNormalText];
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        [self.lblAppVersion setFont:textFontBold10];
+        [self.lbl_downStairsVideo setFont:textFontBold12];
+        [self.lbl_devices setFont:textFontRegular18];
+    } else {
+        [self.lblAppVersion setFont:textFontBold13];
+        [self.lbl_downStairsVideo setFont:textFontBold18];
+        [self.lbl_devices setFont:textFontRegular22];
+   
+    }
+        [self.lbl_devices setTextColor:colorMiddleGray_868787];
+        [self.viewBorder setBackgroundColor:colorGunGray_272726];
+        [self.viewBorderMhubProfile setBackgroundColor:colorGunGray_272726];
+        
+    NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString * versionBuildString = [NSString stringWithFormat:@"v.%@.%@", appVersionString, appBuildString];
+    [self.lblAppVersion setText:versionBuildString];
+    
+        self.view.backgroundColor = [AppDelegate appDelegate].themeColours.colorBackground;
+
+        [self.btn_resync addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+        [self.btn_resync setTitleColor:[AppDelegate appDelegate].themeColours.colorNormalText forState:UIControlStateNormal];
+        [self.btn_resync setTitle:HUB_RESYNC_SYSTEM forState:UIControlStateNormal];
+        
+    //Footer UI setup
+    [self.footerVw addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+    [self.btn_footer setTitleColor:[AppDelegate appDelegate].themeColours.colorNormalText forState:UIControlStateNormal];
+    [self.btn_footer setTitle:HUB_REMOVE_THIS_MHUB forState:UIControlStateNormal];
+        
+    [self.btn_back setTitleColor:[AppDelegate appDelegate].themeColours.colorNormalText forState:UIControlStateNormal];
+    [self.btn_back setTitle:HUB_BACK forState:UIControlStateNormal];
+        
+        
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        self.constraint_heightFooterBtn_RemoveMhub.constant = heightTableViewRow_SmallMobile;
+        self.btn_footer.titleLabel.font = textFontLight10 ;
+    } else {
+        self.constraint_heightFooterBtn_RemoveMhub.constant = heightTableViewRow;
+         self.btn_footer.titleLabel.font = textFontLight13 ;
+    }
+    
+    
+} @catch (NSException *exception) {
+    [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+}
+  
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(section == 0)
+    {
+        
+        return self.arrSettings.count;
+    }
+    else
+    {
+        return self.arrSettings_uControl.count;
+    }
+}
+
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if(section == 0)
+    {
+//    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+//        return heightTableViewRow_SmallMobile;
+//    } else {
+//        return heightTableViewRow;
+//    }
+        return 0.0f;
+
+    }
+    else{
+    return 0.0f;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    // return tableViewHeaderHeight;
+    if(section == 1)
+    {
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        return heightTableViewRowWithPadding_SmallMobile;
+    } else {
+        return heightTableViewRowWithPadding;
+    }
+    }
+    else
+    {
+        return 0.0f;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    static NSString *footerCellIdentifier = @"FooterSetting";
+    CellSetup *cellFooter = [tableView dequeueReusableCellWithIdentifier:footerCellIdentifier];
+    if(section == 0)
+    {
+   
+    if (cellFooter == nil) {
+        cellFooter = [tableView dequeueReusableCellWithIdentifier:footerCellIdentifier];
+    }
+//    cellFooter.imgBackground.image = [Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorBackground Frame:cellHeader.imgBackground.frame];
+//   [cellFooter.imgBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:0.0];
+//        cellFooter.lblCell.textColor = [AppDelegate appDelegate].themeColours.colorNormalText;
+//    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+//        [cellFooter.lblCell setFont:textFontLight10];
+//        // cellHeader.constraint_headerSettingsIcon.constant = 60
+//    } else {
+//        [cellFooter.lblCell setFont:textFontLight13];
+//        // cellHeader.constraint_headerSettingsIcon.constant = 120 ;
+//    }
+   
+        [cellFooter.btn_footer addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+        [cellFooter.btn_footer setTitleColor:[AppDelegate appDelegate].themeColours.colorNormalText forState:UIControlStateNormal];
+        [cellFooter.btn_footer setTitle:HUB_RESYNC_SYSTEM forState:UIControlStateNormal];
+        cellFooter.tag = section;
+        cellFooter.userInteractionEnabled =  false;
+    }
+   
+    
+    
+   
+//    if (objSection.arrRow.count > 0) {
+//        UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc]
+//                                                 initWithTarget:self
+//                                                 action:@selector(tapRecognizerHandler:)];
+//        tapRecognizer.delegate = self;
+//        [cellHeader addGestureRecognizer:tapRecognizer];
+//    }
+    return cellFooter;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    static NSString *HeaderCellIdentifier = @"HeaderSetting";
+    CellSetup *cellHeader = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
+    if (cellHeader == nil) {
+        cellHeader = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
+    }
+   cellHeader.imgBackground.image = [Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorBackground Frame:cellHeader.imgBackground.frame];
+   [cellHeader.imgBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:0.0];
+    cellHeader.lblCell.textColor = [AppDelegate appDelegate].themeColours.colorNormalText;
+    [cellHeader.viewBottomBorder setBackgroundColor:colorGunGray_272726];
+    if(section == 0)
+    {
+        [cellHeader.lblCell setAttributedText:[self convertStringToAttributed:HUB_MHUBSYSTEM]];
+         cellHeader.imgSettingIcon.image = [UIImage imageNamed:@"HDA_icon_mhub_settings"];
+    }
+    else
+    {
+        [cellHeader.lblCell setAttributedText:[self convertStringToAttributed_settings:HUB_UCONTROL]];
+        [cellHeader.lblCell setTextColor:colorMiddleGray_868787];
+       //  cellHeader.imgSettingIcon.image = [UIImage imageNamed:@"HDA_icon_ucontrol_settings"];
+        cellHeader.imgSettingIcon.image = [UIImage imageNamed:@""];
+    }
+    
+    
+    cellHeader.tag = section;
+    cellHeader.userInteractionEnabled =  false;
+//    if (objSection.arrRow.count > 0) {
+//        UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc]
+//                                                 initWithTarget:self
+//                                                 action:@selector(tapRecognizerHandler:)];
+//        tapRecognizer.delegate = self;
+//        [cellHeader addGestureRecognizer:tapRecognizer];
+//    }
+    return cellHeader;
+}
+
+-(NSMutableAttributedString *)convertStringToAttributed_MasterSlave:(NSString *)tempStr mosStr:(NSString *)mosString
+{
+
+    NSString *subString = nil;
+    NSString * myString = tempStr;
+    NSRange range1 = [myString rangeOfString:@"["];
+    NSRange range2 = [myString rangeOfString:@"]"];
+    NSString *yourString = tempStr;
+
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:yourString];
+
+    if ((range1.length == 1) && (range2.length == 1) && (range2.location > range1.location))
+    {
+        NSRange range3;
+        range3.location = range1.location+1;
+        range3.length = (range2.location - range1.location)-1;
+        
+        subString = [myString substringWithRange:range3];
+        NSRange boldedRange = range3;
+        
+        
+        [attrString beginEditing];
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            [attrString addAttribute:NSFontAttributeName
+                               value:textFontBold10
+                               range:boldedRange];
+        }
+        else
+        {
+            [attrString addAttribute:NSFontAttributeName
+                               value:textFontBold13
+                               range:boldedRange];
+        }
+        
+        
+        [attrString endEditing];
+        
+        
+    }
+    //NSLog(@"tempStr %@ and attrString %@ ",tempStr,attrString);
+    [APIManager writeNormalStringWithTimeStamp:[NSString stringWithFormat:@"METHOD:*convertStringToAttributed_MasterSlave*\ntempStr=%@\nattrString=%@",tempStr,attrString]];
+    return attrString;
+}
+-(NSMutableAttributedString *)convertStringToAttributed:(NSString *)tempStr
+{
+    NSString *string = tempStr ;
+    NSRange range_mhub = [string rangeOfString:@"MHUB"];
+    NSRange range_system = [string rangeOfString:@"system"];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:string];
+    // And before you set the bold range, set your attributed string (the whole range!) to the new attributed font name
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular12 } range:NSMakeRange(0, string.length - 1)];
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular12 } range:range_mhub];
+        [attrString setAttributes:@{ NSFontAttributeName:  textFontMedium12} range:range_system];
+    } else {
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular18 } range:NSMakeRange(0, string.length - 1)];
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular18 } range:range_mhub];
+        [attrString setAttributes:@{ NSFontAttributeName:  textFontMedium18} range:range_system];
+    }
+    
+    
+    
+   
+    
+    return attrString;
+}
+
+-(NSMutableAttributedString *)convertStringToAttributed_settings:(NSString *)tempStr
+{
+    NSString *string = HUB_UCONTROL;
+    NSRange range_ucontrol = [string rangeOfString:@"uControl"];
+    NSRange range_settings = [string rangeOfString:@"settings"];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:string];
+    // And before you set the bold range, set your attributed string (the whole range!) to the new attributed font name
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular12 } range:NSMakeRange(0, string.length - 1)];
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular12 } range:range_ucontrol];
+        [attrString setAttributes:@{ NSFontAttributeName:  textFontRegular12} range:range_settings];
+    }
+    else if ([AppDelegate appDelegate].deviceType == mobileLarge)
+    {
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular18 } range:NSMakeRange(0, string.length - 1)];
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular22 } range:range_ucontrol];
+        [attrString setAttributes:@{ NSFontAttributeName:  textFontRegular22} range:range_settings];
+    }
+    else {
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular24 } range:NSMakeRange(0, string.length - 1)];
+        [attrString setAttributes:@{ NSFontAttributeName: textFontRegular24 } range:range_ucontrol];
+        [attrString setAttributes:@{ NSFontAttributeName:  textFontRegular24} range:range_settings];
+    }
+    return attrString;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    if(indexPath.section == 0 ) {
+        SectionSetting *objSection = [self.arrSettings objectAtIndex:indexPath.row];
+        if (objSection.sectionType == HDA_NameAndAddress || objSection.sectionType == HDA_PairedNameAndAddress) {
+            if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+                return heightTableViewRowWithPadding_SmallMobile;
+            }else  if ([AppDelegate appDelegate].deviceType == mobileLarge){
+                return heightTableViewRowWithPadding;
+            } else
+            {
+                return heightTableViewRowWithPadding+10;
+            }
+        } else {
+            if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+                return heightTableViewRowWithPadding_SmallMobile;
+            } else {
+                return heightTableViewRowWithPadding;
+            }
+        }
+    } else {
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            return heightTableViewRowWithPadding_SmallMobile;
+        } else {
+            return heightTableViewRowWithPadding;
+        }
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"CellSetting";
+    
+    CellSetup *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    }
+    UIImage *image = [kImageIconNextArrow imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+    [cell.imgNextArrow  setTintColor:[AppDelegate appDelegate].themeColours.colorDownArrow];
+    [cell.imgNextArrow setImage:image];
+    [cell.imgNextArrow setTintColor:[AppDelegate appDelegate].themeColours.colorNormalText];
+    
+    cell.lblCell.textColor = [AppDelegate appDelegate].themeColours.colorNormalText;
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        [cell.lblCell setFont:textFontBold10];
+    } else {
+        [cell.lblCell setFont:textFontBold13];
+    }
+    
+    if(indexPath.section == 0 ) {
+        
+       
+        
+        SectionSetting *objSection = [self.arrSettings objectAtIndex:indexPath.row];
+        cell.lblCell.text = [objSection.Title uppercaseString];
+       
+        if (objSection.sectionType == HDA_NameAndAddress || objSection.sectionType == HDA_PairedNameAndAddress) {
+            cell.imgBackground.image = [Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorBackground Frame:cell.imgBackground.frame];
+            //cell.lblCell.textColor = [AppDelegate appDelegate].themeColours.colorNormalText;
+            cell.lblCell.textColor = colorMiddleGray_868787;
+            
+            [cell.imgBackground addBorder_Color:colorClear BorderWidth:1.0];
+            cell.lblCell.textAlignment = NSTextAlignmentLeft;
+             cell.lblCell.attributedText = [self convertStringToAttributed_MasterSlave:objSection.Title mosStr:@""];
+            [cell.imgNextArrow setHidden:YES];
+            if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+                [cell.lblCell setFont:textFontRegular12];
+            }
+            else if ([AppDelegate appDelegate].deviceType == mobileLarge) {
+                [cell.lblCell setFont:textFontRegular16];
+            }
+            else {
+                [cell.lblCell setFont:textFontRegular18];
+            }
+            
+           
+        } else {
+            cell.imgBackground.image = [Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorNavigationBar Frame:cell.imgBackground.frame];
+            [cell.imgBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+            cell.lblCell.textAlignment = NSTextAlignmentLeft;
+            cell.lblCell.attributedText = [self convertStringToAttributed_MasterSlave:[objSection.Title uppercaseString] mosStr:@""];
+            [cell.imgNextArrow setHidden:NO];
+        }
+        
+        
+    } else {
+       
+        cell.imgBackground.image = [Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorNavigationBar Frame:cell.imgBackground.frame];
+        [cell.imgBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+        cell.imgBackground.image = [Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorNavigationBar Frame:cell.imgBackground.frame];
+        [cell.imgBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+        SectionSetting *objSection = [self.arrSettings_uControl objectAtIndex:indexPath.row];
+        cell.lblCell.text = [objSection.Title uppercaseString];
+        cell.lblCell.textAlignment = NSTextAlignmentLeft;
+        [cell.imgNextArrow setHidden:NO];
+    }
+    return cell;
+}
+
+#pragma mark - UITableView Delegate
+- (void)extracted {
+    mHubManagerInstance.arrLeftPanelRearranged = [[NSMutableArray alloc]init];
+    mHubManagerInstance.arrSlaveAudioDevice = [[NSMutableArray alloc]init];
+    [APIManager getSystemDetails:mHubManagerInstance.objSelectedHub Stacked:mHubManagerInstance.isPairedDevice Slave:mHubManagerInstance.arrSlaveAudioDevice];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        SectionSetting *objSection;
+        if(indexPath.section == 0 )
+        {
+            objSection = [self.arrSettings objectAtIndex:indexPath.row];
+        }
+        else
+        {
+            objSection = [self.arrSettings_uControl objectAtIndex:indexPath.row];
+        }
+        switch (objSection.sectionType) {
+                
+            case HDA_AccessSystem: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+                
+            case HDA_MHUBSystem: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+                //MARK: HDA_RemoveUControl
+                case HDA_RemoveUControl: {
+                    [self  resetUControlConfirmation];
+                    break;
+                }
+
+            case HDA_Resync_MOS: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+                
+//                if ([mHubManagerInstance.objSelectedHub isAPIV2]) {
+//                    [self extracted];
+//                } else {
+//                    [APIManager resyncMHUBProData];
+//                }
+//                break;
+            }
+                
+            case HDA_Resync_Cloud: {
+                [self fetchBackUpFromCloud:objSection];
+                break;
+            }
+
+            case HDA_HDACloud: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                //  objVC.settingType = CloudAccount;
+                objVC.selectedSetting = objSection;
+
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+                
+            case HDA_Advanced: {
+//                AdvanceHubUpdateVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"AdvanceHubUpdateVC"];
+//                //  objVC.settingType = CloudAccount;
+//                // objVC.selectedSetting = objSection;
+//
+//                [self.navigationController pushViewController:objVC animated:YES];
+                
+                ManuallySetupVC *objVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"ManuallySetupVC"];
+                [AppDelegate appDelegate].systemType = HDA_ConnectManually;
+                objVC.isOpeningFromInsideTheMainUI = true;
+                [self.navigationController pushViewController:objVC animated:YES];
+                
+                break;
+            }
+             case HDA_UControlSettings: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                //  objVC.settingType = UControlSettings;
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            
+            case HDA_GroupAudio: {
+                GroupAudioVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"GroupAudioVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+                //MARK: HDA_ManageZonesLabels
+            case HDA_ManageZonesLabels: {
+                AddLabelsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"AddLabelsVC"];
+                objVC.labelType = Display;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            case HDA_ManageZones: {
+                DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            case HDA_Theme: {
+                DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            case HDA_Background: {
+                DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            case HDA_ButtonBorder: {
+                DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            
+            /*
+             
+             DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+             objVC.selectedSetting = objSection;
+             [self.navigationController pushViewController:objVC animated:YES];
+             */
+                //MARK: HDA_ManageUControlPacks
+            case HDA_ManageUControlPacks: {
+                if ([SFSafariViewController class] != nil) {
+                    // Use SFSafariViewController
+                    safariVC = [[SFSafariViewController alloc]initWithURL:[NSURL URLWithString:[[API dashUControlAccessURL] absoluteString]]];
+                    safariVC.delegate = self;
+                    [[AppDelegate appDelegate]showHudView:ShowMessage Message:HUB_CONNECTINGTOMHUBOS];
+                    [self presentViewController:safariVC animated:YES completion:nil];
+                } else {
+                    NSURL *url = [NSURL URLWithString:[[API dashUControlAccessURL] absoluteString]];
+                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                        if (!success) {
+                            DDLogError(@"%@%@",@"Failed to open url:",[url description]);
+                        }
+                    }];
+                }
+                
+                break;
+            }
+                
+                //MARK: HDA_ManageLabels
+            case HDA_ManageLabels: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                
+                break;
+            }
+
+                //MARK: HDA_ManageSourceLabels
+            case HDA_ManageSourceLabels: {
+                AddLabelsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"AddLabelsVC"];
+                objVC.labelType = Source;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+                 //MARK: HDA_ManageSequences
+            case HDA_ManageSequences: {
+                DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+                //MARK: HDA_ButtonVibration
+            case HDA_ButtonVibration: {
+                DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            case HDA_CECSettings: {
+                     DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+                                   objVC.selectedSetting = objSection;
+                                   [self.navigationController pushViewController:objVC animated:YES];
+                    break;
+            }
+            case HDA_SendBugReport: {
+                [[Buglife sharedBuglife]presentReporter ];
+                break;
+            }
+                
+                //MARK: HDA_SetAppQuickAction
+            case HDA_SetAppQuickAction: {
+                DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+                //MARK: HDA_ManageMOSSequence
+            case HDA_ManageMOSSequence: {
+                if ([SFSafariViewController class] != nil) {
+                    // Use SFSafariViewController
+                    safariVC = [[SFSafariViewController alloc]initWithURL:[NSURL URLWithString:[[API dashSequenceAccessURL] absoluteString]]];
+                    safariVC.delegate = self;
+                    [[AppDelegate appDelegate]showHudView:ShowMessage Message:HUB_CONNECTINGTOMHUBOS];
+                    [self presentViewController:safariVC animated:YES completion:nil];
+                } else {
+                    NSURL *url = [NSURL URLWithString:[[API dashSequenceAccessURL] absoluteString]];
+                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                        if (!success) {
+                            DDLogError(@"%@%@",@"Failed to open url:",[url description]);
+                        }
+                    }];
+                }
+                
+                break;
+            }
+                //MARK: HDA_AccessMHUBOS
+            case HDA_AccessMHUBOS: {
+                if ([SFSafariViewController class] != nil) {
+                    // Use SFSafariViewController
+                    safariVC = [[SFSafariViewController alloc]initWithURL:[NSURL URLWithString:[[API mHUBInstallationURL] absoluteString]]];
+                    safariVC.delegate = self;
+                    [[AppDelegate appDelegate]showHudView:ShowMessage Message:HUB_CONNECTINGTOMHUBOS];
+                    [self presentViewController:safariVC animated:YES completion:nil];
+                } else {
+                    NSURL *url = [NSURL URLWithString:[[API mHUBInstallationURL] absoluteString]];
+                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                        if (!success) {
+                            DDLogError(@"%@%@",@"Failed to open url:",[url description]);
+                        }
+                    }];
+                }
+                
+                break;
+            }
+                
+            case HDA_ManageSource: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+//                DisplaySettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"DisplaySettingsVC"];
+//                objVC.selectedSetting = objSection;
+//                [self.navigationController pushViewController:objVC animated:YES];
+//                break;
+            }
+            case HDA_Interface: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            
+            case HDA_Appearance: {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            case HDA_general:
+            {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            case HDA_utility:
+            {
+                SubSettingsVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"SubSettingsVC"];
+                objVC.selectedSetting = objSection;
+                [self.navigationController pushViewController:objVC animated:YES];
+                break;
+            }
+            
+            
+               
+            default:
+                break;
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) reloadSubViews {
+    [self viewWillAppear:NO];
+    [self.tblSettings reloadData];
+    [APIManager reloadDisplaySubView];
+    [APIManager reloadSourceSubView];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadSourceSwitch_ViewWillAppear object:self];
+}
+
+-(void) resetUControlConfirmation {
+    @try {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(HUB_REMOVEUCONTROL_CONFIRMATION, nil)
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        alertController.view.tintColor = colorGray_646464;
+        NSMutableAttributedString *strAttributedTitle = [[NSMutableAttributedString alloc] initWithString:HUB_REMOVEUCONTROL_CONFIRMATION];
+        [strAttributedTitle addAttribute:NSFontAttributeName
+                                   value:textFontLight13
+                                   range:NSMakeRange(0, strAttributedTitle.length)];
+        [alertController setValue:strAttributedTitle forKey:@"attributedTitle"];
+        
+        UIAlertAction *resetToDefault = [UIAlertAction actionWithTitle:ALERT_BTN_TITLE_YES style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [[NSUserDefaults standardUserDefaults]setBool:false forKey:kAppLaunchFirstTime];
+                [[AppDelegate appDelegate] showHudView:ShowIndicator Message:@""];
+                if (mHubManagerInstance.objSelectedHub.Generation == mHub4KV3) {
+                    [SSDPManager disconnectSSDPmHub];
+                }
+                [mHubManagerInstance deletemHubManagerObjectData];
+                // Wait 2 seconds while app is going background
+                // [NSThread sleepForTimeInterval:2.0];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [self showNewMainStoryBoard];
+                });
+            });
+        }];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(ALERT_BTN_TITLE_NO, nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        [alertController addAction:resetToDefault];
+        [alertController addAction:cancel];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+-(void)showNewMainStoryBoard {
+    @try {
+        [AppDelegate appDelegate].flowType = HDA_SetupFlow;
+        UIStoryboard *storyboard = mainStoryboard;
+        UINavigationController *navigationController = [storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
+        UIViewController *vc1 = [storyboard instantiateViewControllerWithIdentifier:@"NewSetupVC"];
+        vc1.navigationItem.backBarButtonItem = customBackBarButton;
+        
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
+        window.rootViewController = navigationController;
+        [window crossDissolveTransitionWithAnimations:nil AndCompletion:nil];
+        [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(IBAction)ClickOn_FooterView:(id)sender{
+    [self resetUControlConfirmation];
+}
+-(IBAction)ClickOn_BackButton:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(IBAction)ClickOn_ADDDevice:(id)sender{
+    AddDeviceViewController *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"AddDeviceViewController"];
+    
+    [self.navigationController pushViewController:objVC animated:YES];
+}
+-(IBAction)ClickOn_DownstairsVideo:(id)sender{
+    ListOfProfileDevicesVC *objVC = [settingsStoryboard   instantiateViewControllerWithIdentifier:@"ListOfProfileDevicesVC"];
+   // objVC.providesPresentationContextTransitionStyle = YES;
+   // objVC.definesPresentationContext = YES;
+   // objVC.isFirstAppORMosUpdateAlertPage = YES;
+   // [objVC setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+    [self presentViewController:objVC animated:YES completion:nil];
+    
+    
+}
+#pragma mark - SFSafariViewController delegate methods
+-(void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
+    // Load finished
+    [[AppDelegate appDelegate]hideHudView:HideIndicator Message:@"Finished"];
+}
+
+-(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    // Done button pressed
+    if (mHubManagerInstance.objSelectedHub.Generation != mHub4KV3) {
+        [[AppDelegate appDelegate] alertControllerReSyncUControlConfirmation];
+    }
+}
+
+-(void) fetchBackUpFromCloud:(SectionSetting*)objSection {
+    id dictUserdata = [Utility retrieveUserDefaults:kUserData];
+    if ([dictUserdata isKindOfClass:[NSDictionary class]] && [[Utility checkNullForKey:kUsername Dictionary:dictUserdata] isNotEmpty]) {
+        // If user is already loggedin from the app then get credential from the UserDefauls and call to fetchBackup API.
+        [[AppDelegate appDelegate] showHudView:ShowIndicator Message:@""];
+        NSMutableDictionary *dictParameter = [[NSMutableDictionary alloc] initWithDictionary:[UserData getParameterDictionaryFromDictionary:dictUserdata]];
+        
+        [APIManager postCloudLogin:dictParameter completion:^(APIResponse *objResponse) {
+            DDLogDebug(@"postCloudLogin objResponse == %@", objResponse);
+            if (objResponse.error == false) {
+                NSArray *arrData = [[NSArray alloc] initWithArray:objResponse.data];
+                if (arrData.count > 1)
+                    {
+                    [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+                    CloudDeviceListVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"CloudDeviceListVC"];
+                    objVC.arrData = [[NSMutableArray alloc] initWithArray:arrData];
+                    objVC.dictParameter = [[NSMutableDictionary alloc] initWithDictionary:dictParameter];
+                    [self.navigationController pushViewController:objVC animated:YES];
+                    }
+                else if (arrData.count == 1)
+                    {
+                    CloudData *objData = (CloudData *)[arrData firstObject];
+                    [dictParameter setObject:objData.strSerialNo forKey:kSerial_Number];
+                    //Sharma G, Vinod , aman
+                    [APIManager fetchCloudBackup:dictParameter completion:^(APIResponse *objResponse) {
+                        DDLogDebug(@"fetchCloudBackup objResponse == %@", objResponse);
+                        if (objResponse.error) {
+                            [[AppDelegate appDelegate] hideHudView:ErrorMessage Message:objResponse.response];
+                        } else {
+                            [mHubManagerInstance syncGlobalManagerObjectV0];
+                            [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+                        }
+                    }];
+                    }
+            } else {
+                [Utility deleteUserDefaults:kUserData];
+                [[AppDelegate appDelegate] hideHudView:ErrorMessage Message:objResponse.response];
+            }
+        }];
+    } else {
+
+        BackupCloudVC *objVC = [settingsStoryboard instantiateViewControllerWithIdentifier:@"BackupCloudVC"];
+        objVC.backupType = Fetch;
+        objVC.formType = Login;
+        objVC.selectedSetting = objSection;
+        [self.navigationController pushViewController:objVC animated:YES];
+    }
+}
+
+
+#pragma mark - SearchData Delegate
+-(void) searchData:(SearchData *)searchData didFindDataArray:(NSMutableArray *)arrSearchedData {
+    @try {
+        BOOL isDataFound = false;
+        for (SearchData *objData in arrSearchedData) {
+            for (Hub *objHub in objData.arrItems) {
+                if (mHubManagerInstance.objSelectedHub.Generation == mHub4KV3 && objHub.Generation == mHub4KV3) {
+                    mHubManagerInstance.objSelectedHub = [Hub updateHubAddress_From:objHub To:mHubManagerInstance.objSelectedHub];
+                    isDataFound = true;
+                    break;
+                } else {
+                    if ([objHub.SerialNo isEqualToString:mHubManagerInstance.objSelectedHub.SerialNo]) {
+                        mHubManagerInstance.objSelectedHub = [Hub updateHubAddress_From:objHub To:mHubManagerInstance.objSelectedHub];
+                        isDataFound = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (isDataFound) {
+            [self dataFoundViewReload];
+        } else {
+            [self errorMessageOverlayNavigation];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) dataFoundViewReload {
+    @try {
+        if (mHubManagerInstance.objSelectedHub.Generation == mHub4KV3) {
+            [mHubManagerInstance syncGlobalManagerObjectV0];
+            [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+        } else {
+            [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+            [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) errorMessageOverlayNavigation {
+    @try {
+        ErrorMessageOverlayVC *objVC = [mainStoryboard   instantiateViewControllerWithIdentifier:@"ErrorMessageOverlayVC"];
+        objVC.providesPresentationContextTransitionStyle = YES;
+        objVC.definesPresentationContext = YES;
+        objVC.isFirstAppORMosUpdateAlertPage = NO;
+        [objVC setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+        [self presentViewController:objVC animated:YES completion:nil];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+/*
+ 
+ - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+ _staticView.transform = CGAffineTransformMakeTranslation(0, scrollView.contentOffset.y);
+ }
+ 
+ - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+ // this is needed to prevent cells from being displayed above our static view
+ [self.tblSettings bringSubviewToFront:_staticView];
+ }
+ 
+ 
+ #pragma mark - FixedFooter In TableView
+ -(void) addFooterToTableView{
+ @try {
+ static NSString *HeaderCellIdentifier = @"HeaderSetting";
+ CellSetup *cellFooter = [self.tblSettings dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
+ if (cellFooter == nil) {
+ cellFooter = [self.tblSettings dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
+ }
+ CGFloat width = self.tblSettings.frame.size.width;
+ CGFloat height = 0.0f;
+ 
+ if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+ height = heightTableViewRowWithPadding_SmallMobile;
+ } else {
+ height = heightTableViewRowWithPadding;
+ }
+ 
+ cellFooter.frame = CGRectMake(0.0f, self.tblSettings.bounds.size.height-height, width, height);
+ 
+ for (id cellview in self.tblSettings.subviews) {
+ if ([cellview isKindOfClass:[CellSetup class]]) {
+ [cellview removeFromSuperview];
+ }
+ }
+ 
+ cellFooter.backgroundColor = [UIColor blueColor];
+ [cellFooter.lblCell setText:@"REMOVE MHub"];
+ cellFooter.lblCell.textColor = [UIColor redColor];
+ UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognizerHandler_RemoveMHub:)];
+ tapRecognizer.delegate = self;
+ // ---- //
+ [cellFooter addGestureRecognizer:tapRecognizer];
+ 
+ [self.tblSettings addSubview:cellFooter];
+ _staticView = cellFooter;
+ self.tblSettings.contentInset = UIEdgeInsetsMake(0, 0, height, 0);
+ 
+ } @catch(NSException *exception) {
+ [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+ }
+ }
+ 
+ -(void)tapRecognizerHandler_RemoveMHub:(id)sender
+ {
+ @try {
+ // [self  resetUControlConfirmation];
+ 
+ } @catch(NSException *exception) {
+ [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+ }
+ }
+
+ */
+@end

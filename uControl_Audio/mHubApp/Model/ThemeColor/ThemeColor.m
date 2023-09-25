@@ -1,0 +1,496 @@
+//
+//  ThemeColor.m
+//  mHubApp
+//
+//  Created by rave on 11/16/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+/*
+ Set ThemeColor Object for different themes in the Project i.e. Dark (Carbonite) , Light (Snow)
+
+ @param ThemeType themeType will provide you data of theme colors according to requirement.
+ Default Theme color taken is Dark (Carbonite).
+ */
+
+#import "ThemeColor.h"
+
+@implementation ThemeColor
+
++ (instancetype)sharedInstance {
+    static ThemeColor *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[ThemeColor alloc] init];
+    });
+    return sharedInstance;
+}
+
+-(id)init {
+    self = [super init];
+    self.themeType = Dark;
+    self.isButtonBorder = true;
+    self.isButtonVibration = false;
+    
+    self.colorBackground = colorClear;
+    self.colorBackgroundSetUp = colorClear;
+    self.colorNavigationBar = colorClear;
+    self.colorHeaderText = colorClear;
+    self.colorNormalText = colorClear;
+    self.colorTableCellBorder = colorClear;
+    self.colorDownArrow =  colorWhite_254254254;
+    self.colorInputBackground = colorClear;
+    self.colorInputSelectedBackground = colorClear;
+    self.colorInputText = colorClear;
+    self.colorInputSelectedText = colorClear;
+    
+    self.colorOutputBorder = colorClear;
+    self.colorOutputBackground = colorClear;
+    self.colorOutputSelectedBorder = colorClear;
+    self.colorOutputSelectedBackground = colorClear;
+    self.colorOutputText = colorClear;
+    self.colorOutputSelectedText = colorClear;
+    
+    self.colorSettingControlBorder = colorClear;
+    
+    self.colorControlDefault = colorClear;
+    self.colorControlBorder = colorClear;
+    self.colorControlText = colorClear;
+    
+    self.colorControlBackground = colorClear;
+    self.colorControlOutputBackground = colorClear;
+    self.colorControlOutputVolumeBG = colorClear;
+    
+    self.colorCGroupBackground = colorClear;
+    self.colorCGroupSelectedBackground = colorClear;
+    
+    self.colorLimitedInputBorder = colorClear;
+    self.colorLimitedInputBackground = colorClear;
+    self.colorLimitedInputSelectedBorder = colorClear;
+    self.colorLimitedInputSelectedBackground = colorClear;
+    self.colorLimitedInputText = colorClear;
+    self.colorLimitedInputSelectedText = colorClear;
+    
+    self.colorPowerControlBG = colorClear;
+    self.colorPowerControlBorder = colorClear;
+    self.colorPowerControlText = colorClear;
+
+    return self;
+}
+
+-(id)initWithThemeColor:(ThemeColor*)objThemeColor {
+    self = [super init];
+    self.themeType = objThemeColor.themeType;
+    self.isButtonBorder = objThemeColor.isButtonBorder;
+    self.isButtonVibration = objThemeColor.isButtonVibration;
+    
+    self.colorBackground = objThemeColor.colorBackground;
+    self.colorBackgroundSetUp = objThemeColor.colorBackgroundSetUp;
+    self.colorNavigationBar = objThemeColor.colorNavigationBar;
+    self.colorHeaderText = objThemeColor.colorHeaderText;
+    self.colorNormalText = objThemeColor.colorNormalText;
+    self.colorDownArrow = objThemeColor.colorDownArrow;
+    self.colorTableCellBorder = objThemeColor.colorTableCellBorder;
+
+    self.colorInputBackground = objThemeColor.colorInputBackground;
+    self.colorInputSelectedBackground = objThemeColor.colorInputSelectedBackground;
+    self.colorInputText = objThemeColor.colorInputText;
+    self.colorInputSelectedText = objThemeColor.colorInputSelectedText;
+    
+    self.colorOutputBorder = objThemeColor.colorOutputBorder;
+    self.colorOutputBackground = objThemeColor.colorOutputBackground;
+    self.colorOutputSelectedBorder = objThemeColor.colorOutputSelectedBorder;
+    self.colorOutputSelectedBackground = objThemeColor.colorOutputSelectedBackground;
+    self.colorOutputText = objThemeColor.colorOutputText;
+    self.colorOutputSelectedText = objThemeColor.colorOutputSelectedText;
+    
+    self.colorSettingControlBorder = objThemeColor.colorSettingControlBorder;
+
+    self.colorControlDefault = objThemeColor.colorControlDefault;
+    self.colorControlBorder = objThemeColor.colorControlBorder;
+    self.colorControlText = objThemeColor.colorControlText;
+    
+    self.colorControlBackground = objThemeColor.colorControlBackground;
+    self.colorControlOutputBackground = objThemeColor.colorControlOutputBackground;
+    self.colorControlOutputVolumeBG = objThemeColor.colorControlOutputVolumeBG;
+    
+    self.colorCGroupBackground = objThemeColor.colorCGroupBackground;
+    self.colorCGroupSelectedBackground = objThemeColor.colorCGroupSelectedBackground;
+    
+    self.colorLimitedInputBorder = objThemeColor.colorLimitedInputBorder;
+    self.colorLimitedInputBackground = objThemeColor.colorLimitedInputBackground;
+    self.colorLimitedInputSelectedBorder = objThemeColor.colorLimitedInputSelectedBorder;
+    self.colorLimitedInputSelectedBackground = objThemeColor.colorLimitedInputSelectedBackground;
+    self.colorLimitedInputText = objThemeColor.colorLimitedInputText;
+    self.colorLimitedInputSelectedText = objThemeColor.colorLimitedInputSelectedText;
+
+    self.colorPowerControlBG = objThemeColor.colorPowerControlBG;
+    self.colorPowerControlBorder = objThemeColor.colorPowerControlBorder;
+    self.colorPowerControlText = objThemeColor.colorPowerControlText;
+
+    return self;
+}
+
++(ThemeColor*) themeColorData:(ThemeType)type {
+    ThemeColor *colors = [[ThemeColor alloc]init];
+    
+    colors.themeType = type;
+    switch (type) {
+        case Dark: {
+            colors.colorBackground = colorDarkGray_191919;
+            colors.colorBackgroundSetUp = colorBlack;
+            colors.colorNavigationBar = colorBlack;
+            colors.colorHeaderText = colorLightGray_179179179; // colorLightGray_208210211;
+            
+            colors.colorNormalText = colorWhite_254254254;
+            colors.colorTableCellBorder = colorGray_747474;
+            colors.colorDownArrow = colorWhite_254254254;
+            colors.colorInputBackground = colorDarkGray_262626;
+            colors.colorInputSelectedBackground = colorGray_757575;
+           // colors.colorInputText = colorLightGray_208210211;
+            colors.colorInputText = colorWhite_254254254;
+            //colors.colorInputSelectedText = colorLightGray_208210211;
+            colors.colorInputSelectedText = colorWhite_254254254;
+            
+            
+            colors.colorOutputBorder = colorLightGray_207208210;
+            colors.colorOutputBackground = colorDarkGray_202020;
+            colors.colorOutputSelectedBorder = colorDarkGray_514040;
+            colors.colorOutputSelectedBackground = colorBlack;
+            colors.colorOutputText = colorWhite_254254254;
+            colors.colorOutputSelectedText = colorWhite_254254254;
+            
+            colors.colorSettingControlBorder = colorGray_777777;
+            
+            colors.colorControlDefault = colorDarkGray_282626;
+            colors.colorControlBorder = colorDarkGray_373535;
+            colors.colorControlText = colorWhite;
+            
+            colors.colorControlBackground = colorBlack_999;
+            colors.colorControlOutputBackground = colorBlack;
+            colors.colorControlOutputVolumeBG = colorDarkGray_202020;
+            
+            colors.colorCGroupBackground = colorDarkGray_353131;
+            colors.colorCGroupSelectedBackground = colorDarkGray_282424;
+            
+            colors.colorLimitedInputBorder = colorDarkGray_191919;
+            colors.colorLimitedInputBackground = colorDarkGray_191919;
+            colors.colorLimitedInputSelectedBorder = colorGray_747474;
+            colors.colorLimitedInputSelectedBackground = colorDarkGray_191919;
+            colors.colorLimitedInputText = colorWhite_254254254;
+            colors.colorLimitedInputSelectedText = colorWhite_254254254;
+            
+            colors.colorPowerControlBG = colorBlack_999;
+            colors.colorPowerControlBorder = colorDarkGray_514040;
+            colors.colorPowerControlText = colorWhite_254254254;
+
+            break;
+        }
+        case Light : {
+            colors.colorBackground = colorWhite_254254254;
+            colors.colorBackgroundSetUp = colorWhite_254254254;
+            colors.colorNavigationBar = colorGray_777777;
+            colors.colorHeaderText = colorLightGray_179179179; // colorLightGray_208210211;
+           
+            colors.colorNormalText = colorDarkGray_525252;
+            colors.colorDownArrow = hexString_ProPinkUtility;
+            colors.colorTableCellBorder = colorLightGray_179179179;
+            
+            colors.colorInputBackground = colorLightGray_230230230;
+            colors.colorInputSelectedBackground = colorDarkGray_262626;
+            colors.colorInputText = colorDarkGray_525252;
+            colors.colorInputSelectedText = colorWhite_254254254;
+            
+            colors.colorOutputBorder = colorDarkGray_525252;
+            colors.colorOutputBackground = colorLightGray_230230230;
+            colors.colorOutputSelectedBorder = colorDarkGray_515151;
+            colors.colorOutputSelectedBackground = colorDarkGray_515151;
+            colors.colorOutputText = colorDarkGray_525252;
+            colors.colorOutputSelectedText = colorLightGray_208210211;
+            
+            colors.colorSettingControlBorder = colorLightGray_179179179;
+
+            colors.colorControlDefault = colorLightGray_229229229;
+            colors.colorControlBorder = colorLightGray_179179179;
+            colors.colorControlText = colorGray_646464;
+            
+            colors.colorControlBackground = colorLightGray_207207207;
+            colors.colorControlOutputBackground = colorDarkGray_262626;
+            colors.colorControlOutputVolumeBG = colorDarkGray_202020;
+            
+            colors.colorCGroupBackground = colorGray_777777;
+            colors.colorCGroupSelectedBackground = colorGray_767676;
+            
+            colors.colorLimitedInputBorder = colorLightGray_179179179;
+            colors.colorLimitedInputBackground = colorLightGray_230230230;
+            colors.colorLimitedInputSelectedBorder = colorLightGray_179179179;
+            colors.colorLimitedInputSelectedBackground = colorGray_767676;
+            colors.colorLimitedInputText = colorDarkGray_525252;
+            colors.colorLimitedInputSelectedText = colorWhite_254254254;
+
+            colors.colorPowerControlBG = colorLightGray_230230230;
+            colors.colorPowerControlBorder = colorGray_767676;
+            colors.colorPowerControlText = colorDarkGray_515151;
+
+            break;
+        }
+        default: {
+            colors.colorBackground = colorDarkGray_191919;
+            colors.colorBackgroundSetUp = colorBlack;
+            colors.colorNavigationBar = colorBlack;
+            colors.colorHeaderText = colorLightGray_179179179; // colorLightGray_208210211;x
+            colors.colorNormalText = colorWhite_254254254;
+            colors.colorTableCellBorder = colorGray_747474;
+            colors.colorDownArrow = colorWhite_254254254;
+            colors.colorInputBackground = colorDarkGray_262626;
+            colors.colorInputSelectedBackground = colorGray_757575;
+            colors.colorInputText = colorLightGray_208210211;
+            colors.colorInputSelectedText = colorLightGray_208210211;
+            
+            colors.colorOutputBorder = colorLightGray_207208210;
+            colors.colorOutputBackground = colorDarkGray_202020;
+            colors.colorOutputSelectedBorder = colorDarkGray_514040;
+            colors.colorOutputSelectedBackground = colorBlack;
+            colors.colorOutputText = colorWhite_254254254;
+            colors.colorOutputSelectedText = colorWhite_254254254;
+            
+            colors.colorSettingControlBorder = colorGray_777777;
+            
+            colors.colorControlDefault = colorDarkGray_282626;
+            colors.colorControlBorder = colorDarkGray_373535;
+            colors.colorControlText = colorWhite;
+            
+            colors.colorControlBackground = colorBlack_999;
+            colors.colorControlOutputBackground = colorBlack;
+            colors.colorControlOutputVolumeBG = colorDarkGray_202020;
+            
+            colors.colorCGroupBackground = colorDarkGray_353131;
+            colors.colorCGroupSelectedBackground = colorDarkGray_282424;
+            
+            colors.colorLimitedInputBorder = colorDarkGray_191919;
+            colors.colorLimitedInputBackground = colorDarkGray_191919;
+            colors.colorLimitedInputSelectedBorder = colorGray_747474;
+            colors.colorLimitedInputSelectedBackground = colorDarkGray_191919;
+            colors.colorLimitedInputText = colorWhite_254254254;
+            colors.colorLimitedInputSelectedText = colorWhite_254254254;
+
+            colors.colorPowerControlBG = colorBlack_999;
+            colors.colorPowerControlBorder = colorDarkGray_514040;
+            colors.colorPowerControlText = colorWhite_254254254;
+
+            break;
+        }
+    }
+    
+    return colors;
+}
+
+-(NSDictionary*) dictionaryRepresentation {
+    NSMutableDictionary *colors = [[NSMutableDictionary alloc]init];
+    @try {
+        [colors setObject:[NSNumber numberWithInteger:self.themeType] forKey:kTHEMETYPE];
+        [colors setObject:[NSNumber numberWithBool:self.isButtonBorder] forKey:kISBUTTONBORDER];
+        [colors setObject:[NSNumber numberWithBool:self.isButtonVibration] forKey:kISBUTTONVIBRATION];
+
+        [colors setObject:self.colorBackground forKey:kCOLORBACKGROUND];
+        [colors setObject:self.colorBackgroundSetUp forKey:kCOLORBACKGROUNDSETUP];
+        [colors setObject:self.colorNavigationBar forKey:kCOLORNAVIGATIONBAR];
+        [colors setObject:self.colorHeaderText forKey:kCOLORHEADERTEXT];
+        [colors setObject:self.colorNormalText forKey:kCOLORNORMALTEXT];
+        [colors setObject:self.colorDownArrow forKey:kCOLORDOWNARROW];
+        
+        [colors setObject:self.colorTableCellBorder forKey:kCOLORTABLECELLBORDER];
+
+        [colors setObject:self.colorInputBackground forKey:kCOLORINPUTBACKGROUND];
+        [colors setObject:self.colorInputSelectedBackground forKey:kCOLORINPUTSELECTEDBACKGROUND];
+        [colors setObject:self.colorInputText forKey:kCOLORINPUTTEXT];
+        [colors setObject:self.colorInputSelectedText forKey:kCOLORINPUTSELECTEDTEXT];
+
+        [colors setObject:self.colorOutputBorder forKey:kCOLOROUTPUTBORDER];
+        [colors setObject:self.colorOutputBackground forKey:kCOLOROUTPUTBACKGROUND];
+        [colors setObject:self.colorOutputSelectedBorder forKey:kCOLOROUTPUTSELECTEDBORDER];
+        [colors setObject:self.colorOutputSelectedBackground forKey:kCOLOROUTPUTSELECTEDBACKGROUND];
+        [colors setObject:self.colorOutputText forKey:kCOLOROUTPUTTEXT];
+        [colors setObject:self.colorOutputSelectedText forKey:kCOLOROUTPUTSELECTEDTEXT];
+        
+        [colors setObject:self.colorSettingControlBorder forKey:kCOLORSETTINGCONTROLBORDER];
+
+        [colors setObject:self.colorControlDefault forKey:kCOLORCONTROLDEFAULT];
+        [colors setObject:self.colorControlBorder forKey:kCOLORCONTROLBORDER];
+        [colors setObject:self.colorControlText forKey:kCOLORCONTROLTEXT];
+        
+        [colors setObject:self.colorControlBackground forKey:kCOLORCONTROLBACKGROUND];
+        [colors setObject:self.colorControlOutputBackground forKey:kCOLORCONTROLOUTPUTBACKGROUND];
+        [colors setObject:self.colorControlOutputVolumeBG forKey:kCOLORCONTROLOUTPUTVOLUMEBG];
+
+        [colors setObject:self.colorCGroupBackground forKey:kCOLORCGROUPBACKGROUND];
+        [colors setObject:self.colorCGroupSelectedBackground forKey:kCOLORCGROUPSELECTEDBACKGROUND];
+        
+        [colors setObject:self.colorLimitedInputBorder forKey:kCOLORLIMITEDINPUTBORDER];
+        [colors setObject:self.colorLimitedInputBackground forKey:kCOLORLIMITEDINPUTBACKGROUND];
+        [colors setObject:self.colorLimitedInputSelectedBorder forKey:kCOLORLIMITEDINPUTSELECTEDBORDER];
+        [colors setObject:self.colorLimitedInputSelectedBackground forKey:kCOLORLIMITEDINPUTSELECTEDBACKGROUND];
+        [colors setObject:self.colorLimitedInputText forKey:kCOLORLIMITEDINPUTTEXT];
+        [colors setObject:self.colorLimitedInputSelectedText forKey:kCOLORLIMITEDINPUTSELECTEDTEXT];
+
+        [colors setObject:self.colorPowerControlBG forKey:kCOLORPOWERCONTROLBG];
+        [colors setObject:self.colorPowerControlBorder forKey:kCOLORPOWERCONTROLBORDER];
+        [colors setObject:self.colorPowerControlText forKey:kCOLORPOWERCONTROLTEXT];
+
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return colors;
+}
+
+
+#pragma mark - ENCODER DECODER METHODS
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    @try {
+            //Encode properties, other class variables, etc
+        [encoder encodeInteger:self.themeType forKey:kTHEMETYPE];
+        [encoder encodeBool:self.isButtonBorder forKey:kISBUTTONBORDER];
+        [encoder encodeBool:self.isButtonVibration forKey:kISBUTTONVIBRATION];
+
+        [encoder encodeObject:self.colorBackground forKey:kCOLORBACKGROUND];
+        [encoder encodeObject:self.colorBackgroundSetUp forKey:kCOLORBACKGROUNDSETUP];
+        [encoder encodeObject:self.colorNavigationBar forKey:kCOLORNAVIGATIONBAR];
+        [encoder encodeObject:self.colorHeaderText forKey:kCOLORHEADERTEXT];
+        [encoder encodeObject:self.colorNormalText forKey:kCOLORNORMALTEXT];
+        [encoder encodeObject:self.colorDownArrow forKey:kCOLORDOWNARROW];
+        [encoder encodeObject:self.colorTableCellBorder forKey:kCOLORTABLECELLBORDER];
+
+        [encoder encodeObject:self.colorInputBackground forKey:kCOLORINPUTBACKGROUND];
+        [encoder encodeObject:self.colorInputSelectedBackground forKey:kCOLORINPUTSELECTEDBACKGROUND];
+        [encoder encodeObject:self.colorInputText forKey:kCOLORINPUTTEXT];
+        [encoder encodeObject:self.colorInputSelectedText forKey:kCOLORINPUTSELECTEDTEXT];
+
+        [encoder encodeObject:self.colorOutputBorder forKey:kCOLOROUTPUTBORDER];
+        [encoder encodeObject:self.colorOutputBackground forKey:kCOLOROUTPUTBACKGROUND];
+        [encoder encodeObject:self.colorOutputSelectedBorder forKey:kCOLOROUTPUTSELECTEDBORDER];
+        [encoder encodeObject:self.colorOutputSelectedBackground forKey:kCOLOROUTPUTSELECTEDBACKGROUND];
+        [encoder encodeObject:self.colorOutputText forKey:kCOLOROUTPUTTEXT];
+        [encoder encodeObject:self.colorOutputSelectedText forKey:kCOLOROUTPUTSELECTEDTEXT];
+
+        [encoder encodeObject:self.colorSettingControlBorder forKey:kCOLORSETTINGCONTROLBORDER];
+
+        [encoder encodeObject:self.colorControlDefault forKey:kCOLORCONTROLDEFAULT];
+        [encoder encodeObject:self.colorControlBorder forKey:kCOLORCONTROLBORDER];
+        [encoder encodeObject:self.colorControlText forKey:kCOLORCONTROLTEXT];
+
+        [encoder encodeObject:self.colorControlBackground forKey:kCOLORCONTROLBACKGROUND];
+        [encoder encodeObject:self.colorControlOutputBackground forKey:kCOLORCONTROLOUTPUTBACKGROUND];
+        [encoder encodeObject:self.colorControlOutputVolumeBG forKey:kCOLORCONTROLOUTPUTVOLUMEBG];
+
+        [encoder encodeObject:self.colorCGroupBackground forKey:kCOLORCGROUPBACKGROUND];
+        [encoder encodeObject:self.colorCGroupSelectedBackground forKey:kCOLORCGROUPSELECTEDBACKGROUND];
+        
+        [encoder encodeObject:self.colorLimitedInputBorder forKey:kCOLORLIMITEDINPUTBORDER];
+        [encoder encodeObject:self.colorLimitedInputBackground forKey:kCOLORLIMITEDINPUTBACKGROUND];
+        [encoder encodeObject:self.colorLimitedInputSelectedBorder forKey:kCOLORLIMITEDINPUTSELECTEDBORDER];
+        [encoder encodeObject:self.colorLimitedInputSelectedBackground forKey:kCOLORLIMITEDINPUTSELECTEDBACKGROUND];
+        [encoder encodeObject:self.colorLimitedInputText forKey:kCOLORLIMITEDINPUTTEXT];
+        [encoder encodeObject:self.colorLimitedInputSelectedText forKey:kCOLORLIMITEDINPUTSELECTEDTEXT];
+        
+        [encoder encodeObject:self.colorPowerControlBG forKey:kCOLORPOWERCONTROLBG];
+        [encoder encodeObject:self.colorPowerControlBorder forKey:kCOLORPOWERCONTROLBORDER];
+        [encoder encodeObject:self.colorPowerControlText forKey:kCOLORPOWERCONTROLTEXT];
+
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    @try {
+        if(self = [super init]) {
+                //decode properties, other class vars
+            @try {
+                self.themeType = [decoder decodeIntegerForKey:kTHEMETYPE];
+            } @catch (NSException *exception) {
+                self.themeType = [[decoder decodeObjectForKey:kTHEMETYPE] integerValue];
+            }
+
+            self.isButtonBorder = [decoder decodeBoolForKey:kISBUTTONBORDER];
+            self.isButtonVibration = [decoder decodeBoolForKey:kISBUTTONVIBRATION];
+
+            self.colorBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORBACKGROUND];
+            self.colorBackgroundSetUp = (UIColor*)[decoder decodeObjectForKey:kCOLORBACKGROUNDSETUP];
+            self.colorNavigationBar = (UIColor*)[decoder decodeObjectForKey:kCOLORNAVIGATIONBAR];
+            self.colorHeaderText = (UIColor*)[decoder decodeObjectForKey:kCOLORHEADERTEXT];
+            self.colorNormalText = (UIColor*)[decoder decodeObjectForKey:kCOLORNORMALTEXT];
+            self.colorDownArrow = (UIColor*)[decoder decodeObjectForKey:kCOLORDOWNARROW];
+            self.colorTableCellBorder = (UIColor*)[decoder decodeObjectForKey:kCOLORTABLECELLBORDER];
+
+            self.colorInputBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORINPUTBACKGROUND];
+            self.colorInputSelectedBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORINPUTSELECTEDBACKGROUND];
+            self.colorInputText = (UIColor*)[decoder decodeObjectForKey:kCOLORINPUTTEXT];
+            self.colorInputSelectedText = (UIColor*)[decoder decodeObjectForKey:kCOLORINPUTSELECTEDTEXT];
+
+            self.colorOutputBorder = (UIColor*)[decoder decodeObjectForKey:kCOLOROUTPUTBORDER];
+            self.colorOutputBackground = (UIColor*)[decoder decodeObjectForKey:kCOLOROUTPUTBACKGROUND];
+            self.colorOutputSelectedBorder = (UIColor*)[decoder decodeObjectForKey:kCOLOROUTPUTSELECTEDBORDER];
+            self.colorOutputSelectedBackground = (UIColor*)[decoder decodeObjectForKey:kCOLOROUTPUTSELECTEDBACKGROUND];
+            self.colorOutputText = (UIColor*)[decoder decodeObjectForKey:kCOLOROUTPUTTEXT];
+            self.colorOutputSelectedText = (UIColor*)[decoder decodeObjectForKey:kCOLOROUTPUTSELECTEDTEXT];
+
+            self.colorSettingControlBorder = (UIColor*)[decoder decodeObjectForKey:kCOLORSETTINGCONTROLBORDER];
+
+            self.colorControlDefault = (UIColor*)[decoder decodeObjectForKey:kCOLORCONTROLDEFAULT];
+            self.colorControlBorder = (UIColor*)[decoder decodeObjectForKey:kCOLORCONTROLBORDER];
+            self.colorControlText = (UIColor*)[decoder decodeObjectForKey:kCOLORCONTROLTEXT];
+
+            self.colorControlBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORCONTROLBACKGROUND];
+            self.colorControlOutputBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORCONTROLOUTPUTBACKGROUND];
+            self.colorControlOutputVolumeBG = (UIColor*)[decoder decodeObjectForKey:kCOLORCONTROLOUTPUTVOLUMEBG];
+
+            self.colorCGroupBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORCGROUPBACKGROUND];
+            self.colorCGroupSelectedBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORCGROUPSELECTEDBACKGROUND];
+
+            self.colorLimitedInputBorder = (UIColor*)[decoder decodeObjectForKey:kCOLORLIMITEDINPUTBORDER];
+            self.colorLimitedInputBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORLIMITEDINPUTBACKGROUND];
+            self.colorLimitedInputSelectedBorder = (UIColor*)[decoder decodeObjectForKey:kCOLORLIMITEDINPUTSELECTEDBORDER];
+            self.colorLimitedInputSelectedBackground = (UIColor*)[decoder decodeObjectForKey:kCOLORLIMITEDINPUTSELECTEDBACKGROUND];
+            self.colorLimitedInputText = (UIColor*)[decoder decodeObjectForKey:kCOLORLIMITEDINPUTTEXT];
+            self.colorLimitedInputSelectedText = (UIColor*)[decoder decodeObjectForKey:kCOLORLIMITEDINPUTSELECTEDTEXT];
+
+            self.colorPowerControlBG = (UIColor*)[decoder decodeObjectForKey:kCOLORPOWERCONTROLBG];
+            self.colorPowerControlBorder = (UIColor*)[decoder decodeObjectForKey:kCOLORPOWERCONTROLBORDER];
+            self.colorPowerControlText = (UIColor*)[decoder decodeObjectForKey:kCOLORPOWERCONTROLTEXT];
+
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+
++ (void)saveCustomObject:(ThemeColor *)object key:(NSString *)key {
+    @try {
+        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:object];
+        [Utility saveUserDefaults:key value:encodedObject];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++ (ThemeColor *)retrieveCustomObjectWithKey:(NSString *)key {
+    @try {
+        ThemeColor *object = [[ThemeColor alloc] init];
+        NSData *encodedObject = [Utility retrieveUserDefaults:key];
+        if ([encodedObject isNotEmpty]) {
+            object = [[ThemeColor alloc] initWithThemeColor:[NSKeyedUnarchiver unarchiveObjectWithData:encodedObject]];
+            return object;
+        } else {
+            return nil;
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+@end

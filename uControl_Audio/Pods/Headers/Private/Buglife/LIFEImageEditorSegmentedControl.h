@@ -1,0 +1,1 @@
+../../../Buglife/Source/Controllers/Image Editor/LIFEImageEditorSegmentedControl.h

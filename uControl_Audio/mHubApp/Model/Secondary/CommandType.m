@@ -1,0 +1,596 @@
+//
+//  CommandType.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 30/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import "CommandType.h"
+
+@implementation CommandType
+
+-(id)init {
+    self = [super init];
+    self.allCommands = [[NSMutableArray alloc] init];
+    self.arrCGOrder = [[NSMutableArray alloc] init];
+    self.volume = [[NSMutableArray alloc] init];
+    self.gesture = [[NSMutableArray alloc] init];
+    self.number = [[NSMutableArray alloc] init];
+    self.direction = [[NSMutableArray alloc] init];
+    self.powerKey = [[NSMutableArray alloc] init];
+    self.gestureKey= [[NSMutableArray alloc] init];
+    self.playhead = [[NSMutableArray alloc] init];
+    self.custom = [[NSMutableArray alloc] init];
+    
+    return self;
+
+}
+
++(CommandType*) getObjectForInput_fromArray:(NSArray*)arrCommandXMLServer {
+    CommandType *objReturn = [[CommandType alloc] init];
+    @try {
+        if (arrCommandXMLServer) {
+            objReturn.arrCGOrder = [[NSMutableArray alloc] init];
+            NSMutableArray *arrAllGroupCommand = [[NSMutableArray alloc] init];
+            for (int counter = 0; counter < arrCommandXMLServer.count; counter++) {
+                ControlGroup *objTemp = (ControlGroup *)[arrCommandXMLServer objectAtIndex:counter];
+                
+                NSMutableArray *arrAllCommand = [[NSMutableArray alloc] init];
+                NSMutableArray *arrVisibleCommand = [[NSMutableArray alloc] init];
+
+                for (int cmdcount = 0; cmdcount < objTemp.arrUIElements.count; cmdcount++) {
+                    UiCommand *objCmdTemp = (UiCommand *)[objTemp.arrUIElements objectAtIndex:cmdcount];
+
+                    Command *objCmd = [CommandType getCommandObjectFromUiCommandObject:objCmdTemp];
+                    ////NSLog(@"getObjectForInput_fromArray Command id %ld and command label %@",objCmd.command_id,objCmd.label);
+                    if (objCmd.isVisible) {
+                        [arrVisibleCommand addObject:objCmd];
+                    }
+                    [arrAllCommand addObject:objCmd];
+                }
+                
+                [arrAllGroupCommand addObjectsFromArray:arrVisibleCommand];
+                objReturn.allCommands = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrAllGroupCommand]];
+                
+                if (arrVisibleCommand.count > 0 && (objTemp.type == GestureKey || objTemp.type == Number || objTemp.type == Direction || objTemp.type == Playhead || objTemp.type == Custom)) {
+                    [objReturn.arrCGOrder addObject:objTemp.order];
+                }
+
+                for (int counter = 0; counter < CommandTypeCount; counter++) {
+                    if (arrVisibleCommand.count > 0 && objTemp.type == counter) {
+                        NSMutableArray *arrCmd = [[NSMutableArray alloc]initWithArray:arrVisibleCommand];
+                        switch (counter) {
+                            case PowerKey: {
+                                objReturn.powerKey = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                break;
+                            }
+                            case Gesture: {
+                                objReturn.gesture = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                break;
+                            }
+                            case GestureKey: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.gestureKey = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.gestureKey = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            case Number: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.number = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.number = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            case Direction: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.direction = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.direction = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            case Playhead: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.playhead = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.playhead = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            case Custom: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.custom = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.custom = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            default:
+                                break;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(Command *) getCommandObjectFromUiCommandObject:(UiCommand*)objUICmd {
+    Command *objCmd = [[Command alloc] init];
+    objCmd.command_id = objUICmd.command_id;
+    objCmd.label = objUICmd.label;
+    objCmd.code = objUICmd.code;
+    objCmd.isRepeat = objUICmd.repeat;
+    objCmd.ctrlType = objUICmd.uitype;
+    
+    switch ([AppDelegate appDelegate].deviceType) {
+        case mobileSmall: {
+            objCmd.isVisible = objUICmd.visibility.mobileSmall;
+            objCmd.locationX = objUICmd.location.mobileSmall.locationX;
+            objCmd.locationY = objUICmd.location.mobileSmall.locationY;
+            objCmd.locationXLandscape = objUICmd.location.mobileSmall.locationXLandscape;
+            objCmd.locationYLandscape = objUICmd.location.mobileSmall.locationYLandscape;
+            objCmd.sizeWidth = objUICmd.size.mobileSmall.sizeWidth;
+            objCmd.sizeHeight = objUICmd.size.mobileSmall.sizeHeight;
+        }
+            break;
+            
+        case mobileLarge: {
+            objCmd.isVisible = objUICmd.visibility.mobileLarge;
+            objCmd.locationX = objUICmd.location.mobileLarge.locationX;
+            objCmd.locationY = objUICmd.location.mobileLarge.locationY;
+            objCmd.locationXLandscape = objUICmd.location.mobileLarge.locationXLandscape;
+            objCmd.locationYLandscape = objUICmd.location.mobileLarge.locationYLandscape;
+            objCmd.sizeWidth = objUICmd.size.mobileLarge.sizeWidth;
+            objCmd.sizeHeight = objUICmd.size.mobileLarge.sizeHeight;
+        }
+            break;
+            
+        case tabletSmall: {
+            objCmd.isVisible = objUICmd.visibility.tabletSmall;
+            objCmd.locationX = objUICmd.location.tabletSmall.locationX;
+            objCmd.locationY = objUICmd.location.tabletSmall.locationY;
+            objCmd.locationXLandscape = objUICmd.location.tabletSmall.locationXLandscape;
+            objCmd.locationYLandscape = objUICmd.location.tabletSmall.locationYLandscape;
+            objCmd.sizeWidth = objUICmd.size.tabletSmall.sizeWidth;
+            objCmd.sizeHeight = objUICmd.size.tabletSmall.sizeHeight;
+        }
+            break;
+            
+        case tabletLarge: {
+            objCmd.isVisible = objUICmd.visibility.tabletLarge;
+            objCmd.locationX = objUICmd.location.tabletLarge.locationX;
+            objCmd.locationY = objUICmd.location.tabletLarge.locationY;
+            objCmd.locationXLandscape = objUICmd.location.tabletLarge.locationXLandscape;
+            objCmd.locationYLandscape = objUICmd.location.tabletLarge.locationYLandscape;
+            objCmd.sizeWidth = objUICmd.size.tabletLarge.sizeWidth;
+            objCmd.sizeHeight = objUICmd.size.tabletLarge.sizeHeight;
+        }
+            break;
+        default:
+            break;
+    }
+    
+    Command *objCmdData = [Command getLocalCommandData:objUICmd.command_id];
+    if (objCmdData.image) {
+        objCmd.image = objCmdData.image;
+        objCmd.image_light = objCmdData.image_light;
+        objCmd.image_label = objCmdData.image_label;
+    }
+    return objCmd;
+}
+
++(CommandType*) getObjectForOutput_fromArray:(NSArray*)arrCommandServer {
+    CommandType *objReturn=[[CommandType alloc] init];
+    @try {
+        if (arrCommandServer) {
+            objReturn.allCommands = [[NSMutableArray alloc]initWithArray:arrCommandServer];
+            
+            for (int counter = 0; counter < CommandTypeCount; counter++) {
+                NSMutableArray *arrAllCmd = [[NSMutableArray alloc]initWithArray:arrCommandServer];
+                
+                NSMutableArray *arrCmd = [[NSMutableArray alloc]init];
+                
+                switch (counter) {
+                    case Volume: {
+                        for (Command *objCmd in arrAllCmd) {
+                            Command *objCmdData = [Command getLocalCommandData:objCmd.command_id];
+                             ////NSLog(@"getObjectForOutput_fromArray Command id %ld and command label %@",objCmd.command_id,objCmd.label);
+                            if (objCmd.command_id == objCmdData.command_id) {
+                                if (objCmd.command_id == 0) {
+                                    objCmd.label = objCmd.label;
+                                } else {
+                                    objCmd.label = [objCmd.label isNotEmpty] ? objCmd.label : objCmdData.label;
+                                }
+                                objCmd.image = objCmdData.image;
+                                objCmd.image_light = objCmdData.image_light;
+                            }
+
+                            switch (objCmd.command_id) {
+                                case VolUp: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                }
+                                    break;
+                                case VolDown: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                }
+                                    break;
+                                case VolMute: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                }
+                                    break;
+                                    
+                                default:
+                                    break;
+                            }
+                        }
+
+                        objReturn.volume = [[NSMutableArray alloc]initWithArray:arrCmd];
+                        break;
+                    }
+                    case PowerKey: {
+                        for (Command *objCmd in arrAllCmd) {
+                            Command *objCmdData = [Command getLocalCommandData:objCmd.command_id];
+                            if (objCmd.command_id == objCmdData.command_id) {
+                                if (objCmd.command_id == 0) {
+                                    objCmd.label = objCmd.label;
+                                } else {
+                                    objCmd.label = [objCmd.label isNotEmpty] ? objCmd.label : objCmdData.label;
+                                }
+                                objCmd.image = objCmdData.image;
+                                objCmd.image_light = objCmdData.image_light;
+                            }
+                            
+                            switch (objCmd.command_id) {
+                                case Power: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                     break;
+                                }
+                                case PowerOn: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                     break;
+                                }
+                                case PowerOff: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                     break;
+                                }
+                                   
+                                default:
+                                    break;
+                            }
+                        }
+                        objReturn.powerKey = [[NSMutableArray alloc]initWithArray:arrCmd];
+                        break;
+                    }
+                        
+                    default:
+                        break;
+                }
+                
+            }
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(CommandType*) getObjectForAVR_fromArray:(NSArray*)arrCommandXMLServer IRCommandArray:(NSArray*)arrCommandServer {
+    CommandType *objReturn = [[CommandType alloc] init];
+    @try {
+        if (arrCommandXMLServer) {
+            objReturn.arrCGOrder = [[NSMutableArray alloc] init];
+            NSMutableArray *arrAllGroupCommand = [[NSMutableArray alloc] init];
+            for (int counter = 0; counter < arrCommandXMLServer.count; counter++) {
+                ControlGroup *objTemp = (ControlGroup *)[arrCommandXMLServer objectAtIndex:counter];
+                
+                NSMutableArray *arrAllCommand = [[NSMutableArray alloc] init];
+                NSMutableArray *arrVisibleCommand = [[NSMutableArray alloc] init];
+                
+                for (int cmdcount = 0; cmdcount < objTemp.arrUIElements.count; cmdcount++) {
+                    UiCommand *objCmdTemp = (UiCommand *)[objTemp.arrUIElements objectAtIndex:cmdcount];
+                    
+                    Command *objCmd = [CommandType getCommandObjectFromUiCommandObject:objCmdTemp];
+                    ////NSLog(@"getObjectForAVR_fromArray Command id %ld and command label %@",objCmd.command_id,objCmd.label);
+
+                    if (objCmd.isVisible) {
+                        [arrVisibleCommand addObject:objCmd];
+                    }
+                    [arrAllCommand addObject:objCmd];
+                }
+                
+                [arrAllGroupCommand addObjectsFromArray:arrVisibleCommand];
+                objReturn.allCommands = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrAllGroupCommand]];
+                
+                if (arrVisibleCommand.count > 0 && (objTemp.type == GestureKey || objTemp.type == Number || objTemp.type == Direction || objTemp.type == Playhead || objTemp.type == Custom)) {
+                    [objReturn.arrCGOrder addObject:objTemp.order];
+                }
+                
+                for (int counter = 0; counter < CommandTypeCount; counter++) {
+                    if (arrVisibleCommand.count > 0 && objTemp.type == counter) {
+                        NSMutableArray *arrCmd = [[NSMutableArray alloc]initWithArray:arrVisibleCommand];
+                        switch (counter) {
+                            case Gesture: {
+                                objReturn.gesture = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                break;
+                            }
+                            case GestureKey: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.gestureKey = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.gestureKey = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            case Number: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.number = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.number = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            case Direction: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.direction = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.direction = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            case Playhead: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.playhead = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.playhead = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                            case Custom: {
+                                if (arrCmd.count > 0) {
+                                    objReturn.custom = [[NSMutableArray alloc]initWithArray:[CommandType sortCommandArray:arrCmd]];
+                                } else {
+                                    objReturn.custom = [[NSMutableArray alloc]initWithArray:arrCmd];
+                                }
+                                break;
+                            }
+                                
+                            default:
+                                break;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if (arrCommandServer) {
+            [objReturn.allCommands addObjectsFromArray:arrCommandServer];
+            for (int counter = 0; counter < CommandTypeCount; counter++) {
+                NSMutableArray *arrAllCmd = [[NSMutableArray alloc]initWithArray:arrCommandServer];
+                NSMutableArray *arrCmd = [[NSMutableArray alloc]init];
+                switch (counter) {
+                    case Volume: {
+                        for (Command *objCmd in arrAllCmd) {
+                            Command *objCmdData = [Command getLocalCommandData:objCmd.command_id];
+                            if (objCmd.command_id == objCmdData.command_id) {
+                                if (objCmd.command_id == 0) {
+                                    objCmd.label = objCmd.label;
+                                } else {
+                                    objCmd.label = [objCmd.label isNotEmpty] ? objCmd.label : objCmdData.label;
+                                }
+                                objCmd.image = objCmdData.image;
+                                objCmd.image_light = objCmdData.image_light;
+                            }
+                            
+                            switch (objCmd.command_id) {
+                                case VolUp: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                }
+                                    break;
+                                case VolDown: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                }
+                                    break;
+                                case VolMute: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                }
+                                    break;
+                                    
+                                default:
+                                    break;
+                            }
+                        }
+                        
+                        objReturn.volume = [[NSMutableArray alloc]initWithArray:arrCmd];
+                        break;
+                    }
+                    case PowerKey: {
+                        for (Command *objCmd in arrAllCmd) {
+                            Command *objCmdData = [Command getLocalCommandData:objCmd.command_id];
+                            if (objCmd.command_id == objCmdData.command_id) {
+                                if (objCmd.command_id == 0) {
+                                    objCmd.label = objCmd.label;
+                                } else {
+                                    objCmd.label = [objCmd.label isNotEmpty] ? objCmd.label : objCmdData.label;
+                                }
+                                objCmd.image = objCmdData.image;
+                                objCmd.image_light = objCmdData.image_light;
+                            }
+                            
+                            switch (objCmd.command_id) {
+                                case Power: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                    break;
+                                }
+                                    
+                                case PowerOn: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                    break;
+                                }
+                                case PowerOff: {
+                                    objCmd.isVisible = true;
+                                    [arrCmd addObject:objCmd];
+                                    break;
+                                }
+                                default:
+                                    break;
+                            }
+                        }
+                        objReturn.powerKey = [[NSMutableArray alloc]initWithArray:arrCmd];
+                        break;
+                    }
+                        
+                    default:
+                        break;
+                }
+                
+            }
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(NSArray*) sortCommandArray:(NSMutableArray *)arrCommandSort {
+    @try {
+        NSArray *arrUniqueX = [arrCommandSort valueForKeyPath:@"@distinctUnionOfObjects.locationX"];
+        arrUniqueX = [arrUniqueX sortedArrayUsingSelector: @selector(compare:)];
+        
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        for (int intSection = 0; intSection < arrUniqueX.count; intSection++) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationX == %@", [arrUniqueX objectAtIndex:intSection]];
+            NSArray *filteredArray = [arrCommandSort filteredArrayUsingPredicate:predicate];
+            
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kCommandLocationY
+                                                                           ascending:YES];
+            NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+            NSArray *sortedArray = [filteredArray sortedArrayUsingDescriptors:sortDescriptors];
+            
+            [arrReturn addObjectsFromArray:sortedArray];
+        }
+        return arrReturn;
+        
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSArray*)sortSectionCommandArray:(NSMutableArray *)arrCommandSort {
+    @try {
+        NSArray *arrUniqueX = [arrCommandSort valueForKeyPath:@"@distinctUnionOfObjects.locationX"];
+        arrUniqueX = [arrUniqueX sortedArrayUsingSelector: @selector(compare:)];
+
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        for (int intSection = 0; intSection < arrUniqueX.count; intSection++) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationX == %@", [arrUniqueX objectAtIndex:intSection]];
+            NSArray *filteredArray = [arrCommandSort filteredArrayUsingPredicate:predicate];
+            
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kCommandLocationY
+                                                                           ascending:YES];
+            NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+            NSArray *sortedArray = [filteredArray sortedArrayUsingDescriptors:sortDescriptors];
+            
+            [arrReturn addObject:sortedArray];
+        }
+        return arrReturn;
+
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+
+#pragma mark - ENCODER DECODER METHODS
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    @try {
+            //Encode properties, other class variables, etc
+        [encoder encodeObject:self.allCommands forKey:kAllCommands];
+        [encoder encodeObject:self.arrCGOrder forKey:kArrCGOrder];
+        
+        [encoder encodeObject:self.volume forKey:kVolume];
+        [encoder encodeObject:self.powerKey forKey:kPowerKey];
+        [encoder encodeObject:self.gesture forKey:kGesture];
+        [encoder encodeObject:self.gestureKey forKey:kGestureKey];
+        [encoder encodeObject:self.number forKey:kNumber];
+        [encoder encodeObject:self.direction forKey:kDirection];
+        [encoder encodeObject:self.playhead forKey:kPlayhead];
+        [encoder encodeObject:self.custom forKey:kCustom];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    @try {
+        if(self = [super init]) {
+                //decode properties, other class vars
+            self.allCommands = [decoder decodeObjectForKey:kAllCommands];
+            self.arrCGOrder = [decoder decodeObjectForKey:kArrCGOrder];
+            
+            self.volume = [decoder decodeObjectForKey:kVolume];
+            self.powerKey = [decoder decodeObjectForKey:kPowerKey];
+            self.gesture = [decoder decodeObjectForKey:kGesture];
+            self.gestureKey= [decoder decodeObjectForKey:kGestureKey];
+            self.number = [decoder decodeObjectForKey:kNumber];
+            self.direction = [decoder decodeObjectForKey:kDirection];
+            self.playhead = [decoder decodeObjectForKey:kPlayhead];
+            self.custom = [decoder decodeObjectForKey:kCustom];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+
++ (void)saveCustomObject:(CommandType *)object key:(NSString *)key {
+    @try {
+        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:object];
+        //NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:object requiringSecureCoding:NO error:nil];
+        [Utility saveUserDefaults:key value:encodedObject];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++ (CommandType *)retrieveCustomObjectWithKey:(NSString *)key {
+    @try {
+        CommandType *object = [[CommandType alloc] init];
+        NSData *encodedObject = [Utility retrieveUserDefaults:key];
+        if ([encodedObject isNotEmpty]) {
+            object = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
+            //object = [NSKeyedUnarchiver unarchivedObjectOfClasses:nil fromData:encodedObject error:nil];
+        }
+        return object;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+@end

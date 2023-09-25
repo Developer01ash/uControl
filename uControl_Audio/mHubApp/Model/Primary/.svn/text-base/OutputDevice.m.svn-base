@@ -1,0 +1,809 @@
+//
+//  OutputDevice.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 19/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+/*
+ Output Device contains basic details of the Output i.e. Display device like UnitId, Index, PortNo., Name, IRPack(objCommandType), background Image, etc.
+ */
+
+#import "OutputDevice.h"
+
+@implementation OutputDevice
+
+#pragma mark - HUB Intializer
+
+-(id)init {
+    self = [super init];
+    @try {
+        self.UnitId                     = @"";
+        self.Name                       = @"";
+        self.CreatedName                = @"";
+        self.Index                      = 0;
+        self.PortNo                     = 0;
+        self.isDeleted                  = true;
+        self.isIRPack                   = false;
+
+        self.objCommandType             = [[CommandType alloc] init];
+        self.sourceType                 = OutputScreen;
+        self.imgControlGroup            = nil;
+        self.selectedControlDeviceType  = Uncontrollable;
+
+        self.isGrouped                  = false;
+        self.imgGroupedOutput                  = nil;
+
+        self.Volume                     = 0;
+        self.isMute                     = false;
+        self.InputIndex                 = 0;
+
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+
+-(id)initWithOutput:(OutputDevice *)opData {
+    self = [super init];
+    @try {
+        self.UnitId                     = opData.UnitId;
+        self.Name                       = opData.Name;
+        self.CreatedName                = opData.CreatedName;
+        self.Index                      = opData.Index;
+        self.PortNo                     = opData.PortNo;
+        self.isDeleted                  = opData.isDeleted;
+        self.isIRPack                   = opData.isIRPack;
+
+        self.objCommandType             = opData.objCommandType;
+        self.sourceType                 = opData.sourceType;
+        self.imgControlGroup            = opData.imgControlGroup;
+        self.selectedControlDeviceType  = opData.selectedControlDeviceType;
+
+        self.isGrouped                  = opData.isGrouped;
+        self.imgGroupedOutput           = opData.imgGroupedOutput;
+
+        self.Volume                     = opData.Volume;
+        self.isMute                     = opData.isMute;
+        self.InputIndex                 = opData.InputIndex;
+
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+
+#pragma mark -
++(OutputDevice*) getOutputObject_From:(OutputDevice *)objFrom To:(OutputDevice*)objTo {
+    OutputDevice *objReturn = [[OutputDevice alloc] initWithOutput:objTo];
+    @try {
+        if ([objFrom.UnitId isNotEmpty]) {
+            objReturn.UnitId = objFrom.UnitId;
+        }
+
+        if ([objFrom.Name isNotEmpty]) {
+            objReturn.Name = objFrom.Name;
+        }
+
+        if ([objFrom.CreatedName isNotEmpty]) {
+            objReturn.CreatedName = objFrom.CreatedName;
+        }
+
+        if (objFrom.Index != 0) {
+            objReturn.Index = objFrom.Index;
+        }
+
+        if (objFrom.PortNo != 0) {
+            objReturn.PortNo = objFrom.PortNo;
+        }
+
+        if (objFrom.isDeleted == true) {
+            objReturn.isDeleted = objFrom.isDeleted;
+        }
+
+        if (objFrom.isIRPack == true) {
+            objReturn.isIRPack = objFrom.isIRPack;
+        }
+
+        if (objFrom.objCommandType.allCommands.count > 0) {
+            objReturn.objCommandType = objFrom.objCommandType;
+        }
+
+        if (objFrom.sourceType != 0) {
+            objReturn.sourceType = objFrom.sourceType;
+        }
+
+        if ([objFrom.imgControlGroup isNotEmpty]) {
+            objReturn.imgControlGroup = objFrom.imgControlGroup;
+        }
+
+        if (objFrom.selectedControlDeviceType != 0) {
+            objReturn.selectedControlDeviceType = objFrom.selectedControlDeviceType;
+        }
+
+        if (objFrom.isGrouped == true) {
+            objReturn.isGrouped = objFrom.isGrouped;
+        }
+
+        if ([objFrom.imgGroupedOutput isNotEmpty]) {
+            objReturn.imgGroupedOutput = objFrom.imgGroupedOutput;
+        }
+
+        if (objFrom.Volume != 0) {
+            objReturn.Volume = objFrom.Volume;
+        }
+
+        if (objFrom.isMute == true) {
+            objReturn.isMute = objFrom.isMute;
+        }
+
+        if (objFrom.InputIndex != 0) {
+            objReturn.InputIndex = objFrom.InputIndex;
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
+#pragma mark - GET OUTPUT OBJECT
++(OutputDevice*) getObjectFromDictionary:(NSDictionary*)dictResp Hub:(Hub*)objHub {
+    OutputDevice *objReturn=[[OutputDevice alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.Name = [Utility checkNullForKey:kNAME Dictionary:dictResp];
+            objReturn.CreatedName = [Utility checkNullForKey:kCREATEDNAME Dictionary:dictResp];
+            objReturn.Index = [[Utility checkNullForKey:kINDEX Dictionary:dictResp] integerValue];
+            
+            if ([objReturn.Name isEqualToString:@""]) {
+                objReturn.Name = [NSString stringWithFormat:@"Output %ld", (long)objReturn.Index];
+            }
+            
+            if (![objReturn.CreatedName isNotEmpty]) {
+                objReturn.CreatedName = objReturn.Name;
+            }
+
+            if ([[dictResp objectForKey:kIMGCONTROLGROUP] isNotEmpty]) {
+                objReturn.imgControlGroup = [dictResp objectForKey:kIMGCONTROLGROUP];
+            } else {
+                UIImage *imgBG = [Utility retrieveImageFromDocumentDirectory:(objReturn.Index-1)];
+                if ([imgBG isNotEmpty]) {
+                    objReturn.imgControlGroup = imgBG;
+                } else {
+                    objReturn.imgControlGroup = nil;
+                }
+            }
+            
+            objReturn.PortNo = objReturn.Index + objHub.InputCount;
+            objReturn.isDeleted = true;
+            if ([objHub isUControlSupport]) {
+                if ([objHub isAPIV2]) {
+                    [APIManager fileIRPackXML_Hub:objHub PortId:objReturn.PortNo completion:^(APIV2Response *responseObject) {
+                        if ([responseObject.data_description isKindOfClass:[NSDictionary class]]) {
+                            objReturn.sourceType = OutputScreen;
+                            XMLResponse *objXML = [XMLResponse getObjectFromDictionary:responseObject.data_description CDeviceType:OutputScreen];
+                            objReturn.objCommandType = [CommandType getObjectForOutput_fromArray:objXML.IRCommandPacket];
+                        } else {
+                            objReturn.sourceType = Uncontrollable;
+                            objReturn.objCommandType = [[CommandType alloc] init];
+                        }
+                        [CommandType saveCustomObject:objReturn.objCommandType key:[NSString stringWithFormat:kDeviceIRPackDefaults, (long)objReturn.PortNo]];
+                    }];
+                } else {
+                    [APIManager getOutputIREngineStatus:objReturn.PortNo completion:^(APIResponse *responseObject) {
+                        if ([responseObject.response isKindOfClass:[NSDictionary class]]) {
+                            objReturn.sourceType = OutputScreen;
+                            NSArray *IRCommandPacket = [[NSArray alloc] initWithArray:[Command getObjectArray:[Utility checkNullForKey:kIRPACK Dictionary:responseObject.response]]];
+                            objReturn.objCommandType = [CommandType getObjectForOutput_fromArray:IRCommandPacket];
+                        } else {
+                            objReturn.sourceType = Uncontrollable;
+                            objReturn.objCommandType = [[CommandType alloc] init];
+                        }
+                        [CommandType saveCustomObject:objReturn.objCommandType key:[NSString stringWithFormat:kDeviceIRPackDefaults, (long)objReturn.PortNo]];
+                    }];
+                }
+            }
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getOutputObjectFromDictionary:(NSDictionary*)dictResp Hub:(Hub*)objHub {
+    OutputDevice *objReturn=[[OutputDevice alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.Name = [Utility checkNullForKey:kNAME Dictionary:dictResp];
+            objReturn.CreatedName = [Utility checkNullForKey:kCREATEDNAME Dictionary:dictResp];
+            objReturn.Index = [[Utility checkNullForKey:kINDEX Dictionary:dictResp] integerValue];
+            
+            if ([objReturn.Name isEqualToString:@""]) {
+                objReturn.Name = [NSString stringWithFormat:@"Output %ld", (long)objReturn.Index];
+            }
+            
+            if (![objReturn.CreatedName isNotEmpty]) {
+                objReturn.CreatedName = objReturn.Name;
+            }
+
+            objReturn.PortNo = [[Utility checkNullForKey:kPORTNO Dictionary:dictResp] integerValue];
+            objReturn.isDeleted = [[Utility checkNullForKey:kISDELETED Dictionary:dictResp]  boolValue];
+            objReturn.isIRPack = [[Utility checkNullForKey:kISIRPACK Dictionary:dictResp]  boolValue];
+
+            if ([objHub isUControlSupport]) {
+                id cacheData = [CommandType retrieveCustomObjectWithKey:[NSString stringWithFormat:kDeviceIRPackDefaults, (long)objReturn.PortNo]];
+                
+                if ([cacheData isNotEmpty]) {
+                    if ([cacheData isKindOfClass:[CommandType class]]) {
+                        objReturn.objCommandType = cacheData;
+                    } else {
+                        objReturn.objCommandType = [[CommandType alloc]init];
+                    }
+                } else {
+                    if ([objHub isAPIV2]) {
+                        [APIManager fileIRPackXML_Hub:objHub PortId:objReturn.PortNo completion:^(APIV2Response *responseObject) {
+                            if ([responseObject.data_description isKindOfClass:[NSDictionary class]]) {
+                                objReturn.sourceType = OutputScreen;
+                                XMLResponse *objXML = [XMLResponse getObjectFromDictionary:responseObject.data_description CDeviceType:OutputScreen];
+                                objReturn.objCommandType = [CommandType getObjectForOutput_fromArray:objXML.IRCommandPacket];
+                            } else {
+                                objReturn.sourceType = Uncontrollable;
+                                objReturn.objCommandType = [[CommandType alloc] init];
+                            }
+                            [CommandType saveCustomObject:objReturn.objCommandType key:[NSString stringWithFormat:kDeviceIRPackDefaults, (long)objReturn.PortNo]];
+                        }];
+                    } else {
+                        [APIManager getOutputIREngineStatus:objReturn.PortNo completion:^(APIResponse *responseObject) {
+                            if ([responseObject.response isKindOfClass:[NSDictionary class]]) {
+                                objReturn.sourceType = OutputScreen;
+                                NSArray *IRCommandPacket = [[NSArray alloc] initWithArray:[Command getObjectArray:[Utility checkNullForKey:kIRPACK Dictionary:responseObject.response]]];
+                                objReturn.objCommandType = [CommandType getObjectForOutput_fromArray:IRCommandPacket];
+                            } else {
+                                objReturn.sourceType = Uncontrollable;
+                                objReturn.objCommandType = [[CommandType alloc] init];
+                            }
+                            [CommandType saveCustomObject:objReturn.objCommandType key:[NSString stringWithFormat:kDeviceIRPackDefaults, (long)objReturn.PortNo]];
+                        }];
+                    }
+                }
+            }
+
+            if ([[dictResp objectForKey:kIMGCONTROLGROUP] isNotEmpty]) {
+                objReturn.imgControlGroup = [dictResp objectForKey:kIMGCONTROLGROUP];
+            } else {
+                UIImage *imgBG = [Utility retrieveImageFromDocumentDirectory:(objReturn.Index-1)];
+                if ([imgBG isNotEmpty]) {
+                    objReturn.imgControlGroup = imgBG;
+                } else {
+                    objReturn.imgControlGroup = nil;
+                }
+            }
+
+            objReturn.isGrouped     = [[Utility checkNullForKey:kISGROUPED Dictionary:dictResp]  boolValue];
+            objReturn.imgGroupedOutput     = [Utility checkNullForKey:kGROUPEDOUTPUTIMAGE Dictionary:dictResp];
+            objReturn.InputIndex    = [[Utility checkNullForKey:kINPUT_ID Dictionary:dictResp] integerValue];
+            objReturn.Volume        = [[Utility checkNullForKey:kVOLUME Dictionary:dictResp] integerValue];
+            objReturn.isMute        = [[Utility checkNullForKey:kMUTE Dictionary:dictResp] boolValue];
+            objReturn.UnitId        = [Utility checkNullForKey:kUNIT_ID Dictionary:dictResp];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getOutputObjectFromIndex:(NSInteger)intIndex OutputCount:(NSInteger)OutputCount {
+    OutputDevice *objReturn=[[OutputDevice alloc] init];
+    @try {
+        objReturn.Index                     = intIndex;
+        objReturn.Name                      = [NSString stringWithFormat:@"Output %ld", (long)intIndex];
+        objReturn.CreatedName               = @"";
+        if (![objReturn.CreatedName isNotEmpty]) {
+            objReturn.CreatedName           = objReturn.Name;
+        }
+        objReturn.PortNo                    = objReturn.Index + OutputCount;
+        objReturn.isDeleted                 = false;
+
+        objReturn.sourceType                = Uncontrollable;
+        objReturn.objCommandType            = [[CommandType alloc]init];
+        objReturn.imgControlGroup           = nil;
+        objReturn.selectedControlDeviceType = objReturn.sourceType;
+
+        objReturn.isIRPack                  = false;
+        objReturn.isGrouped                 = false;
+        objReturn.imgGroupedOutput          = nil;
+
+        objReturn.Volume                    = 0;
+        objReturn.isMute                    = false;
+        objReturn.InputIndex                = 0;
+
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getTempOutputObjectFromIndex:(NSInteger)intIndex OutputCount:(NSInteger)OutputCount Hub:(Hub*)objHub {
+    OutputDevice *objReturn=[[OutputDevice alloc] init];
+    @try {
+        objReturn.UnitId = objHub.UnitId;
+        objReturn.Index = intIndex;
+        objReturn.Name = [NSString stringWithFormat:@"Output %ld", (long)intIndex];
+        objReturn.CreatedName = @"";
+        if (![objReturn.CreatedName isNotEmpty]) {
+            objReturn.CreatedName = objReturn.Name;
+        }
+        objReturn.PortNo = objReturn.Index + OutputCount;
+        objReturn.isDeleted = false;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getObjectFromDictionaryGroup:(NSDictionary*)dictResp {
+    OutputDevice *objReturn=[[OutputDevice alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.Name          = [Utility checkNullForKey:kNAME Dictionary:dictResp];
+            objReturn.CreatedName   = [Utility checkNullForKey:kCREATEDNAME Dictionary:dictResp];
+            objReturn.Index         = [[Utility checkNullForKey:kINDEX Dictionary:dictResp] integerValue];
+
+            if ([objReturn.Name isEqualToString:@""]) {
+                objReturn.Name  = [NSString stringWithFormat:@"Output %ld", (long)objReturn.Index];
+            }
+
+            if (![objReturn.CreatedName isNotEmpty]) {
+                objReturn.CreatedName = objReturn.Name;
+            }
+
+            if ([[dictResp objectForKey:kIMGCONTROLGROUP] isNotEmpty]) {
+                objReturn.imgGroupedOutput = [dictResp objectForKey:kIMGCONTROLGROUP];
+            } else {
+                UIImage *imgBG = [Utility retrieveImageFromDocumentDirectory:(objReturn.Index-1)];
+                if ([imgBG isNotEmpty]) {
+                    objReturn.imgGroupedOutput = imgBG;
+                } else {
+                    objReturn.imgGroupedOutput = nil;
+                }
+            }
+
+            objReturn.PortNo = objReturn.Index;
+            objReturn.isDeleted = true;
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getObjectFromJSON_Key:(NSString*)strKey Value:(NSString*)strValue InputCount:(NSInteger)InputCount {
+    OutputDevice *objReturn = [[OutputDevice alloc] init];
+    @try {
+        objReturn.Name  = strValue;
+        objReturn.Index = [Utility characterToInteger:strKey];
+
+        if ([objReturn.Name isEqualToString:@""]) {
+            objReturn.Name  = [NSString stringWithFormat:@"Output %ld", (long)objReturn.Index];
+        }
+
+        if (![objReturn.CreatedName isNotEmpty]) {
+            objReturn.CreatedName = objReturn.Name;
+        }
+
+        objReturn.PortNo    = objReturn.Index + InputCount;
+        objReturn.isDeleted = true;
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getObjectFromSystemDictionary:(NSDictionary*)dictResp Hub:(Hub*)objHub {
+    OutputDevice *objReturn=[[OutputDevice alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.UnitId    = objHub.UnitId;
+            objReturn.Name      = [Utility checkNullForKey:kLABEL Dictionary:dictResp];
+            objReturn.Index     = [Utility characterToInteger:[Utility checkNullForKey:kLABELID Dictionary:dictResp]]; //[[Utility checkNullForKey:kLABELID Dictionary:dictResp] integerValue];
+
+            if ([objReturn.Name isEqualToString:@""]) {
+                objReturn.Name  = [NSString stringWithFormat:@"Output %ld", (long)objReturn.Index];
+            }
+
+            if (![objReturn.CreatedName isNotEmpty]) {
+                objReturn.CreatedName   = objReturn.Name;
+            }
+            objReturn.PortNo    = objReturn.Index+objHub.InputCount;
+            objReturn.isDeleted = true;
+
+            // Get casheIRPack from UserDefaults.
+            id cacheCommandData = [CommandType retrieveCustomObjectWithKey:[NSString stringWithFormat:kDeviceIRPackDefaults, (long)objReturn.PortNo]];
+            if ([cacheCommandData isNotEmpty]) {
+                if ([cacheCommandData isKindOfClass:[CommandType class]]) {
+                    objReturn.objCommandType = cacheCommandData;
+                } else {
+                    objReturn.objCommandType = [[CommandType alloc]init];
+                }
+            }
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getZoneOutputObjectFromDictionary:(NSDictionary*)dictResp {
+    OutputDevice *objReturn = [[OutputDevice alloc] init];
+    @try {
+        objReturn.UnitId        = [Utility checkNullForKey:kUNIT_ID Dictionary:dictResp];
+        objReturn.Index         = [Utility characterToInteger:[Utility checkNullForKey:kOUTPUT_ID Dictionary:dictResp]];
+        objReturn.InputIndex    = [[Utility checkNullForKey:kINPUT_ID Dictionary:dictResp] integerValue];
+        objReturn.Volume        = [[Utility checkNullForKey:kVOLUME Dictionary:dictResp] integerValue];
+        objReturn.isMute        = [[Utility checkNullForKey:kMUTE Dictionary:dictResp] boolValue];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getIRPackStatusFromDictionary:(NSDictionary*)dictResp {
+    OutputDevice *objReturn = [[OutputDevice alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.Index     = [Utility characterToInteger:[Utility checkNullForKey:kLABELID Dictionary:dictResp]];
+            objReturn.isIRPack  = [[Utility checkNullForKey:kIRPACK Dictionary:dictResp] boolValue];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(OutputDevice*) getObjectStatusFromDictionary:(NSDictionary*)dictResp {
+    OutputDevice *objReturn = [[OutputDevice alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.Index = [Utility characterToInteger:[Utility checkNullForKey:kOUTPUT_ID Dictionary:dictResp]];
+            objReturn.InputIndex = [[Utility checkNullForKey:kINPUT_ID Dictionary:dictResp] integerValue];
+            objReturn.Volume = [[Utility checkNullForKey:kVOLUME Dictionary:dictResp] integerValue];
+            objReturn.isMute = [[Utility checkNullForKey:kMUTE Dictionary:dictResp] boolValue];
+        }
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
+#pragma mark - GET OUTPUT OBJECT ARRAY
++(NSMutableArray*) getObjectArray:(NSMutableArray*)arrResp Hub:(Hub*)objHub {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                OutputDevice *objDevice = [OutputDevice getObjectFromDictionary:dictResp Hub:objHub];
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getOutputObjectArray:(NSMutableArray*)arrResp Hub:(Hub*)objHub {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                OutputDevice *objDevice = [OutputDevice getOutputObjectFromDictionary:dictResp Hub:objHub];
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getTempOutputObjectArray:(NSInteger)OutputCount Hub:(Hub*)objHub {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        for (int i = 1; i <= OutputCount; i++) {
+            OutputDevice *objDevice = [OutputDevice getTempOutputObjectFromIndex:i OutputCount:OutputCount Hub:objHub];
+            [arrReturn addObject:objDevice];
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+
+
++(NSMutableArray*) getObjectArrayGroup:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                OutputDevice *objDevice = [OutputDevice getObjectFromDictionaryGroup:dictResp];
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getOutputObjectArrayFromIndex:(NSInteger)OutputCount {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        for (int i = 1; i <= OutputCount; i++) {
+            OutputDevice *objDevice = [OutputDevice getOutputObjectFromIndex:i OutputCount:OutputCount];
+            [arrReturn addObject:objDevice];
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getObjectArrayJSON:(NSDictionary*)dictResp InputCount:(NSInteger)InputCount {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+
+        for (NSString* key in dictResp) {
+            NSString *strValue = [Utility checkNullForKey:key Dictionary:dictResp];
+            OutputDevice *objDevice = [OutputDevice getObjectFromJSON_Key:key Value:strValue InputCount:InputCount];
+            [arrReturn addObject:objDevice];
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getObjectArraySystem:(NSMutableArray*)arrResp Hub:(Hub*)objHub {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                OutputDevice *objDevice = [OutputDevice getObjectFromSystemDictionary:dictResp Hub:(Hub*)objHub];
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getZoneOutputObjectArray:(NSArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        //EFFECT OF API 102, THIS BELOW LINE IS WRITTEN FOR pro2, because in pro2 video outputs are at zero index and audio outputs are 1 index coming as output_id, so there is need to reverse it for reading video outputs at the last at 1 index. OTHERWISE there is no need of code between start and end.
+        //START
+        arrResp = [[arrResp reverseObjectEnumerator] allObjects];
+        //END
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                OutputDevice *objDevice = [OutputDevice getZoneOutputObjectFromDictionary:dictResp];
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getIRPackStatusArray:(NSMutableArray*)arrResp OutputArray:(NSMutableArray*)arrOutput {
+    @try {
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                OutputDevice *objDevice = [OutputDevice getIRPackStatusFromDictionary:dictResp ];
+                for (OutputDevice *objOP in arrOutput) {
+                    if (objOP.Index == objDevice.Index) {
+                        objOP.isIRPack = objDevice.isIRPack;
+                        break;
+                    }
+                }
+            }
+        }
+        return arrOutput;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+//+(NSMutableArray*) getObjectStatusArray:(NSMutableArray*)arrResp Hub:(Hub*)objHub {
+//    @try {
+//        if([arrResp isNotEmpty]) {
+//            for (int i = 0; i < [arrResp count]; i++) {
+//                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+//                OutputDevice *objVolume = [OutputDevice getObjectStatusArray:arrResp Hub:<#(Hub *)#>:dictResp];
+//                for (Zone *objZone in objHub.HubZoneData) {
+//                    if (objVolume.zone_id == objZone.zone_id) {
+//                        objZone.Volume = objVolume.Volume;
+//                        objZone.isMute = objVolume.isMute;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        return objHub.HubZoneData;
+//    } @catch(NSException *exception) {
+//        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+//    }
+//}
+
+#pragma mark - DICTIONARY FORMAT
+-(NSDictionary*) dictionaryRepresentation {
+    @try {
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        
+        [dict setValue:self.UnitId forKey:kUNIT_ID];
+        [dict setValue:self.Name forKey:kNAME];
+        [dict setValue:self.CreatedName forKey:kCREATEDNAME];
+        [dict setValue:[NSNumber numberWithInteger:self.Index] forKey:kINDEX];
+        [dict setValue:[NSNumber numberWithInteger:self.PortNo] forKey:kPORTNO];
+        [dict setValue:[NSNumber numberWithBool:self.isDeleted] forKey:kISDELETED];
+        [dict setValue:[NSNumber numberWithBool:self.isIRPack] forKey:kISIRPACK];
+
+        [dict setValue:self.objCommandType forKey:kCOMMANDOBJECT];
+        [dict setValue:[NSNumber numberWithInteger:self.sourceType] forKey:kSOURCETYPE];
+        [dict setValue:self.imgControlGroup forKey:kIMGCONTROLGROUP];
+        [dict setValue:[NSNumber numberWithInteger:self.selectedControlDeviceType] forKey:kSELECTEDCONTROLDEVICETYPE];
+
+        [dict setValue:[NSNumber numberWithBool:self.isGrouped] forKey:kISGROUPED];
+        [dict setValue:self.imgGroupedOutput forKey:kGROUPEDOUTPUTIMAGE];
+        [dict setValue:[NSNumber numberWithInteger:self.Volume] forKey:kVOLUME];
+        [dict setValue:[NSNumber numberWithBool:self.isMute] forKey:kMUTE];
+        [dict setValue:[NSNumber numberWithInteger:self.InputIndex] forKey:kINPUTINDEX];
+
+        return dict;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(NSDictionary*) dictionaryServerRepresentation {
+    @try {
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:self.Name forKey:kNAME];
+        [dict setValue:self.CreatedName forKey:kCREATEDNAME];
+        [dict setValue:[NSNumber numberWithInteger:self.Index] forKey:kINDEX];
+        [dict setValue:[NSNumber numberWithInteger:self.PortNo] forKey:kPORTNO];
+        return dict;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getDictionaryArray:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                OutputDevice *objDevice = [arrResp objectAtIndex:i];
+                NSDictionary *dictResp = [objDevice dictionaryRepresentation];
+                [arrReturn addObject:dictResp];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getServerDictionaryArray:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                OutputDevice *objDevice = [arrResp objectAtIndex:i];
+                NSDictionary *dictResp = [objDevice dictionaryServerRepresentation];
+                [arrReturn addObject:dictResp];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - GET FILTERED OBJECT
++(OutputDevice*)getFilteredOutputDeviceData:(NSInteger)Index OutputData:(NSMutableArray*)arrOutputData {
+    @try {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Index = %@", [NSNumber numberWithInteger:Index]];
+        NSArray *arrOPFiltered = [arrOutputData filteredArrayUsingPredicate:predicate];
+        OutputDevice *objReturn = nil;
+        objReturn =  arrOPFiltered.count > 0 ? arrOPFiltered.firstObject : nil;
+        return objReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - ENCODER DECODER METHODS
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    @try {
+        //Encode properties, other class variables, etc
+        [encoder encodeObject:self.UnitId forKey:kUNIT_ID];
+        [encoder encodeObject:self.Name forKey:kNAME];
+        [encoder encodeObject:self.CreatedName forKey:kCREATEDNAME];
+        [encoder encodeInteger:self.Index forKey:kINDEX];
+        [encoder encodeInteger:self.PortNo forKey:kPORTNO];
+        [encoder encodeBool:self.isDeleted forKey:kISDELETED];
+        [encoder encodeBool:self.isIRPack forKey:kISIRPACK];
+
+        [encoder encodeObject:self.objCommandType forKey:kCOMMANDOBJECT];
+        [encoder encodeInteger:self.sourceType forKey:kSOURCETYPE];
+        [encoder encodeObject:self.imgControlGroup forKey:kIMGCONTROLGROUP];
+        [encoder encodeInteger:self.selectedControlDeviceType forKey:kSELECTEDCONTROLDEVICETYPE];
+
+        [encoder encodeBool:self.isGrouped forKey:kISGROUPED];
+        [encoder encodeObject:self.imgGroupedOutput forKey:kGROUPEDOUTPUTIMAGE];
+        [encoder encodeInteger:self.Volume forKey:kVOLUME];
+        [encoder encodeBool:self.isMute forKey:kMUTE];
+        [encoder encodeInteger:self.InputIndex forKey:kINPUTINDEX];
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    @try {
+        if(self = [super init]) {
+            //decode properties, other class vars
+            self.UnitId         = [decoder decodeObjectForKey:kUNIT_ID];
+            self.Name           = [decoder decodeObjectForKey:kNAME];
+            self.CreatedName    = [decoder decodeObjectForKey:kCREATEDNAME];
+            @try {
+                self.Index      = [decoder decodeIntegerForKey:kINDEX];
+                self.PortNo     = [decoder decodeIntegerForKey:kPORTNO];
+                self.sourceType = (ControlDeviceType)[decoder decodeIntegerForKey:kSOURCETYPE];
+            } @catch(NSException *exception) {
+                self.Index      = [[decoder decodeObjectForKey:kINDEX] integerValue];
+                self.PortNo     = [[decoder decodeObjectForKey:kPORTNO] integerValue];
+                self.sourceType = (ControlDeviceType)[[decoder decodeObjectForKey:kSOURCETYPE] integerValue];
+            }
+            self.isDeleted      = [decoder decodeBoolForKey:kISDELETED];
+            self.isIRPack       = [decoder decodeBoolForKey:kISIRPACK];
+
+            self.objCommandType = [decoder decodeObjectForKey:kCOMMANDOBJECT];
+            self.imgControlGroup    = [decoder decodeObjectForKey:kIMGCONTROLGROUP];
+            self.selectedControlDeviceType  = (ControlDeviceType)[decoder decodeIntegerForKey:kSELECTEDCONTROLDEVICETYPE] ;
+
+            self.isGrouped      = [decoder decodeBoolForKey:kISGROUPED];
+            self.imgGroupedOutput   = [decoder decodeObjectForKey:kGROUPEDOUTPUTIMAGE];
+            self.Volume         = [decoder decodeIntegerForKey:kVOLUME];
+            self.isMute         = [decoder decodeBoolForKey:kMUTE];
+            self.InputIndex     = [decoder decodeIntegerForKey:kINPUTINDEX];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+@end

@@ -1,0 +1,37 @@
+//
+//  SelectDeviceVC.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 15/03/18.
+//  Copyright © 2018 Rave Infosys. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+@import SafariServices;
+
+
+@interface SelectDeviceVC : UIViewController<NSNetServiceDelegate, NSNetServiceBrowserDelegate, GCDAsyncSocketDelegate, SearchDataManagerDelegate, UIGestureRecognizerDelegate,SFSafariViewControllerDelegate,SFSafariViewControllerDelegate,UIAlertViewDelegate> {
+    NSIndexPath *selectedDeviceIndexpath;
+    NSMutableArray <NSIndexPath*>*arrSelectedDeviceIndexPath;
+    NSMutableArray *arrSelectedDeviceIndexPath_bool;
+    
+    BOOL isDeviceSelected;
+    __weak UIView *_staticView;
+    SFSafariViewController *safariVC;
+
+}
+
+@property (strong, nonatomic) GCDAsyncSocket *socket;
+@property (weak, nonatomic) IBOutlet UITableView *tblSearch;
+@property(nonatomic, assign) HDASetupType setupType;
+@property(nonatomic, assign) HDAPairSetupLevel setupLevel;
+@property (strong, nonatomic) NSMutableArray <SearchData*>*arrSearchData;
+@property (strong, nonatomic) NSMutableArray <SearchData*>*arrPrimarySearchData;
+@property (strong, nonatomic) NSMutableArray <SearchData*>*arrSecondarySearchData;
+@property (strong, nonatomic) NSMutableArray <SearchData*>*arrSecondarySearchData_WithoutMasterAudio;
+
+
+@property (strong, nonatomic) Hub *objSelectedMHubDevice;
+@property (assign, nonatomic) BOOL isSelectedPaired;
+
+@end

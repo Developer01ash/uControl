@@ -1,0 +1,164 @@
+//
+//  Hub.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 19/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+/*
+ Heart class of the whole project. Means that this is the Primary object of the whole Models and Syatem which comprises of all basic details of the MHUB device like Unit Id, Name, Model Generation Object consist of pairing properties like UnitId, IP Address, SerialNo, array of input devices, output devices, zones, AVR, Group etc.
+*/
+
+#import <Foundation/Foundation.h>
+@class InputDevice;
+@class OutputDevice;
+@class Zone;
+@class Sequence;
+@class AVRDevice;
+@class Pair;
+@class Group;
+
+typedef enum {
+    mHubFake    = 0,
+    mHubPro     = 1,
+    mHub4KV3    = 2,
+    mHub4KV4    = 3,
+    mHubMAX     = 4,
+    mHubAudio   = 5,
+    mHubPro2    = 6,
+
+    
+    HubCount
+} HubModel;
+
+typedef enum {
+    MHUB4K44Pro = 0,
+    MHUB4K88Pro = 1,
+    MHUBPRO4440 = 2,
+    
+    mHub4KProCount
+} mHub4KProType;
+
+typedef enum {
+    MHUB4K431 = 0,
+    MHUB4K862 = 1,
+    
+    mHub4KV3Count
+} mHub4KV3Type;
+
+typedef enum {
+    MHUB431U = 0,
+    MHUB862U = 1,
+    
+    mHub4KV4Count
+} mHub4KV4Type;
+
+typedef enum {
+    MHUBAUDIO64 = 0,
+    
+    mHubAudioCount
+} mHubAudioType;
+
+@interface OutputDeviceMapping : NSObject
+@property(nonatomic, retain) NSString *unitId_Output;
+@property(nonatomic, assign) NSInteger index_output;
+@end
+
+@interface InputDeviceMapping : NSObject
+@property(nonatomic, retain) NSString *unitId_Input;
+@property(nonatomic, assign) NSInteger index_input;
+@end
+
+@interface Hub : NSObject
+
+@property(nonatomic, retain) NSString *UnitId;
+@property(nonatomic, retain) NSString *Name;
+@property(nonatomic, retain) NSString *Official_Name;
+@property(nonatomic, retain) NSString *Mac;
+@property(nonatomic, retain) NSString *Address;
+
+@property(nonatomic, assign) HubModel Generation;
+@property(nonatomic, retain) NSString *modelName;
+@property(nonatomic, assign) BOOL BootFlag;
+@property(nonatomic, retain) NSString *SerialNo;
+@property(nonatomic, retain) id UserInfo;
+
+@property(nonatomic, assign) float apiVersion;
+@property(assign, nonatomic) float mosVersion;
+@property(nonatomic, assign) float MHub_BenchMarkVersion;
+@property(nonatomic, assign) float MHub_LatestVersion;
+@property(nonatomic, assign) float APP_BenchMarkVersion;
+
+@property(strong, nonatomic) NSString *strMOSVersion;
+@property(nonatomic, assign) BOOL AVR_IRPack;
+@property(nonatomic, assign) BOOL isPaired;
+@property(nonatomic, assign) BOOL isAutoSwitchMode;
+@property(nonatomic) NSInteger OutputCount;
+@property(nonatomic) NSInteger InputCount;
+
+@property(nonatomic, retain) NSMutableArray <OutputDevice*>*HubOutputData;  // Array of OutputDevice type
+@property(nonatomic, retain) NSMutableArray <InputDevice*>*HubInputData;    // Array of InputDevice type
+@property(nonatomic, retain) NSMutableArray <InputDevice*>*HubInputDataAudioInStandalone;    // Array of InputDevice type
+
+@property(nonatomic, retain) NSMutableArray <Zone*>*HubZoneData;            // Array of Zone type
+@property(nonatomic, retain) NSMutableArray <Group*>*HubGroupData;          // Array of Group type
+@property(nonatomic, retain) NSMutableArray <Sequence*>*HubSequenceList;    // Array of Sequence type
+@property(nonatomic, retain) NSMutableArray <AVRDevice*>*HubAVRList;        // Array of AVR type
+@property(nonatomic, retain) NSMutableArray <OutputDevice*>*hubOutputDataMapping;        // Array of AVR type
+@property(nonatomic, retain) NSMutableArray <InputDevice*>*hubInputDataMapping;        // Array of AVR type
+
+@property(nonatomic, retain) Pair *PairingDetails;
+@property(nonatomic, retain) OutputDeviceMapping *outputDetails_InMapping;
+@property(nonatomic, retain) InputDeviceMapping *inputDetails_InMapping;
+
++(NSString*) getHubName:(HubModel)model;
++(NSArray*) getHubList;
++(NSArray*) getVideoHubList;
++(NSArray*) getVideoMasterHubList;
++(NSArray*) getAudioHubList;
++(NSString*) getmHub4KV3Name:(mHub4KV3Type)model;
++(NSArray*) getmHub4KV3List;
++(NSString*) getModelName:(Hub*)hubObject;
++(NSString*) getMhubDisplayName:(Hub*)hubObject;
+
+-(id) initWithHub:(Hub *)hubData;
++(Hub*) getHubObject_From:(Hub *)objFrom To:(Hub*)objTo;
++(Hub*) updateHubAddress_From:(Hub*)objFrom To:(Hub*)objTo;
++(Hub*) getObjectFromDictionary:(NSDictionary*)dictResp DataSync:(BOOL)isSync;
+
++(Hub*) getObjectFromSSDPXMLDictionary:(NSDictionary*)dictResp;
++(Hub*) getObjectFromMDNSObject:(NSNetService*)service;
+
++(Hub*) getHubObjectFromConfigXML:(NSDictionary*)dictResp SearchHub:(Hub*)objHub;
++(Hub*) getHubObjectFromUserProfileXML:(NSDictionary*)dictResp SearchHub:(Hub*)objHub;
+
++(Hub*) getHubObjectFromConfigJSON:(NSDictionary*)dictResp SearchHub:(Hub*)objHub;
++(Hub*) getHubObjectFromUserProfileJSON:(NSDictionary*)dictResp SearchHub:(Hub*)objHub;
+
++(Hub*) getObjectFromSystemInfoStandaloneDictionary:(NSDictionary*)dictResp ToHub:(Hub*)objReturn;
++(void) getObjectFromSystemInfoStackedDictionary:(NSDictionary*)dictResp ToHub:(Hub*)objMaster Slave:(NSMutableArray*)arrSlaveDevice completion:(void (^)(Hub* objReturnMaster, NSMutableArray* arrReturnSlaveDevice)) handler;
+
+-(NSDictionary*) dictionaryRepresentation;
++(UIImage *)getHubDeviceImage:(NSString *)secType;
++(Hub*) getAudioObjectFromCount:(NSInteger)intCount;
++(NSMutableArray*) getAudioObjectArrayFromCount:(NSInteger)AudioCount;
++(NSMutableArray*) getObjectArrayFromPairJSON:(Pair*)objPair;
+
+-(BOOL) isAPIV2;
+-(BOOL) isUControlSupport;
+-(BOOL) isSwitchSupportOnly;
+-(BOOL) isGroupSupport;
+-(BOOL) isDemoMode;
+-(BOOL) isPairedSetup;
+-(BOOL) isAlreadyPairedSetup;
+-(BOOL) isVideoUnit:(NSString*)strUnitId;
+-(BOOL) isVideoWithMOS;
+-(BOOL) isPro2Setup;
+
+
++(void) deviceAvailableForPair:(Hub*)objMaster Slaves:(NSMutableArray*)arrSlaves completion:(void (^)(BOOL isMaster, BOOL isSlave, Hub *objWarningSlave))handler;
+
+@end
+
+

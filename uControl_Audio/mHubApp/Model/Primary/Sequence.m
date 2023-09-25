@@ -1,0 +1,262 @@
+//
+//  Sequence.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 19/08/17.
+//  Copyright © 2017 Rave Infosys. All rights reserved.
+//
+
+/*
+ Sequence is group of commands comprises in a single unit known as MACRO or Sequence contains basic details like id, name, descriptions, etc.
+ */
+
+#import "Sequence.h"
+
+@implementation Sequence
+
+#pragma mark - GET SEQUENCE OBJECT
++(Sequence*) getObjectFromDictionary:(NSDictionary*)dictResp {
+    Sequence *objReturn = [[Sequence alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            NSString *strMacroId = [Utility checkNullForKey:kMACROID Dictionary:dictResp];
+            if (![strMacroId isNotEmpty]) {
+                strMacroId = [Utility checkNullForKey:kMACROID_V1 Dictionary:dictResp];
+            }
+            objReturn.macro_id = strMacroId;
+
+            NSString *strMacroName = [Utility checkNullForKey:kMACRONAME Dictionary:dictResp];
+            if (![strMacroName isNotEmpty]) {
+                strMacroName = [Utility checkNullForKey:kMACRONAME_V1 Dictionary:dictResp];
+            }
+            objReturn.macro_name = strMacroName;
+
+            NSString *strUControlName = [Utility checkNullForKey:kUCONTROLNAME Dictionary:dictResp];
+            if (![strUControlName isNotEmpty]) {
+                strUControlName = [Utility checkNullForKey:kUCONTROLNAME_V1 Dictionary:dictResp];
+            }
+            objReturn.uControl_name = strUControlName;
+
+            NSString *strAlexaName = [Utility checkNullForKey:kALEXANAME Dictionary:dictResp];
+            if (![strAlexaName isNotEmpty]) {
+                strAlexaName = [Utility checkNullForKey:kALEXANAME_V1 Dictionary:dictResp];
+            }
+            objReturn.alexa_name = strAlexaName;
+
+            objReturn.isDeleted = true;
+            
+            id arrZones = [Utility checkNullForKey:kGROUPZONES Dictionary:dictResp];
+            if ([arrZones isKindOfClass:[NSArray class]]) {
+                objReturn.arrZoneIds = [[NSMutableArray alloc] initWithArray:arrZones];
+            } else {
+                objReturn.arrZoneIds = [[NSMutableArray alloc] init];
+            }
+            objReturn.isFunction = [[Utility checkNullForKey:kFUNCTION Dictionary:dictResp] boolValue];
+            objReturn.eTime_forSeqences = [[Utility checkNullForKey:kETIME Dictionary:dictResp] doubleValue];
+            
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(Sequence*) getObjectFromXMLDictionary:(NSDictionary*)dictResp {
+    Sequence *objReturn = [[Sequence alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.macro_name = [Utility checkNullForKey:kMACRONAMEXML Dictionary:dictResp];
+            objReturn.uControl_name = [Utility checkNullForKey:kUCONTROLNAMEXML Dictionary:dictResp];
+            objReturn.alexa_name = [Utility checkNullForKey:kALEXANAMEXML Dictionary:dictResp];
+            objReturn.isDeleted = true;
+            objReturn.arrZoneIds = [Utility checkNullForKey:kGROUPZONES Dictionary:dictResp];
+            objReturn.isFunction = [[Utility checkNullForKey:kFUNCTION Dictionary:dictResp] boolValue];
+            objReturn.eTime_forSeqences = [[Utility checkNullForKey:kETIME Dictionary:dictResp] doubleValue];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
++(Sequence*) getObjectFromV2Dictionary:(NSDictionary*)dictResp {
+    Sequence *objReturn = [[Sequence alloc] init];
+    @try {
+        if ([dictResp isKindOfClass:[NSDictionary class]]) {
+            objReturn.macro_id = [Utility checkNullForKey:kMACROID Dictionary:dictResp];
+            objReturn.macro_name = [Utility checkNullForKey:kMACRONAME Dictionary:dictResp];
+            objReturn.macro_description = [Utility checkNullForKey:kMACRODESCRIPTION Dictionary:dictResp];
+            objReturn.alexa_name = [Utility checkNullForKey:kVOICELABEL Dictionary:dictResp];
+            objReturn.uControl_name = objReturn.macro_name;
+            objReturn.isDeleted = true;
+            objReturn.arrZoneIds = [Utility checkNullForKey:kGROUPZONES Dictionary:dictResp];
+            objReturn.isFunction = [[Utility checkNullForKey:kFUNCTION Dictionary:dictResp] boolValue];
+            objReturn.eTime_forSeqences = [[Utility checkNullForKey:kETIME Dictionary:dictResp] doubleValue];
+//            objReturn.eTime_forSeqences = [Utility checkNullForKey:kETIME Dictionary:dictResp];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return objReturn;
+}
+
+#pragma mark - GET OBJECT ARRAY
++(NSMutableArray*) getObjectArray:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                Sequence *objDevice = [Sequence getObjectFromDictionary:dictResp];
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getObjectXMLArray:(NSDictionary*)dictResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([dictResp isNotEmpty]) {
+            NSMutableArray* result = [NSMutableArray array];
+            for (NSString* key in dictResp) {
+                if ([key hasPrefix:kMACROIDXML]) {
+                    [result addObject:[dictResp objectForKey:key]];
+                    // write to a dictionary instead of an array
+                    // if you want to keep the keys too.
+                    NSMutableDictionary *dictRespTemp = [[dictResp objectForKey:key] mutableCopy];
+                    Sequence *objDevice = [Sequence getObjectFromXMLDictionary:dictRespTemp];
+                    NSRange replaceRange = [key rangeOfString:kMACROIDXML];
+                    NSString* result = @"";
+                    if (replaceRange.location != NSNotFound){
+                        result = [key stringByReplacingCharactersInRange:replaceRange withString:@""];
+                    }
+                    objDevice.macro_id = result;
+                    [arrReturn addObject:objDevice];
+                }
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*) getObjectV2Array:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                NSMutableDictionary *dictResp = [[arrResp objectAtIndex:i] mutableCopy];
+                Sequence *objDevice = [Sequence getObjectFromV2Dictionary:dictResp];
+                [arrReturn addObject:objDevice];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+#pragma mark - DICTIONARY FORMAT
+-(NSDictionary*) dictionaryRepresentation {
+    @try {
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        //DDLogDebug(@"self.macro_id %@ and %@",self.macro_id,kMACROID);
+        [dict setValue:self.macro_id forKey:kMACROID];
+        [dict setValue:self.macro_name forKey:kMACRONAME];
+        [dict setValue:self.uControl_name forKey:kUCONTROLNAME];
+        [dict setValue:self.alexa_name forKey:kALEXANAME];
+        [dict setValue:self.macro_description forKey:kMACRODESCRIPTION];
+        [dict setValue:[NSNumber numberWithBool:self.isDeleted] forKey:kISDELETED];
+        [dict setValue:self.arrZoneIds forKey:kGROUPZONES];
+        [dict setValue:[NSNumber numberWithBool:self.isFunction] forKey:kFUNCTION];
+        [dict setValue:[NSNumber numberWithDouble:self.eTime_forSeqences] forKey:kETIME];
+        return dict;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
++(NSMutableArray*)getDictionaryArray:(NSMutableArray*)arrResp {
+    @try {
+        NSMutableArray *arrReturn = [[NSMutableArray alloc] init];
+        if([arrResp isNotEmpty]) {
+            for (int i = 0; i < [arrResp count]; i++) {
+                Sequence *objDevice = [arrResp objectAtIndex:i];
+                NSDictionary *dictResp = [objDevice dictionaryRepresentation];
+                [arrReturn addObject:dictResp];
+            }
+        }
+        return arrReturn;
+    } @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - FILTERED OBJECT
++(Sequence*)getFilteredSequenceData:(NSString*)macro_id Sequence:(NSMutableArray*)arrSequence {
+    // Label, code, repeat flag
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"macro_id = %@", macro_id];
+    NSArray *arrSeqFiltered = [arrSequence filteredArrayUsingPredicate:predicate];
+    Sequence *objReturn = nil;
+    objReturn =  arrSeqFiltered.count > 0 ? arrSeqFiltered.firstObject : nil;
+    return objReturn;
+}
+
++(Sequence*)getFilteredSequenceDataByName:(NSString*)uControl_name Sequence:(NSMutableArray*)arrSequence {
+    // Label, code, repeat flag
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uControl_name = %@", uControl_name];
+    NSArray *arrSeqFiltered = [arrSequence filteredArrayUsingPredicate:predicate];
+    Sequence *objReturn = nil;
+    objReturn =  arrSeqFiltered.count > 0 ? arrSeqFiltered.firstObject : nil;
+    return objReturn;
+}
+
+#pragma mark - ENCODER DECODER METHODS
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    @try {
+        //Encode properties, other class variables, etc
+        [encoder encodeObject:self.macro_id forKey:kMACROID];
+        [encoder encodeObject:self.macro_name forKey:kMACRONAME];
+        [encoder encodeObject:self.uControl_name forKey:kUCONTROLNAME];
+        [encoder encodeObject:self.alexa_name forKey:kALEXANAME];
+        [encoder encodeObject:self.macro_description forKey:kMACRODESCRIPTION];
+        [encoder encodeBool:self.isDeleted forKey:kISDELETED];
+        [encoder encodeObject:self.arrZoneIds forKey:kGROUPZONES];
+        [encoder encodeBool:self.isFunction forKey:kFUNCTION];
+        [encoder encodeDouble:self.eTime_forSeqences forKey:kETIME];
+        
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    @try {
+        if(self = [super init]) {
+            //decode properties, other class vars
+            self.macro_id = [decoder decodeObjectForKey:kMACROID];
+            self.macro_name = [decoder decodeObjectForKey:kMACRONAME];
+            self.uControl_name = [decoder decodeObjectForKey:kUCONTROLNAME];
+            self.alexa_name = [decoder decodeObjectForKey:kALEXANAME];
+            self.macro_description = [decoder decodeObjectForKey:kMACRODESCRIPTION];
+            self.isDeleted = [decoder decodeBoolForKey:kISDELETED];
+            self.arrZoneIds = [decoder decodeObjectForKey:kGROUPZONES];
+            self.isFunction = [decoder decodeBoolForKey:kFUNCTION];
+            self.eTime_forSeqences = [decoder decodeDoubleForKey:kETIME];
+        }
+    }
+    @catch(NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+    return self;
+}
+
+@end

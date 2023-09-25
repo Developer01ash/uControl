@@ -1,0 +1,18 @@
+//
+//  CustomNavigationBar.h
+//  mHubApp
+//
+//  Created by Anshul Jain on 07/10/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "LGSideMenuController.h"
+
+@interface CustomNavigationBar : UINavigationBar<UIGestureRecognizerDelegate>
++(UILabel*)customNavigationLabel:(NSString*)strTitle;
++(UILabel*)customNavigationLabelSettings:(NSString*)strTitle;
++(UILabel*)customNavigationLabelControlView:(NSString*)strTitle;
++(UIButton *)customNavigationButtonControlView:(NSString*)strTitle ;
+
+@end

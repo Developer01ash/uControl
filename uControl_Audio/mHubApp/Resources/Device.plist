@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Device.plist
+   mHubApp
+
+   Created by Yashica Agrawal on 21/10/16.
+   Copyright (c) 2016 Rave Infosys. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+        <!--    Simulator    -->
+        <key>x86_64</key>
+        <string>Simulator</string>
+        <key>i386</key>
+        <string>Simulator</string>
+
+        <!--    iPod    -->
+        <key>iPod1,1</key>
+        <string>iPod Touch 1st Gen</string>
+        <key>iPod2,1</key>
+        <string>iPod Touch 2nd Gen</string>
+        <key>iPod3,1</key>
+        <string>iPod Touch 3rd Gen</string>
+        <key>iPod4,1</key>
+        <string>iPod Touch 4th Gen</string>
+        <key>iPod5,1</key>
+        <string>iPod Touch 5th Gen</string>
+        <key>iPod7,1</key>
+        <string>iPod Touch 6th Gen</string>
+
+        <!--    iPhone    -->
+        <key>iPhone1,1</key>
+        <string>iPhone</string>
+        <key>iPhone1,2</key>
+        <string>iPhone 3G</string>
+        <key>iPhone2,1</key>
+        <string>iPhone 3GS</string>
+        <key>iPhone3,1</key>
+        <string>iPhone 4</string>
+        <key>iPhone3,2</key>
+        <string>iPhone 4</string>
+        <key>iPhone3,3</key>
+        <string>iPhone 4</string>
+        <key>iPhone4,1</key>
+        <string>iPhone 4S</string>
+        <key>iPhone5,1</key>
+        <string>iPhone 5 model A1428</string>
+        <key>iPhone5,2</key>
+        <string>iPhone 5 model A1429</string>
+        <key>iPhone5,3</key>
+        <string>iPhone 5C</string>
+        <key>iPhone5,4</key>
+        <string>iPhone 5C</string>
+        <key>iPhone6,1</key>
+        <string>iPhone 5S</string>
+        <key>iPhone6,2</key>
+        <string>iPhone 5S</string>
+        <key>iPhone7,2</key>
+        <string>iPhone 6</string>
+        <key>iPhone7,1</key>
+        <string>iPhone 6 Plus</string>
+        <key>iPhone8,1</key>
+        <string>iPhone 6S</string>
+        <key>iPhone8,2</key>
+        <string>iPhone 6S Plus</string>
+        <key>iPhone8,4</key>
+        <string>iPhone SE</string>
+        <key>iPhone9,1</key>
+        <string>iPhone 7</string>
+        <key>iPhone9,2</key>
+        <string>iPhone 7 Plus</string>
+        <key>iPhone9,3</key>
+        <string>iPhone 7</string>
+        <key>iPhone9,4</key>
+        <string>iPhone 7 Plus</string>
+        
+        <key>iPhone10,1</key>
+        <string>iPhone 8</string>
+        <key>iPhone10,2</key>
+        <string>iPhone 8 Plus</string>
+        <key>iPhone10,3</key>
+        <string>iPhone X</string>
+        
+        <key>iPhone10,4</key>
+        <string>iPhone 8</string>
+        <key>iPhone10,5</key>
+        <string>iPhone 8 Plus</string>
+        <key>iPhone10,6</key>
+        <string>iPhone X</string>
+
+        <!--    iPad    -->
+        <key>iPad1,1</key>
+        <string>iPad</string>
+        <key>iPad1,2</key>
+        <string>iPad 3G</string>
+        <key>iPad2,1</key>
+        <string>iPad 2nd Gen</string>
+        <key>iPad2,2</key>
+        <string>iPad 2nd Gen GSM</string>
+        <key>iPad2,3</key>
+        <string>iPad 2nd Gen CDMA</string>
+        <key>iPad2,4</key>
+        <string>iPad 2nd Gen New Revision</string>
+
+        <key>iPad2,5</key>
+        <string>iPad Mini 1st Gen</string>
+        <key>iPad2,6</key>
+        <string>iPad Mini 1st Gen GSM+LTE</string>
+        <key>iPad2,7</key>
+        <string>iPad Mini 1st Gen CDMA+LTE</string>
+
+        <key>iPad3,1</key>
+        <string>iPad 3rd Gen</string>
+        <key>iPad3,2</key>
+        <string>iPad 3rd Gen CDMA</string>
+        <key>iPad3,3</key>
+        <string>iPad 3rd Gen GSM</string>
+        <key>iPad3,4</key>
+        <string>iPad 4th Gen</string>
+        <key>iPad3,5</key>
+        <string>iPad 4th Gen GSM+LTE</string>
+        <key>iPad3,6</key>
+        <string>iPad 4th Gen CDMA+LTE</string>
+        
+        <key>iPad4,1</key>
+        <string>iPad Air (WiFi)</string>
+        <key>iPad4,2</key>
+        <string>iPad Air (GSM+CDMA)</string>
+        <key>iPad4,3</key>
+        <string>iPad Air</string>
+        <key>iPad4,4</key>
+
+        <string>iPad Mini 2nd Gen Retina (WiFi)</string>
+        <key>iPad4,5</key>
+        <string>iPad Mini 2nd Gen Retina (GSM+CDMA)</string>
+        <key>iPad4,6</key>
+        <string>iPad Mini 2nd Gen Retina (China)</string>
+        <key>iPad4,7</key>
+        <string>iPad Mini 3rd Gen (WiFi)</string>
+        <key>iPad4,8</key>
+        <string>iPad Mini 3rd Gen (GSM+CDMA)</string>
+        <key>iPad4,9</key>
+        <string>iPad Mini 3rd Gen (China)</string>
+
+        <key>iPad5,1</key>
+        <string>iPad Mini 4 (WiFi)</string>
+        <key>iPad5,2</key>
+        <string>iPad Mini 4</string>
+
+        <key>iPad5,3</key>
+        <string>iPad Air 2 (WiFi)</string>
+        <key>iPad5,4</key>
+        <string>iPad Air 2 (Cellular)</string>
+        
+        <key>iPad6,7</key>
+        <string>iPad Pro 12.9 inch (WiFi)</string>
+        <key>iPad6,8</key>
+        <string>iPad Pro 12.9 inch (WiFi+LTE)</string>
+        <key>iPad6,3</key>
+        <string>iPad Pro 9.7 inch (WiFi)</string>
+        <key>iPad6,4</key>
+        <string>iPad Pro 9.7 inch (WiFi+LTE)</string>
+
+        <key>iPad6,11</key>
+        <string>iPad (2017)</string>
+        <key>iPad6,12</key>
+        <string>iPad (2017)</string>
+
+        <key>iPad7,1</key>
+        <string>iPad Pro 2G</string>
+        <key>iPad7,2</key>
+        <string>iPad Pro 2G</string>
+        <key>iPad7,3</key>
+        <string>iPad Pro 10.5-inch</string>
+        <key>iPad7,4</key>
+        <string>iPad Pro 10.5-inch</string>
+
+        <key>iPad7,5</key>
+        <string>iPad (6th generation)</string>
+        <key>iPad7,6</key>
+        <string>iPad (6th generation)</string>
+
+        <!--    iWatch    -->
+        <key>Watch1,1</key>
+        <string>Apple Watch 38mm case</string>
+        <key>Watch1,2</key>
+        <string>Apple Watch 38mm case</string>
+        <key>Watch2,6</key>
+        <string>Apple Watch Series 1 38mm case</string>
+        <key>Watch2,7</key>
+        <string>Apple Watch Series 1 42mm case</string>
+        <key>Watch2,3</key>
+        <string>Apple Watch Series 2 38mm case</string>
+        <key>Watch2,4</key>
+        <string>Apple Watch Series 2 42mm case</string>
+
+    </dict>
+</plist>

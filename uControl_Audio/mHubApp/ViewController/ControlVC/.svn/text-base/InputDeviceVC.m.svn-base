@@ -1,0 +1,386 @@
+//
+//  InputDeviceVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 23/09/16.
+//  Copyright © 2016 Rave Infosys. All rights reserved.
+//
+
+/**
+ VC to show InputDevice data i.e. List of Input and AVR when ControlVC load as main screen.
+ This is the container view child Class of ControlVC.
+ In this file we can perform switching between Output and Input Device.
+ We can perform selection of AVR device also. 
+ */
+
+#import "InputDeviceVC.h"
+#import "CellInput.h"
+
+@interface InputDeviceVC ()
+@property (nonatomic, retain) NSMutableArray *arrInputs;
+@end
+@implementation InputDeviceVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.backBarButtonItem = customBackBarButton;
+    // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationReloadInput object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveNotification:)
+                                                 name:kNotificationReloadInput
+                                               object:nil];
+
+}
+
+- (void) receiveNotification:(NSNotification *) notification {
+    DDLogInfo(RECEIVENOTIFICATION, __FUNCTION__, [notification name]);
+    [self viewWillAppear:false];
+}
+
+-(void) viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    [self.collectionInputDevice setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.collectionInputDevice setContentSize:CGSizeMake(self.collectionInputDevice.contentSize.width, self.view.frame.size.height)];
+    [self.collectionInputDevice reloadData];
+    self.automaticallyAdjustsScrollViewInsets = YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    @try {
+        self.view.backgroundColor = [AppDelegate appDelegate].themeColours.colorBackground;
+        self.arrInputs = [[NSMutableArray alloc] initWithArray:mHubManagerInstance.arrSourceDeviceManaged];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"PortNo" ascending:YES];
+        [self.arrInputs sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+        
+        if (mHubManagerInstance.objSelectedOutputDevice.Index == 0) {
+            
+            self.arrInputs = [[NSMutableArray alloc] init];
+            self.collectionInputDevice.hidden = true;
+            mHubManagerInstance.objSelectedInputDevice = nil;
+            mHubManagerInstance.objSelectedAVRDevice = [AVRDevice getIRPackStatusFromObject:mHubManagerInstance.objSelectedHub];
+            [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+            
+            [ContinuityCommand saveCustomObject:@[] key:kSELECTEDCONTINUITYARRAY];
+            
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadInputOutputContainer object:self];
+
+            return;
+        }
+        //Below line of code is written to bring the video display and AVR to the First appear.
+        self.arrInputs = [[[self.arrInputs reverseObjectEnumerator] allObjects] mutableCopy];
+        self.collectionInputDevice.hidden = false;
+        if (mHubManagerInstance.objSelectedHub.AVR_IRPack && [mHubManagerInstance.objSelectedAVRDevice isNotEmpty]) {
+            [self.arrInputs addObject:mHubManagerInstance.objSelectedAVRDevice];
+        } else if (mHubManagerInstance.objSelectedHub.AVR_IRPack && mHubManagerInstance.objSelectedHub.HubAVRList.count > 0) {
+            mHubManagerInstance.objSelectedAVRDevice = mHubManagerInstance.objSelectedHub.HubAVRList.firstObject;
+            [self.arrInputs addObject:mHubManagerInstance.objSelectedAVRDevice];
+        }
+
+        if (mHubManagerInstance.objSelectedOutputDevice.Index != 0 && mHubManagerInstance.objSelectedOutputDevice.isIRPack == true)
+            {
+            [self.arrInputs addObject:mHubManagerInstance.objSelectedOutputDevice];
+            }
+        //Below line of code is written to bring the video display and AVR to the First appear.
+        self.arrInputs = [[[self.arrInputs reverseObjectEnumerator] allObjects] mutableCopy];
+
+        [self.collectionInputDevice reloadData];
+        
+        if (mHubManagerInstance.controlDeviceTypeSource == AVRSource) {
+            AVRDevice *selectedAVRDevice = mHubManagerInstance.objSelectedAVRDevice;
+            if (selectedAVRDevice != nil) {
+                for (int counter = 0; counter < self.arrInputs.count; counter++) {
+                    if ([[self.arrInputs objectAtIndex:counter] isKindOfClass:[AVRDevice class]]) {
+                        AVRDevice *objAVR = [self.arrInputs objectAtIndex:counter];
+                        if (objAVR.Index == selectedAVRDevice.Index) {
+                            NSIndexPath *indexPath=[NSIndexPath indexPathForRow:counter inSection:0];
+                            [self.collectionInputDevice scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else  if (mHubManagerInstance.controlDeviceTypeSource == OutputScreen) {
+            OutputDevice *selectedOutputDevice = mHubManagerInstance.objSelectedOutputDevice;
+            if (selectedOutputDevice != nil) {
+                for (int counter = 0; counter < self.arrInputs.count; counter++) {
+                    if ([[self.arrInputs objectAtIndex:counter] isKindOfClass:[OutputDevice class]]) {
+                        AVRDevice *objAVR = [self.arrInputs objectAtIndex:counter];
+                        if (objAVR.Index == selectedOutputDevice.Index) {
+                            NSIndexPath *indexPath=[NSIndexPath indexPathForRow:counter inSection:0];
+                            [self.collectionInputDevice scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            bool isFlag = false;
+            InputDevice *selectedInputDevice = mHubManagerInstance.objSelectedInputDevice;
+            if (selectedInputDevice != nil) {
+                for (int counter = 0; counter < self.arrInputs.count; counter++) {
+                    if ([[self.arrInputs objectAtIndex:counter] isKindOfClass:[InputDevice class]]) {
+                        InputDevice *objIP = [self.arrInputs objectAtIndex:counter];
+                        if (objIP.Index == selectedInputDevice.Index) {
+                            isFlag = true;
+                            NSIndexPath *indexPath=[NSIndexPath indexPathForRow:counter inSection:0];
+                            [self.collectionInputDevice scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                            break;
+                        }
+                    }
+                }
+                
+            }
+            else
+            {
+                InputDevice *objIP = [self.arrInputs objectAtIndex:0];
+                mHubManagerInstance.objSelectedInputDevice =  objIP;
+                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
+                [self.collectionInputDevice scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                
+            }
+        }
+
+
+        
+        
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
+{
+    return self.arrInputs.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+        // we're going to use a custom UICollectionViewCell, which will hold an image and its label
+    CellInput *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellInput" forIndexPath:indexPath];
+
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        [cell.lblInputName setFont:textFontLight10];
+    } else {
+        [cell.lblInputName setFont:textFontLight13];
+    }
+
+    NSString *strInputTitle = @"";
+    
+    if ([self.arrInputs[indexPath.row] isKindOfClass:[InputDevice class]]) {
+        InputDevice *objInput = [self.arrInputs objectAtIndex:indexPath.row];
+        //NSLog(@"mHubManagerInstance.objSelectedInputDevice.Index %ld and actual index %ld",mHubManagerInstance.objSelectedInputDevice.Index,objInput.Index);
+        strInputTitle = [objInput.CreatedName uppercaseString];
+        if (mHubManagerInstance.controlDeviceTypeSource == InputSource && objInput.Index == mHubManagerInstance.objSelectedInputDevice.Index) {
+            [cell.lblInputName setTextColor:[AppDelegate appDelegate].themeColours.colorInputSelectedText];
+            cell.backgroundColor = [AppDelegate appDelegate].themeColours.colorInputSelectedBackground;
+        } else {
+            [cell.lblInputName setTextColor:[AppDelegate appDelegate].themeColours.colorInputText];
+            cell.backgroundColor = [AppDelegate appDelegate].themeColours.colorInputBackground;
+        }
+        [cell.lblInputName setHidden:NO];
+        [cell.img_sourceIcon setHidden:YES];
+    }
+
+    else if ([self.arrInputs[indexPath.row] isKindOfClass:[OutputDevice class]]) {
+        OutputDevice *objOutput = [self.arrInputs objectAtIndex:indexPath.row];
+        
+        if (mHubManagerInstance.controlDeviceTypeSource == OutputScreen && objOutput.Index == mHubManagerInstance.objSelectedOutputDevice.Index) {
+            [cell.lblInputName setTextColor:[AppDelegate appDelegate].themeColours.colorInputSelectedText];
+            cell.backgroundColor = [AppDelegate appDelegate].themeColours.colorInputSelectedBackground;
+
+        } else {
+            [cell.lblInputName setTextColor:[AppDelegate appDelegate].themeColours.colorInputText];
+            cell.backgroundColor = [AppDelegate appDelegate].themeColours.colorInputBackground;
+        }
+        [cell.lblInputName setHidden:YES];
+        [cell.img_sourceIcon setHidden:NO];
+        [cell.img_sourceIcon setImage:kImageIconTVDisplay];
+
+    }
+    else {
+        AVRDevice *objAVR = [self.arrInputs objectAtIndex:indexPath.row];
+        strInputTitle = [objAVR.CreatedName uppercaseString];
+        if (mHubManagerInstance.controlDeviceTypeSource == AVRSource && objAVR.Index == mHubManagerInstance.objSelectedAVRDevice.Index) {
+            [cell.lblInputName setTextColor:[AppDelegate appDelegate].themeColours.colorInputSelectedText];
+            cell.backgroundColor = [AppDelegate appDelegate].themeColours.colorInputSelectedBackground;
+            [cell.lblInputName setHidden:YES];
+            [cell.img_sourceIcon setHidden:NO];
+        } else {
+            [cell.lblInputName setTextColor:[AppDelegate appDelegate].themeColours.colorInputText];
+            cell.backgroundColor = [AppDelegate appDelegate].themeColours.colorInputBackground;
+        }
+        [cell.lblInputName setHidden:YES];
+        [cell.img_sourceIcon setHidden:NO];
+        [cell.img_sourceIcon setImage:kImageIconTVAVR];
+
+    }
+    cell.lblInputName.text = strInputTitle;
+    return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        if ([self.arrInputs[indexPath.row] isKindOfClass:[InputDevice class]]) {
+            InputDevice *objInput = [self.arrInputs objectAtIndex:indexPath.row];
+            
+            if (mHubManagerInstance.objSelectedOutputDevice.Index == 0) {
+                [[AppDelegate appDelegate] showHudView:ShowMessage Message:HUB_SELECTEDDEVICE];
+            } else {
+
+                if ([mHubManagerInstance.objSelectedHub isAPIV2]) {
+                    [APIManager switchInZoneOutputToInput:mHubManagerInstance.objSelectedHub Zone:mHubManagerInstance.objSelectedZone InputDevice:objInput completion:^(APIV2Response *responseObject) {
+                        mHubManagerInstance.controlDeviceTypeSource = InputSource;
+                        // mHubManagerInstance.controlDeviceTypeBottom = OutputScreen;
+                        [APIManager reloadSourceSubView];
+                        [self.collectionInputDevice scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                        
+//                        if (responseObject.error) {
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                if ([responseObject.error_description isEqualToString:HUB_APPUPDATE_MESSAGE]) {
+//                                    [[AppDelegate appDelegate] methodToCheckUpdatedVersionOnAppStore];
+//                                    [[AppDelegate appDelegate] hideHudView:ErrorMessage Message:@""];
+//                                } else {
+//                                    if (![mHubManagerInstance.objSelectedHub isDemoMode]) {
+//                                        [[SearchDataManager sharedInstance] startSearchNetwork];
+//                                        [SearchDataManager sharedInstance].delegate = self;
+//                                    }
+//                                }
+//                            });
+//                        } else {
+//                            mHubManagerInstance.controlDeviceTypeSource = InputSource;
+//                            // mHubManagerInstance.controlDeviceTypeBottom = OutputScreen;
+//                            [APIManager reloadSourceSubView];
+//                            [self.collectionInputDevice scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                        }
+//
+                    }];
+                } else {
+                    [APIManager putSwitchIn_OutputIndex:mHubManagerInstance.objSelectedOutputDevice.Index InputIndex:objInput.Index completion:^(APIResponse *responseObject) {
+                        mHubManagerInstance.controlDeviceTypeSource = InputSource;
+                        // mHubManagerInstance.controlDeviceTypeBottom = OutputScreen;
+                        [APIManager reloadSourceSubView];
+                        [self.collectionInputDevice scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                    }];
+                }
+            }
+        }
+        else   if ([self.arrInputs[indexPath.row] isKindOfClass:[OutputDevice class]]) {
+            mHubManagerInstance.controlDeviceTypeSource = OutputScreen;
+            // mHubManagerInstance.controlDeviceTypeBottom = OutputScreen;
+            [APIManager reloadSourceSubView];
+            [self.collectionInputDevice scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        }
+        else {
+            AVRDevice *objAVR = [self.arrInputs objectAtIndex:indexPath.row];
+            mHubManagerInstance.objSelectedAVRDevice = objAVR;
+            mHubManagerInstance.controlDeviceTypeSource = AVRSource;
+            // mHubManagerInstance.controlDeviceTypeBottom = AVRSource;
+            [APIManager reloadSourceSubView];
+        }
+    }
+    @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+        CGSize size = CGSizeMake(SCREEN_WIDTH/2, self.collectionInputDevice.frame.size.height);
+        // DDLogDebug(@"Landscape size %@", NSStringFromCGSize(size));
+        return size;
+    } else {
+        if ([AppDelegate appDelegate].deviceType == tabletLarge) {
+            CGSize size = CGSizeMake(SCREEN_WIDTH/4, self.collectionInputDevice.frame.size.height);
+            // DDLogDebug(@"Landscape size %@", NSStringFromCGSize(size));
+            return size;
+
+        } else {
+            CGSize size = CGSizeMake(SCREEN_WIDTH/2, self.collectionInputDevice.frame.size.height);
+            // DDLogDebug(@"Landscape size %@", NSStringFromCGSize(size));
+            return size;
+        }
+    }
+}
+
+#pragma mark - SearchData Delegate
+-(void) searchData:(SearchData *)searchData didFindDataArray:(NSMutableArray *)arrSearchedData {
+    @try {
+        BOOL isDataFound = false;
+        for (SearchData *objData in arrSearchedData) {
+            for (Hub *objHub in objData.arrItems) {
+                if (mHubManagerInstance.objSelectedHub.Generation == mHub4KV3 && objHub.Generation == mHub4KV3) {
+                    mHubManagerInstance.objSelectedHub = [Hub updateHubAddress_From:objHub To:mHubManagerInstance.objSelectedHub];
+                    isDataFound = false;
+                    break;
+                } else {
+                    if ([objHub.SerialNo isEqualToString:mHubManagerInstance.objSelectedHub.SerialNo]) {
+                        mHubManagerInstance.objSelectedHub = [Hub updateHubAddress_From:objHub To:mHubManagerInstance.objSelectedHub];
+                        isDataFound = false;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if (isDataFound) {
+            [self dataFoundViewReload];
+        } else {
+            [self errorMessageOverlayNavigation];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) dataFoundViewReload {
+    @try {
+        if (mHubManagerInstance.objSelectedHub.Generation == mHub4KV3) {
+            [mHubManagerInstance syncGlobalManagerObjectV0];
+            [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+        } else {
+            [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+            [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+-(void) errorMessageOverlayNavigation {
+    @try {
+        ErrorMessageOverlayVC *objVC = [mainStoryboard   instantiateViewControllerWithIdentifier:@"ErrorMessageOverlayVC"];
+        objVC.providesPresentationContextTransitionStyle = YES;
+        objVC.definesPresentationContext = YES;
+        objVC.isFirstAppORMosUpdateAlertPage = NO;
+        
+        [objVC setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+        [self presentViewController:objVC animated:YES completion:nil];
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+
+
+
+@end

@@ -1,0 +1,430 @@
+//
+//  ManageGroupAudioVC.m
+//  mHubApp
+//
+//  Created by Anshul Jain on 22/01/18.
+//  Copyright © 2018 Rave Infosys. All rights reserved.
+//
+
+#import "ManageGroupAudioVC.h"
+#import "CellAddLabel.h"
+#import "CellSetting.h"
+#import "SettingsVC.h"
+#import "GroupAudioVC.h"
+
+@interface ManageGroupAudioVC () {
+    UITextField *activeField;
+    BOOL toExcecuteBackCode;
+}
+@property (weak, nonatomic) IBOutlet UITableView *tblManageGroupAudio;
+@property (strong, nonatomic) NSMutableArray *arrGroupAudio;
+
+@end
+
+@implementation ManageGroupAudioVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.backBarButtonItem = customBackBarButton;
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    @try {
+        toExcecuteBackCode = true;
+        [super viewWillAppear:animated];
+        self.view.backgroundColor = [AppDelegate appDelegate].themeColours.colorBackground;
+        [[AppDelegate appDelegate] setShouldRotate:NO];
+        self.navigationItem.titleView = [CustomNavigationBar customNavigationLabelSettings:self.selectedSetting.Title];
+        
+        if (![self.objGroup isNotEmpty]) {
+            self.objGroup = [[Group alloc] init];
+        }
+        self.arrGroupAudio = [[NSMutableArray alloc] initWithArray:[mHubManagerInstance getZoneDataFromGroup:mHubManagerInstance.objSelectedHub.HubZoneData ZoneIds:self.objGroup.arrGroupedZones]];
+        NSMutableIndexSet *indexToRemoveZoneWithoutAudio = [[NSMutableIndexSet alloc]init ];
+        //This code is to Remove the Zones which don't have Audion outputs, because there is no need to show then here, as we are creating audio groups
+        for(int i = 0 ; i < [self.arrGroupAudio count]; i++)
+        {
+            Zone *aTempZone =  (Zone *)[self.arrGroupAudio objectAtIndex:i];
+            ////NSLog(@"aTempZone %d and %@",aTempZone.isGrouped,aTempZone.zone_label);
+            //InputDevice *objInput = [mHubManagerInstance.arrAudioSourceDeviceManaged objectAtIndex:i];
+            for(int j = 0 ; j < [aTempZone.arrOutputs count]; j++)
+            {
+                OutputDevice *outputObj = (OutputDevice *)[aTempZone.arrOutputs objectAtIndex:j];
+                //NSLog(@"outputObj.UnitId %@ and name %@ created name %@and zone %@",outputObj.UnitId,outputObj.Name,outputObj.CreatedName,aTempZone.zone_label);
+                //This check means there is Audio Output/Input connected in particular zone.
+                if([outputObj.Name isEqualToString:@""] || [outputObj.Name isEqualToString:@" "] || (([outputObj.Name containsString:@"output"] || [outputObj.Name containsString:@"Output"]) && ![outputObj.Name containsString:@"Video Output"]))
+                {
+                    //Removing all the index from zone array which have at least one audio outputs.
+                    [indexToRemoveZoneWithoutAudio removeIndex:i];
+                    
+                }
+                else
+                {
+                    //getting all the index from zone array which have no audio outputs.
+                    [indexToRemoveZoneWithoutAudio addIndex:i];
+                }
+            }
+        }
+        //Remove all the index from zone array which have at least one audio outputs.
+        [self.arrGroupAudio removeObjectsAtIndexes:indexToRemoveZoneWithoutAudio];
+        // ZONE UPDATE
+        if (![self.objGroup.GroupName isNotEmpty]) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.isGrouped == NO"];
+            self.arrGroupAudio = [[self.arrGroupAudio filteredArrayUsingPredicate:predicate] mutableCopy];
+            if (self.arrGroupAudio.count <= 0) {
+                [[AppDelegate appDelegate] showHudView:ShowMessage Message:HUB_NO_ZONE_CREATE_GROUP];
+                toExcecuteBackCode = false;
+                //[self.navigationController popViewControllerAnimated:YES];
+                for (UIViewController *controller in self.navigationController.viewControllers) {
+                    //Do not forget to import AnOldViewController.h
+                    if ([controller isKindOfClass:[SettingsVC class]]) {
+                        [self.navigationController popToViewController:controller
+                                                              animated:YES];
+                        return;
+                    }
+                }
+            }
+        }
+        //******************
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (toExcecuteBackCode) {
+        for (int i = 0; i < self.arrGroupAudio.count; i++) {
+            Zone *aTempZone = self.arrGroupAudio[i];
+            if (![self.objGroup.arrGroupedZones containsObject:aTempZone.zone_id] && aTempZone.isGrouped) {
+                aTempZone.isGrouped = false;
+                [self.arrGroupAudio replaceObjectAtIndex:i withObject:aTempZone];
+            }
+        }
+    }
+}
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0 || section == 2) {
+        return 1;
+    } else {
+        return self.arrGroupAudio.count;
+    }
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            return heightTableViewRowWithPaddingWithLabel_SmallMobile;
+        } else {
+            return heightTableViewRowWithPaddingWithLabel;
+        }
+    } else {
+        if ([AppDelegate appDelegate].deviceType == mobileSmall) {
+            return heightTableViewRowWithPadding_SmallMobile;
+        } else {
+            return heightTableViewRowWithPadding;
+        }
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        switch (indexPath.section) {
+            case 0: {
+                CellAddLabel *cell = [tableView dequeueReusableCellWithIdentifier:@"CellGroupAudioName"];
+                if (cell == nil) {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"CellGroupAudioName"];
+                }
+                [cell.lblCell setText:@"GROUP NAME"];
+                [cell.txtCell setTag:indexPath.row];
+                [cell.txtCell setText:self.objGroup.GroupName];
+                
+                if ([self.objGroup.GroupName isNotEmpty]) {
+                    [cell.txtCell setUserInteractionEnabled:NO];
+                }
+                else
+                {
+                    [cell.txtCell setUserInteractionEnabled:YES];
+                }
+                UIColor *color =  [AppDelegate appDelegate].themeColours.colorHeaderText;
+                cell.txtCell.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"e.g. Downstairs" attributes:@{NSForegroundColorAttributeName: color}];
+                return cell;
+                break;
+            }
+            case 1: {
+                static NSString *CellIdentifier = @"CellGroupAudio";
+                CellSetting *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                cell = nil;
+                if (cell == nil) {
+                    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                }
+                cell.imgCellBackground.image = [Utility imageWithColor:[AppDelegate appDelegate].themeColours.colorNavigationBar Frame:cell.imgCellBackground.frame];
+                [cell.imgCellBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+                cell.lblCell.textColor = [AppDelegate appDelegate].themeColours.colorHeaderText;
+                [cell.imgCell setTintColor:[AppDelegate appDelegate].themeColours.colorHeaderText];
+                
+                if ([mHubManagerInstance.objSelectedHub isAPIV2]) {
+                    Zone *objRow = [self.arrGroupAudio objectAtIndex:indexPath.row];
+                    cell.lblCell.text = [objRow.zone_label uppercaseString];
+                    UIImage *image = [objRow.imgGroupedZone imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+                    [cell.imgCell setImage:image];
+                } else {
+                    OutputDevice *objRow = [self.arrGroupAudio objectAtIndex:indexPath.row];
+                    cell.lblCell.text = [objRow.CreatedName uppercaseString];
+                    UIImage *image = [objRow.imgGroupedOutput imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+                    [cell.imgCell setImage:image];
+                }
+                return cell;
+                break;
+            }
+            case 2: {
+                CellSetup *cell = [tableView dequeueReusableCellWithIdentifier:@"CellSaveButton"];
+                if (cell == nil) {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"CellSaveButton"];
+                }
+                
+                [cell.imgBackground addBorder_Color:[AppDelegate appDelegate].themeColours.colorTableCellBorder BorderWidth:1.0];
+                [cell.lblCell setTextColor:[AppDelegate appDelegate].themeColours.colorNormalText];
+                
+                cell.lblCell.text = @"SAVE";
+                return cell;
+                
+                break;
+            }
+            default:
+                break;
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        if (indexPath.section == 1) {
+            if ([mHubManagerInstance.objSelectedHub isAPIV2]) {
+                Zone *objRow = [self.arrGroupAudio objectAtIndex:indexPath.row];
+                if ([objRow.imgGroupedZone isEqual:kImageCheckMark]) {
+                    objRow.isGrouped = false;
+                    objRow.imgGroupedZone = nil;
+                } else {
+                    objRow.isGrouped = true;
+                    objRow.imgGroupedZone = kImageCheckMark;
+                }
+                [self.arrGroupAudio replaceObjectAtIndex:indexPath.row withObject:objRow];
+            } else {
+                OutputDevice *objRow = [self.arrGroupAudio objectAtIndex:indexPath.row];
+                if ([objRow.imgGroupedOutput isEqual:kImageCheckMark]) {
+                    objRow.isGrouped = false;
+                    objRow.imgGroupedOutput = nil;
+                } else {
+                    objRow.isGrouped = true;
+                    objRow.imgGroupedOutput = kImageCheckMark;
+                }
+                [self.arrGroupAudio replaceObjectAtIndex:indexPath.row withObject:objRow];
+            }
+            [self.tblManageGroupAudio reloadData];
+        } else if (indexPath.section == 2) {
+            [[self view] endEditing:YES];
+            self.objGroup.arrGroupedZones = [[NSMutableArray alloc] initWithArray:[mHubManagerInstance getGroupZone:self.arrGroupAudio]];
+            DDLogDebug(@"self.objGroupAudio.GroupOutputData == %@", self.objGroup.arrGroupedZones);
+            
+            NSMutableString *strMessage = [[NSMutableString alloc] init];
+            BOOL isValid = true;
+            
+            if (mHubManagerInstance.objSelectedHub.Generation <= (HubModel)0) {
+                isValid = false;
+                [strMessage appendString:ALERT_MESSAGE_SELECT_HUBMODEL];
+            }
+            
+            if (![self.objGroup.GroupName isNotEmpty]) {
+                isValid = false;
+                [strMessage appendString:ALERT_MESSAGE_ENTER_GROUPNAME];
+            }
+            
+            if (self.objGroup.arrGroupedZones.count <= 1){
+                isValid = false;
+                [strMessage appendString:ALERT_MESSAGE_SELECT_GROUPDEVICE];
+            }
+            if (isValid) {
+                // DDLogDebug(@"self.objGroup Dictionary == %@", [self.objGroup dictionaryRepresentation]);
+                
+                if(mHubManagerInstance.isPairedDevice)
+                {
+                    // Audio changes for single slave-NEW
+                    //                    Hub *objAudioSlave = [mHubManagerInstance.arrSlaveAudioDevice firstObject];
+                    //                    DDLogDebug(@"slave IP address groupManager_Address %@", objAudioSlave.Address);
+                    
+                    // Audio changes for single slave-NEW - Change to send command only on master.
+                    Hub *objHubMaster = mHubManagerInstance.objSelectedHub;
+                    [APIManager groupManager_Address:objHubMaster.Address Group:self.objGroup Operation:GRPO_Add completion:^(APIV2Response *responseObject) {
+                        if (responseObject.error) {
+                            [[AppDelegate appDelegate] hideHudView:ErrorMessage Message:responseObject.error_description];
+                        } else {
+                            Group *objGroupResp = [Group getGroupObject_From:responseObject.data_description To:self.objGroup];
+                            int counter = 0;
+                            NSInteger totalVolume = 0;
+                            // ZONE UPDATE
+                            NSDictionary *dict;
+                            for (int i = 0; i < mHubManagerInstance.objSelectedHub.HubZoneData.count; i++) {
+                                Zone *tempZone = mHubManagerInstance.objSelectedHub.HubZoneData[i];
+                                if ([objGroupResp.arrGroupedZones containsObject:tempZone.zone_id]) {
+                                    tempZone.isGrouped = YES;
+                                    counter ++;
+                                    totalVolume = totalVolume + tempZone.Volume;
+                                }
+                                if ([objGroupResp.arrGroupedZones containsObject:mHubManagerInstance.objSelectedZone.zone_id] && [mHubManagerInstance.objSelectedZone.zone_id isEqualToString:tempZone.zone_id]) {
+                                    mHubManagerInstance.objSelectedZone = tempZone;
+                                    dict = [tempZone dictionaryRepresentation];
+                                }
+                                [mHubManagerInstance.objSelectedHub.HubZoneData replaceObjectAtIndex:i withObject:tempZone];
+                            }
+                            //************
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadZoneControlVC object:self userInfo:dict];
+                            objGroupResp.GroupVolume = totalVolume/counter;
+                            mHubManagerInstance.objSelectedHub.HubGroupData = [mHubManagerInstance updateGroupData:mHubManagerInstance.objSelectedHub.HubGroupData Group:objGroupResp];
+                            [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+                            [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+                            self->toExcecuteBackCode = false;
+                            [self.navigationController popViewControllerAnimated:true];
+                        }
+                    }];
+                }
+                else
+                {
+                    [APIManager groupManager_Address:mHubManagerInstance.objSelectedHub.Address Group:self.objGroup Operation:GRPO_Add completion:^(APIV2Response *responseObject) {
+                        if (responseObject.error) {
+                            [[AppDelegate appDelegate] hideHudView:ErrorMessage Message:responseObject.error_description];
+                        } else {
+                            Group *objGroupResp = [Group getGroupObject_From:responseObject.data_description To:self.objGroup];
+                            int counter = 0;
+                            NSInteger totalVolume = 0;
+                            // ZONE UPDATE
+                            NSDictionary *dict;
+                            for (int i = 0; i < mHubManagerInstance.objSelectedHub.HubZoneData.count; i++) {
+                                Zone *tempZone = mHubManagerInstance.objSelectedHub.HubZoneData[i];
+                                if ([objGroupResp.arrGroupedZones containsObject:tempZone.zone_id]) {
+                                    tempZone.isGrouped = YES;
+                                    counter ++;
+                                    totalVolume = totalVolume + tempZone.Volume;
+                                }
+                                if ([objGroupResp.arrGroupedZones containsObject:mHubManagerInstance.objSelectedZone.zone_id] && [mHubManagerInstance.objSelectedZone.zone_id isEqualToString:tempZone.zone_id]) {
+                                    mHubManagerInstance.objSelectedZone = tempZone;
+                                    dict = [tempZone dictionaryRepresentation];
+                                }
+                                [mHubManagerInstance.objSelectedHub.HubZoneData replaceObjectAtIndex:i withObject:tempZone];
+                            }
+                            //************
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReloadZoneControlVC object:self userInfo:dict];
+                            objGroupResp.GroupVolume = totalVolume/counter;
+                            mHubManagerInstance.objSelectedHub.HubGroupData = [mHubManagerInstance updateGroupData:mHubManagerInstance.objSelectedHub.HubGroupData Group:objGroupResp];
+                            [mHubManagerInstance saveCustomObject:mHubManagerInstance key:kMHUBMANAGERINSTANCE];
+                            [[AppDelegate appDelegate] hideHudView:HideIndicator Message:@""];
+                            self->toExcecuteBackCode = false;
+                            [self.navigationController popViewControllerAnimated:true];
+                        }
+                    }];
+                }
+            } else {
+                [[AppDelegate appDelegate] alertControllerShowMessage:strMessage];
+            }
+        }
+    } @catch (NSException *exception) {
+        [[AppDelegate appDelegate] exceptionLog:exception Function:__PRETTY_FUNCTION__ Line:__LINE__];
+    }
+}
+
+#pragma mark - UITextField Delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    activeField = nil;
+    NSString *strCreatedName = [[NSString stringWithFormat:@"%@", [textField.text isNotEmpty] ? textField.text : @""] getTrimmedString];
+    self.objGroup.GroupName = strCreatedName;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.length + range.location > textField.text.length)
+        return false;
+    NSInteger newLength = textField.text.length + string.length - range.length;
+    return newLength <= 24;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    activeField = textField;
+}
+
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height, 0.0, kbSize.height, 0.0);
+    self.tblManageGroupAudio.contentInset = contentInsets;
+    self.tblManageGroupAudio.scrollIndicatorInsets = contentInsets;
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height+self.navigationController.navigationBar.frame.size.height;
+    if (!CGRectContainsPoint(aRect, activeField.frame.origin) ) {
+        [self.tblManageGroupAudio scrollRectToVisible:activeField.frame animated:YES];
+    }
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height + self.tblManageGroupAudio.frame.origin.y, 0.0, 0.0, 0.0); //UIEdgeInsetsZero;
+    self.tblManageGroupAudio.contentInset = contentInsets;
+    self.tblManageGroupAudio.scrollIndicatorInsets = contentInsets;
+}
+
+@end
+
